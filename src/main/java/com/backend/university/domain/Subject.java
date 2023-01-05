@@ -44,7 +44,7 @@ public class Subject {
     @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "SUBJ_SCHD", joinColumns = {
             @JoinColumn(name = "SUBJECT_ID", nullable = false)})
-    @Column(name = "SCHEDULE", nullable = false)
+    @Column(name = "SCHEDULE")
     private Set<String> schedule = new HashSet<>();
 
     @Column(name = "CODE", nullable = false)

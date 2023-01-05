@@ -1,4 +1,4 @@
-package com.backend.university.schedule;
+package com.backend.university.utils;
 
 import com.backend.university.domain.enumx.SubjectSchedule;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static com.backend.university.common.utils.ScheduleUtils.toSchedule;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ScheduleTest {
+class ScheduleUtilsTest {
 
     @Test
     void should_Create_andConvert_Correctly() {

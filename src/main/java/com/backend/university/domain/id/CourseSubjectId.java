@@ -1,4 +1,4 @@
-package com.backend.university.domain;
+package com.backend.university.domain.id;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

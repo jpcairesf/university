@@ -1,5 +1,6 @@
 package com.backend.university.domain;
 
+import com.backend.university.domain.id.CourseSubjectId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
