@@ -23,7 +23,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Table(name = "ENROLLMENT", uniqueConstraints = {
-        @UniqueConstraint(name = "UQ_ENROLLMENT_CODE", columnNames = {"CODE"}),
+        @UniqueConstraint(name = "UQ_ENROLLMENT_NUMBER", columnNames = {"NUMBER"}),
         @UniqueConstraint(name = "UQ_ENROLLMENT_STUDENT", columnNames = {"STUDENT_ID"})})
 public class Enrollment {
 
@@ -40,8 +40,8 @@ public class Enrollment {
     @JoinColumn(name = "COURSE_ID", nullable = false)
     private Course course;
 
-    @Column(name = "CODE", nullable = false)
-    private String code;
+    @Column(name = "NUMBER", nullable = false)
+    private int number;
 
     @Column(name = "ENROLLMENT_DATE", nullable = false)
     private Date enrollmentDate;
