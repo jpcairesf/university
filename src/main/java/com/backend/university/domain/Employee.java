@@ -13,7 +13,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @SequenceGenerator(name = "EMPLOYEE_SEQ", sequenceName = "EMPLOYEE_SEQ")
@@ -40,9 +40,9 @@ public class Employee {
     private String name;
 
     @Column(name = "BIRTH_DATE", nullable = false)
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "HIRING_DATE", nullable = false)
-    private Date hiringDate;
+    private LocalDate hiringDate;
 
 }

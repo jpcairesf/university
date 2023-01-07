@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.time.LocalDate;
 
 @Entity
 @SequenceGenerator(name = "INSTITUTE_SEQ", sequenceName = "INSTITUTE_SEQ")
@@ -28,5 +29,8 @@ public class Institute {
 
     @Column(name = "NAME", nullable = false)
     private String name;
+
+    @Column(name = "FOUNDATION_DATE", nullable = false)
+    private LocalDate foundationDate;
 
 }

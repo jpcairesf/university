@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -37,6 +37,6 @@ public class Student {
     private String email;
 
     @Column(name = "BIRTH_DATE", nullable = false)
-    private Date birthDate;
+    private LocalDate birthDate;
 
 }

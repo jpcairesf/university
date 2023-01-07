@@ -29,4 +29,7 @@ public class Room {
     @Column(name = "NAME", nullable = false)
     private String name;
 
+    @Column(name = "LOCATION", nullable = false)
+    private String location;
+
 }
