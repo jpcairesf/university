@@ -5,10 +5,7 @@ import org.springframework.data.util.Pair;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 public class ScheduleUtils {
 
@@ -16,21 +13,16 @@ public class ScheduleUtils {
         throw new IllegalStateException("Utility class");
     }
 
-    public static Set<String> toSchedule(List<Pair<DayOfWeek, SubjectSchedule>> pairs) {
-        Set<String> schedule = new HashSet<>();
+    public static List<String> toSchedule(List<Pair<DayOfWeek, SubjectSchedule>> pairs) {
+        List<String> schedule = new ArrayList<>();
         if (pairs.isEmpty()) {
             return schedule;
         }
-        for (int i=1; i<=7; i++) {
-            DayOfWeek day = DayOfWeek.of(i);
-            Optional<Pair<DayOfWeek, SubjectSchedule>> pairOptional =
-                    pairs.stream().filter(p -> p.getFirst().equals(day)).findFirst();
-            pairOptional.ifPresent(pair -> schedule.add(day + ":" + pair.getSecond().getDescription()));
-        }
+        pairs.forEach(p -> schedule.add(p.getFirst() + ":" + p.getSecond().getDescription()));
         return schedule;
     }
 
-    public static List<Pair<DayOfWeek, SubjectSchedule>> toPairs(Set<String> schedule) {
+    public static List<Pair<DayOfWeek, SubjectSchedule>> toPairs(List<String> schedule) {
         List<Pair<DayOfWeek, SubjectSchedule>> pairs = new ArrayList<>();
         try {
             schedule.forEach(s -> {
@@ -40,7 +32,7 @@ public class ScheduleUtils {
             });
         }
         catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Invalid set of schedules.");
+            throw new IllegalArgumentException("Invalid list of schedules.");
         }
         return pairs;
     }

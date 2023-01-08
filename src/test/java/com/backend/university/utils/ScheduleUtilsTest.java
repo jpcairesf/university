@@ -23,9 +23,9 @@ class ScheduleUtilsTest {
         List<Pair<DayOfWeek, SubjectSchedule>> pairs = new ArrayList<>();
         pairs.add(Pair.of(DayOfWeek.MONDAY, SubjectSchedule.AM_7H00_8H50));
         pairs.add(Pair.of(DayOfWeek.WEDNESDAY, SubjectSchedule.AM_7H00_8H50));
-        Set<String> scheduleFromPairs = toSchedule(pairs);
+        List<String> scheduleFromPairs = toSchedule(pairs);
 
-        Set<String> schedule = new HashSet<>();
+        List<String> schedule = new ArrayList<>();
         schedule.add(DayOfWeek.MONDAY + ":" + SubjectSchedule.AM_7H00_8H50.getDescription());
         schedule.add(DayOfWeek.WEDNESDAY + ":" + SubjectSchedule.AM_7H00_8H50.getDescription());
         List<Pair<DayOfWeek, SubjectSchedule>> pairsFromSchedule = toPairs(schedule);
@@ -39,7 +39,7 @@ class ScheduleUtilsTest {
 
     @Test
     void shouldNot_Convert_toSchedule() {
-        Set<String> schedule = new HashSet<>();
+        List<String> schedule = new ArrayList<>();
 
         assert toPairs(schedule).isEmpty();
 

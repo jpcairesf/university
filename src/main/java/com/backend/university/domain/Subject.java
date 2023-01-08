@@ -19,9 +19,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -53,7 +52,7 @@ public class Subject {
     @CollectionTable(name = "SUBJ_SCHD", joinColumns = {
             @JoinColumn(name = "SUBJECT_ID", nullable = false)})
     @Column(name = "SCHEDULE")
-    private Set<String> schedule = new HashSet<>();
+    private List<String> schedule = new ArrayList<>();
 
     @Column(name = "CODE", nullable = false)
     private String code;

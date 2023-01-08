@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @Builder
@@ -24,7 +23,11 @@ public class CourseUpdateDTO {
     }
 
     public void removeCourseSubject(CourseSubjectUpdateDTO courseSubject) {
-        this.courseSubjects.removeIf(c -> Objects.equals(c.getId(), courseSubject.getId()));
+        this.courseSubjects.remove(courseSubject);
+    }
+
+    public void removeCourseSubject(String subjectCode) {
+        this.courseSubjects.removeIf(s -> s.getSubjectCode().equalsIgnoreCase(subjectCode));
     }
 
 }
