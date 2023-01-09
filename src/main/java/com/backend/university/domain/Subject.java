@@ -19,9 +19,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -29,7 +28,8 @@ import java.util.Set;
 @NoArgsConstructor
 @SequenceGenerator(name = "SUBJECT_SEQ", sequenceName = "SUBJECT_SEQ")
 @Table(name = "SUBJECT", uniqueConstraints = {
-        @UniqueConstraint(name = "UQ_SUBJECT_CODE", columnNames = {"CODE"})})
+        @UniqueConstraint(name = "UQ_SUBJECT_CODE", columnNames = {"CODE"}),
+        @UniqueConstraint(name = "UQ_SUBJECT_ROOM_SCHD", columnNames = {"ROOM_ID", "SCHEDULE"})})
 public class Subject {
 
     @Id
@@ -53,7 +53,7 @@ public class Subject {
     @CollectionTable(name = "SUBJ_SCHD", joinColumns = {
             @JoinColumn(name = "SUBJECT_ID", nullable = false)})
     @Column(name = "SCHEDULE")
-    private Set<String> schedule = new HashSet<>();
+    private List<String> schedule = new ArrayList<>();
 
     @Column(name = "CODE", nullable = false)
     private String code;

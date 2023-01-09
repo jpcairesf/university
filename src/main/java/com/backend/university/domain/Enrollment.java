@@ -27,8 +27,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table(name = "ENROLLMENT", uniqueConstraints = {
-        @UniqueConstraint(name = "UQ_ENROLLMENT_NUMBER", columnNames = {"NUMBER"}),
-        @UniqueConstraint(name = "UQ_ENROLLMENT_STUDENT", columnNames = {"STUDENT_ID"})})
+        @UniqueConstraint(name = "UQ_ENROLLMENT_NUMBER", columnNames = {"NUMBER"})})
 public class Enrollment {
 
     @Id
