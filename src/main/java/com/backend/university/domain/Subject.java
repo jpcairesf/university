@@ -28,7 +28,8 @@ import java.util.List;
 @NoArgsConstructor
 @SequenceGenerator(name = "SUBJECT_SEQ", sequenceName = "SUBJECT_SEQ")
 @Table(name = "SUBJECT", uniqueConstraints = {
-        @UniqueConstraint(name = "UQ_SUBJECT_CODE", columnNames = {"CODE"})})
+        @UniqueConstraint(name = "UQ_SUBJECT_CODE", columnNames = {"CODE"}),
+        @UniqueConstraint(name = "UQ_SUBJECT_ROOM_SCHD", columnNames = {"ROOM_ID", "SCHEDULE"})})
 public class Subject {
 
     @Id

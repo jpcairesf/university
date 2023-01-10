@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -26,6 +28,10 @@ public class Student {
     @GeneratedValue(generator = "STUDENT_SEQ")
     @Column(name = "STUDENT_ID", nullable = false)
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "ENROLLMENT_ID", nullable = false)
+    private Enrollment enrollment;
 
     @Column(name = "CPF", nullable = false)
     private String cpf;
