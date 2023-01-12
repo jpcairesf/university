@@ -17,4 +17,6 @@ public class CourseOutputDTO {
 
     private List<CourseSubjectOutputDTO> courseSubjects;
 
+    private int courseLoad;
+
 }

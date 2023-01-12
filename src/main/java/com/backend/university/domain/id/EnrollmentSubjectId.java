@@ -17,8 +17,8 @@ public class EnrollmentSubjectId implements Serializable {
 
     private static final long serialVersionUID = 8978894067704319617L;
 
-    private long enrollmentId;
+    private Long enrollmentId;
 
-    private long subjectId;
+    private Long subjectId;
 
 }

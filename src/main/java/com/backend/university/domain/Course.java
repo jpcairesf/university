@@ -57,4 +57,13 @@ public class Course {
         courseSubject.setCourse(this);
         this.courseSubjects.add(courseSubject);
     }
+
+    public void addCourseSubjects(List<CourseSubject> courseSubjects) {
+        courseSubjects.forEach(s -> s.setCourse(this));
+        this.courseSubjects.addAll(courseSubjects);
+    }
+
+    public void removeCourseSubject(Long id) {
+        courseSubjects.removeIf(s -> s.getId().equals(id));
+    }
 }
