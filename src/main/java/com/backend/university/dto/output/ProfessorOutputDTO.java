@@ -1,7 +1,11 @@
 package com.backend.university.dto.output;
 
+import com.backend.university.domain.enumx.Degree;
+import com.backend.university.domain.enumx.Rank;
 import lombok.Builder;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -15,14 +19,14 @@ public class ProfessorOutputDTO {
 
     private String email;
 
-    private String birthDate;
+    private LocalDate birthDate;
 
-    private String hiringDate;
+    private LocalDate hiringDate;
 
     private String department;
 
-    private String rank;
+    private Rank rank;
 
-    private String degree;
+    private Degree degree;
 
 }

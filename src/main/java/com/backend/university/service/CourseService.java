@@ -20,4 +20,10 @@ public class CourseService {
                 .orElseThrow(() -> new BusinessException(format("There is no course named \"%s\".", name)));
     }
 
+    public void validateExistsByName(String name) {
+        if (repository.existsByName(name)) {
+            throw new BusinessException(format("There is already a course named \"%s\".", name));
+        }
+    }
+
 }

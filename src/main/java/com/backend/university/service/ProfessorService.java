@@ -1,0 +1,23 @@
+package com.backend.university.service;
+
+import com.backend.university.common.error.BusinessException;
+import com.backend.university.domain.Professor;
+import com.backend.university.repository.ProfessorRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import static java.lang.String.*;
+
+@Component
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class ProfessorService {
+
+    private final ProfessorRepository repository;
+
+    public Professor findEntityByCpf(String cpf) {
+        return repository.findByCpf(cpf)
+                .orElseThrow(() -> new BusinessException(format("There is no professor with CPF \"%s\".", cpf)));
+    }
+
+}

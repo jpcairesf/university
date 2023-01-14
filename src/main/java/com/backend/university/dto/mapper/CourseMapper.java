@@ -1,14 +1,15 @@
 package com.backend.university.dto.mapper;
 
-import com.backend.university.common.error.BusinessException;
 import com.backend.university.domain.Course;
 import com.backend.university.domain.CourseSubject;
 import com.backend.university.domain.Department;
 import com.backend.university.dto.input.CourseInputDTO;
 import com.backend.university.dto.output.CourseOutputDTO;
+import com.backend.university.dto.output.CourseSubjectOutputDTO;
 import com.backend.university.dto.update.CourseSubjectUpdateDTO;
 import com.backend.university.dto.update.CourseUpdateDTO;
 import com.backend.university.repository.CourseRepository;
+import com.backend.university.service.CourseService;
 import com.backend.university.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +20,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static java.lang.String.format;
-
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CourseMapper {
 
-    private final CourseRepository repository;
-
     private final CourseSubjectMapper courseSubjectMapper;
+
+    private final CourseService courseService;
 
     private final DepartmentService departmentService;
 
     public Course inputToEntity(CourseInputDTO input) {
-        // Service
-        if (repository.existsByName(input.getName())) {
-            throw new BusinessException(format("There is already a course named \"%s\".", input.getName()));
-        }
-
         Course course = new Course();
         Department department = departmentService.findEntityByName(input.getDepartment());
 
@@ -49,10 +43,6 @@ public class CourseMapper {
 
     public Course updateToEntity(CourseUpdateDTO update, Course course) {
         if (!update.getName().equalsIgnoreCase(course.getName())) {
-            // Service
-            if (repository.existsByName(update.getName())) {
-                throw new BusinessException(format("There is already a course named \"%s\".", update.getName()));
-            }
             course.setName(update.getName());
         }
         if (!update.getDepartment().equalsIgnoreCase(course.getDepartment().getName())) {
@@ -60,37 +50,39 @@ public class CourseMapper {
         }
         if (!update.getCourseSubjects().isEmpty()) {
             deleteCourseSubjects(update.getCourseSubjects(), course);
-            createCourseSubjects(update, course);
-            updateCourseSubjects(update, course);
+            createCourseSubjects(update.getCourseSubjects(), course);
+            updateCourseSubjects(update.getCourseSubjects(), course);
         }
         return course;
     }
 
     public CourseOutputDTO entityToOutput(Course course) {
+        List<CourseSubjectOutputDTO> subjects = course.getCourseSubjects().stream()
+                .map(courseSubjectMapper::entityToOutput)
+                .collect(Collectors.toList());
+
         return CourseOutputDTO.builder()
                 .id(course.getId())
                 .name(course.getName())
                 .department(course.getDepartment().getName())
-                .courseSubjects(courseSubjectMapper.entityToOutput(course.getCourseSubjects()))
+                .courseSubjects(subjects)
                 .courseLoad(course.getCourseLoad())
                 .build();
     }
 
-    private void createCourseSubjects(CourseUpdateDTO update, Course course) {
-        List<CourseSubject> subjectsUpdate = new ArrayList<>();
+    private void createCourseSubjects(List<CourseSubjectUpdateDTO> subjectsUpdate, Course course) {
+        List<CourseSubject> subjects = new ArrayList<>();
 
-        course.getCourseSubjects().forEach(subject -> update
-                .getCourseSubjects().stream()
+        subjectsUpdate.stream()
                 .filter(subjectUpdate -> subjectUpdate.getId() == null)
-                .forEach(subjectUpdate -> subjectsUpdate.add(courseSubjectMapper.updateToEntity(subjectUpdate))));
+                .forEach(subjectUpdate -> subjects.add(courseSubjectMapper.updateToEntity(subjectUpdate)));
 
-        course.addCourseSubjects(subjectsUpdate);
+        course.addCourseSubjects(subjects);
     }
 
-    private void updateCourseSubjects(CourseUpdateDTO update, Course course) {
+    private void updateCourseSubjects(List<CourseSubjectUpdateDTO> subjectsUpdate, Course course) {
         course.getCourseSubjects().forEach(subject -> {
-                Optional<CourseSubjectUpdateDTO> subjectUpdateOptional = update
-                    .getCourseSubjects().stream()
+                Optional<CourseSubjectUpdateDTO> subjectUpdateOptional = subjectsUpdate.stream()
                     .filter(s -> s.getSubjectCode().equalsIgnoreCase(subject.getSubject().getCode()))
                     .findFirst();
 
@@ -102,22 +94,11 @@ public class CourseMapper {
         });
     }
 
-    private void deleteCourseSubjects(List<CourseSubjectUpdateDTO> update, Course course) {
-        course.getCourseSubjects().removeIf(subject -> !update.stream()
+    private void deleteCourseSubjects(List<CourseSubjectUpdateDTO> subjectsUpdate, Course course) {
+        course.getCourseSubjects().removeIf(subject -> !subjectsUpdate.stream()
                 .map(CourseSubjectUpdateDTO::getId)
                 .collect(Collectors.toList())
                 .contains(subject.getId()));
-    }
-
-    private List<CourseSubjectUpdateDTO> toCourseSubjectUpdateDto(List<CourseSubject> courseSubjects) {
-        return courseSubjects.stream().map(s -> CourseSubjectUpdateDTO.builder()
-                .id(s.getId())
-                .course(s.getCourse().getName())
-                .subjectCode(s.getSubject().getCode())
-                .required(s.isRequired())
-                .semester(s.getSemester())
-                .build())
-                .collect(Collectors.toList());
     }
 
 }

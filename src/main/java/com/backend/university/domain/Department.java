@@ -54,4 +54,9 @@ public class Department {
         professor.setDepartment(this);
         this.professors.add(professor);
     }
+
+    public void addProfessors(List<Professor> professors) {
+        professors.forEach(p -> p.setDepartment(this));
+        this.professors.addAll(professors);
+    }
 }

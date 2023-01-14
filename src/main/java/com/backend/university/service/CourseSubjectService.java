@@ -25,4 +25,10 @@ public class CourseSubjectService {
                 .orElseThrow(() -> new BusinessException(format("There no CourseSubject with id \"%s\".", id)));
     }
 
+    public void validateExistsByCourseNameAndSubjectCode(String courseName, String subjectCode) {
+        if (repository.existsByCourseNameAndSubjectCode(courseName, subjectCode)) {
+            throw new BusinessException(format("There is already a subject with code \"%s\" in the course \"%s\".", subjectCode, courseName));
+        }
+    }
+
 }
