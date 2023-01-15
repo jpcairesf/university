@@ -17,8 +17,9 @@ import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -40,7 +41,7 @@ public class Course {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     @OrderBy("SEMESTER DESC, NAME ASC")
-    private List<CourseSubject> courseSubjects = new ArrayList<>();
+    private Set<CourseSubject> courseSubjects = new HashSet<>();
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -48,7 +49,11 @@ public class Course {
     @Column(name = "COURSE_LOAD", nullable = false)
     private int courseLoad;
 
-    public void setCourseSubjects(List<CourseSubject> courseSubjects) {
+    public Set<CourseSubject> getCourseSubjects() {
+        return Collections.unmodifiableSet(this.courseSubjects);
+    }
+
+    public void setCourseSubjects(Set<CourseSubject> courseSubjects) {
         courseSubjects.forEach(s -> s.setCourse(this));
         this.courseSubjects = courseSubjects;
     }
@@ -58,12 +63,17 @@ public class Course {
         this.courseSubjects.add(courseSubject);
     }
 
-    public void addCourseSubjects(List<CourseSubject> courseSubjects) {
+    public void addCourseSubjects(Set<CourseSubject> courseSubjects) {
         courseSubjects.forEach(s -> s.setCourse(this));
         this.courseSubjects.addAll(courseSubjects);
     }
 
-    public void removeCourseSubject(Long id) {
-        courseSubjects.removeIf(s -> s.getId().equals(id));
+    public void updateCourseSubject(CourseSubject subject, CourseSubject updatedSubject) {
+        this.removeCourseSubject(subject);
+        this.addCourseSubject(updatedSubject);
+    }
+
+    public void removeCourseSubject(CourseSubject courseSubject) {
+        this.courseSubjects.remove(courseSubject);
     }
 }

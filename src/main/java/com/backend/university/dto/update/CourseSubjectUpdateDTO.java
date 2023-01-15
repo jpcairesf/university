@@ -13,8 +13,8 @@ public class CourseSubjectUpdateDTO {
 
     private String subjectCode;
 
-    private boolean required;
+    private Boolean required;
 
-    private int semester;
+    private Integer semester;
 
 }

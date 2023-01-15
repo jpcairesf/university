@@ -26,4 +26,8 @@ public class CourseService {
         }
     }
 
+    public Course findEntityById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BusinessException(format("There is no course with ID \"%s\".", id)));
+    }
 }

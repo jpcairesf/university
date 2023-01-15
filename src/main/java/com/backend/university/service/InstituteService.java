@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

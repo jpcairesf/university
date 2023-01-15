@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
 
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -20,4 +20,8 @@ public class ProfessorService {
                 .orElseThrow(() -> new BusinessException(format("There is no professor with CPF \"%s\".", cpf)));
     }
 
+    public Professor findEntityById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BusinessException(format("There is no professor with ID \"%s\".", id)));
+    }
 }

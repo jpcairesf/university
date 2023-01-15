@@ -20,4 +20,15 @@ public class DepartmentService {
                 .orElseThrow(() -> new BusinessException(format("There is no department named \"%s\".", name)));
     }
 
+    public void validateExistsByName(String name) {
+        if (repository.existsByName(name)) {
+            throw new BusinessException(format("There is already a department named \"%s\".", name));
+        }
+    }
+
+    public Department findEntityById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BusinessException(format("There is no department with ID \"%s\".", id)));
+    }
+
 }

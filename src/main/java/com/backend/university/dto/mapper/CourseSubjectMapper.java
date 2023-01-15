@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
+
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CourseSubjectMapper {
@@ -31,21 +33,12 @@ public class CourseSubjectMapper {
     }
 
     public CourseSubject updateToEntity(CourseSubjectUpdateDTO update) {
-        CourseSubject courseSubject;
-
-        if (update.getId() == null) {
-            courseSubject = new CourseSubject();
-            courseSubject.setCourse(courseService.findEntityByName(update.getCourse()));
+        CourseSubject courseSubject = courseSubjectService.findEntityById(update.getId());
+        if (!courseSubject.getSubject().getCode().equalsIgnoreCase(update.getSubjectCode())) {
             courseSubject.setSubject(subjectService.findEntityByCode(update.getSubjectCode()));
-        }
-        else {
-            courseSubject = courseSubjectService.findEntityById(update.getId());
-            if (!courseSubject.getSubject().getCode().equalsIgnoreCase(update.getSubjectCode())) {
-                courseSubject.setSubject(subjectService.findEntityByCode(update.getSubjectCode()));
             }
-        }
-        courseSubject.setRequired(update.isRequired());
-        courseSubject.setSemester(update.getSemester());
+        setIfNotNull(update.getRequired(), courseSubject::setRequired);
+        setIfNotNull(update.getSemester(), courseSubject::setSemester);
         return courseSubject;
     }
 

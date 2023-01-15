@@ -1,6 +1,5 @@
 package com.backend.university.dto.output;
 
-import com.backend.university.dto.update.EnrollmentSubjectUpdateDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,7 +16,7 @@ public class EnrollmentOutputDTO {
 
     private String course;
 
-    private List<EnrollmentSubjectUpdateDTO> enrollmentSubjects;
+    private List<EnrollmentSubjectOutputDTO> enrollmentSubjects;
 
     private int number;
 

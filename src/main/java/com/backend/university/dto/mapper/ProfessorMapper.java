@@ -1,8 +1,6 @@
 package com.backend.university.dto.mapper;
 
 import com.backend.university.domain.Professor;
-import com.backend.university.domain.enumx.Degree;
-import com.backend.university.domain.enumx.Rank;
 import com.backend.university.dto.input.ProfessorInputDTO;
 import com.backend.university.dto.output.ProfessorOutputDTO;
 import com.backend.university.dto.update.ProfessorUpdateDTO;
@@ -12,8 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.backend.university.domain.enumx.Degree.*;
-import static com.backend.university.domain.enumx.Rank.*;
+import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
+import static com.backend.university.domain.enumx.Degree.toDegree;
+import static com.backend.university.domain.enumx.Rank.toRank;
 
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -37,26 +36,18 @@ public class ProfessorMapper {
     }
 
     public Professor updateToEntity(ProfessorUpdateDTO update) {
-        Professor professor;
-
-        if (update.getId() == null) {
-            professor = new Professor();
-            professor.setCpf(update.getCpf());
-            professor.setDepartment(departmentService.findEntityByName(update.getDepartment()));
+        Professor professor = professorService.findEntityById(update.getId());
+        if (!professor.getDepartment().getName().equalsIgnoreCase(update.getDepartment())) {
+            professor.setDepartment(departmentService.findEntityByName(update.getName()));
         }
-        else {
-            professor = professorService.findEntityByCpf(update.getCpf());
-            if (!professor.getDepartment().getName().equalsIgnoreCase(update.getDepartment())) {
-                professor.setDepartment(departmentService.findEntityByName(update.getName()));
-            }
-        }
-        professor.setName(update.getName());
-        professor.setEmail(update.getEmail());
-        professor.setBirthDate(update.getBirthDate());
-        professor.setHiringDate(update.getHiringDate());
-        professor.setRank(toRank(update.getRank()));
-        professor.setDegree(toDegree(update.getDegree()));
-        return  professor;
+        setIfNotNull(update.getCpf(), professor::setCpf);
+        setIfNotNull(update.getName(), professor::setName);
+        setIfNotNull(update.getEmail(), professor::setEmail);
+        setIfNotNull(update.getBirthDate(), professor::setBirthDate);
+        setIfNotNull(update.getHiringDate(), professor::setHiringDate);
+        setIfNotNull(update.getRank(), rank -> professor.setRank(toRank(rank)));
+        setIfNotNull(update.getDegree(), degree -> professor.setDegree(toDegree(degree)));
+        return professor;
     }
 
     public ProfessorOutputDTO entityToOutput(Professor professor) {
