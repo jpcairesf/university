@@ -49,7 +49,8 @@ public class CourseMapper {
     }
 
     public CourseOutputDTO entityToOutput(Course course) {
-        Set<CourseSubjectOutputDTO> subjects = course.getCourseSubjects().stream()
+        Set<CourseSubjectOutputDTO> subjects =
+                course.getCourseSubjects().stream()
                 .map(courseSubjectMapper::entityToOutput)
                 .collect(Collectors.toSet());
 

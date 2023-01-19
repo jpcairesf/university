@@ -20,4 +20,9 @@ public class EnrollmentService {
                 .orElseThrow(() -> new BusinessException(format("There is no enrollment with ID \"%s\".", id)));
     }
 
+    public Enrollment findEntityByNumber(int number) {
+        return repository.findByNumber(number)
+                .orElseThrow(() -> new BusinessException(format("There is no enrollment with number \"%s\".", number)));
+    }
+
 }

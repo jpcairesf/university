@@ -1,13 +1,13 @@
 package com.backend.university.dto.output;
 
 import com.backend.university.domain.enumx.SubjectSchedule;
-import com.backend.university.dto.update.EnrollmentSubjectUpdateDTO;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.util.Pair;
 
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -17,11 +17,13 @@ public class SubjectOutputDTO {
 
     private String code;
 
+    private String name;
+
     private String professorCpf;
 
     private String room;
 
-    private List<EnrollmentSubjectUpdateDTO> enrollmentSubjects;
+    private Set<EnrollmentSubjectOutputDTO> enrollmentSubjects;
 
     private List<Pair<DayOfWeek, SubjectSchedule>> schedule;
 

@@ -15,6 +15,11 @@ public class StudentService {
 
     private final StudentRepository repository;
 
+    public Student findEntityById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BusinessException(format("There is no student with ID \"%s\".", id)));
+    }
+
     public Student findEntityByCpf(String cpf) {
         return repository.findByCpf(cpf)
                 .orElseThrow(() -> new BusinessException(format("There is no student with CPF \"%s\".", cpf)));

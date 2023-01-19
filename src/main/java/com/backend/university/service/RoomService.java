@@ -20,4 +20,9 @@ public class RoomService {
                 .orElseThrow(() -> new BusinessException(format("There is no room with ID \"%s\".", id)));
     }
 
+    public Room findEntityByName(String name) {
+        return repository.findByName(name)
+                .orElseThrow(() -> new BusinessException(format("There is no room named \"%s\".", name)));
+    }
+
 }

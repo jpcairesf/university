@@ -54,7 +54,8 @@ public class EnrollmentMapper {
     }
 
     public EnrollmentOutputDTO entityToOutput(Enrollment enrollment) {
-        List<EnrollmentSubjectOutputDTO> subjects = enrollment.getEnrollmentSubjects().stream()
+        List<EnrollmentSubjectOutputDTO> subjects =
+                enrollment.getEnrollmentSubjects().stream()
                 .map(enrollmentSubjectMapper::entityToOutput)
                 .collect(Collectors.toList());
 

@@ -30,10 +30,8 @@ public class DepartmentMapper {
 
     public Department inputToEntity(DepartmentInputDTO input) {
         Department department = new Department();
-        Institute institute = instituteService.findEntityByName(input.getInstitute());
-
         department.setName(input.getName());
-        department.setInstitute(institute);
+        department.setInstitute(instituteService.findEntityByName(input.getInstitute()));
         department.setProfessors(new HashSet<>());
         return department;
     }
@@ -48,7 +46,8 @@ public class DepartmentMapper {
     }
 
     public DepartmentOutputDTO entityToOutput(Department department) {
-        Set<ProfessorOutputDTO> professors = department.getProfessors().stream()
+        Set<ProfessorOutputDTO> professors =
+                department.getProfessors().stream()
                 .map(professorMapper::entityToOutput)
                 .collect(Collectors.toSet());
 

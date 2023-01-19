@@ -19,6 +19,11 @@ public class SubjectService {
         return repository.existsByCode(code);
     }
 
+    public Subject findEntityById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BusinessException(format("There is no subject with ID \"%s\".", id)));
+    }
+
     public Subject findEntityByCode(String code) {
         return repository.findByCode(code)
                 .orElseThrow(() -> new BusinessException(format("There is no subject with code \"%s\".", code)));
