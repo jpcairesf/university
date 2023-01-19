@@ -3,6 +3,8 @@ package com.backend.university.dto.input;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 public class SecretaryInputDTO {
@@ -13,9 +15,9 @@ public class SecretaryInputDTO {
 
     private String email;
 
-    private String birthDate;
+    private LocalDate birthDate;
 
-    private String hiringDate;
+    private LocalDate hiringDate;
 
     private String institute;
 

@@ -7,6 +7,7 @@ import org.springframework.data.util.Pair;
 
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -20,7 +21,7 @@ public class SubjectUpdateDTO {
 
     private String room;
 
-    private List<EnrollmentSubjectUpdateDTO> enrollmentSubjects;
+    private Set<EnrollmentSubjectUpdateDTO> enrollmentSubjects;
 
     private List<Pair<DayOfWeek, SubjectSchedule>> schedule;
 

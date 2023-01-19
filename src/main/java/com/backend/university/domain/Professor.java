@@ -3,6 +3,7 @@ package com.backend.university.domain;
 import com.backend.university.domain.enumx.Degree;
 import com.backend.university.domain.enumx.Rank;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "PROFESSOR_ID")
 public class Professor extends Employee {
 

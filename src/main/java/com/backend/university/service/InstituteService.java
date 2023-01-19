@@ -15,9 +15,14 @@ public class InstituteService {
 
     private final InstituteRepository repository;
 
+    public Institute findEntityById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BusinessException(format("There is no institute with ID \"%s\".", id)));
+    }
+
     public Institute findEntityByName(String name) {
         return repository.findByName(name)
-                .orElseThrow(() -> new BusinessException(format("There is no institute name \"%s\".", name)));
+                .orElseThrow(() -> new BusinessException(format("There is no institute named \"%s\".", name)));
     }
 
 }
