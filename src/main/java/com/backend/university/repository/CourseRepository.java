@@ -18,13 +18,13 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findByDepartmentName(String departmentName);
 
     @Query("SELECT dep.name FROM Course course" +
-            " JOIN FETCH course.department dep" +
+            " JOIN course.department dep" +
             " WHERE course.id = :id")
     Optional<String> getDepartmentNameById(Long id);
 
     @Query("SELECT course FROM Course course" +
-            " JOIN FETCH course.department dep" +
-            " JOIN FETCH course.courseSubject cs" +
+            " JOIN course.department dep" +
+            " JOIN course.courseSubject cs" +
             " WHERE course.id = :id")
     Optional<Course> retrieveById(Long id);
 

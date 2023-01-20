@@ -30,10 +30,8 @@ public class CourseMapper {
 
     public Course inputToEntity(CourseInputDTO input) {
         Course course = new Course();
-        Department department = departmentService.findEntityByName(input.getDepartment());
-
         course.setName(input.getName());
-        course.setDepartment(department);
+        course.setDepartment(departmentService.findEntityByName(input.getDepartment()));
         course.setCourseLoad(0);
         course.setCourseSubjects(new LinkedHashSet<>());
         return course;
