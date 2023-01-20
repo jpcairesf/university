@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,9 +27,11 @@ public class Professor extends Employee {
     private Department department;
 
     @Column(name = "RANK", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Rank rank;
 
     @Column(name = "DEGREE", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Degree degree;
 
 }
