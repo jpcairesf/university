@@ -1,15 +1,13 @@
 package com.backend.university.utils;
 
-import com.backend.university.domain.enumx.SubjectSchedule;
+import com.backend.university.subject.domain.enumx.SubjectSchedule;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.util.Pair;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.backend.university.common.utils.ScheduleUtils.toPairs;
 import static com.backend.university.common.utils.ScheduleUtils.toSchedule;

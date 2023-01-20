@@ -1,6 +1,6 @@
 package com.backend.university.common.utils;
 
-import com.backend.university.domain.enumx.SubjectSchedule;
+import com.backend.university.subject.domain.enumx.SubjectSchedule;
 import org.springframework.data.util.Pair;
 
 import java.time.DayOfWeek;
