@@ -22,4 +22,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
     Optional<Subject> findByRoomNameAndSchedule(String roomName, String schedule);
 
+    Optional<Long> findIdByCode(String code);
+
 }

@@ -24,7 +24,7 @@ public enum SubjectSchedule {
                 return s;
             }
         }
-        throw new IllegalArgumentException("Invalid SubjectSchedule.");
+        throw new IllegalArgumentException("Invalid Subject Schedule.");
     }
 
 }

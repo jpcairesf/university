@@ -18,7 +18,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -51,6 +51,6 @@ public class Enrollment {
     private int number;
 
     @Column(name = "ENROLLMENT_DATE", nullable = false)
-    private Date enrollmentDate;
+    private LocalDate enrollmentDate;
 
 }

@@ -19,8 +19,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -47,13 +47,13 @@ public class Subject {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "subject")
     @OrderBy("SEMESTER DESC, NAME ASC")
-    private List<EnrollmentSubject> enrollmentSubjects;
+    private Set<EnrollmentSubject> enrollmentSubjects;
 
     @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "SUBJ_SCHD", joinColumns = {
             @JoinColumn(name = "SUBJECT_ID", nullable = false)})
     @Column(name = "SCHEDULE")
-    private List<String> schedule = new ArrayList<>();
+    private List<String> schedule;
 
     @Column(name = "CODE", nullable = false)
     private String code;

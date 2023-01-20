@@ -17,8 +17,9 @@ import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -40,12 +41,16 @@ public class Department {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "department")
     @OrderBy("NAME ASC")
-    private List<Professor> professors = new ArrayList<>();
+    private Set<Professor> professors = new HashSet<>();
 
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    public void setProfessors(List<Professor> professors) {
+    public Set<Professor> getProfessors() {
+        return Collections.unmodifiableSet(this.professors);
+    }
+
+    public void setProfessors(Set<Professor> professors) {
         professors.forEach(p -> p.setDepartment(this));
         this.professors = professors;
     }
@@ -53,5 +58,19 @@ public class Department {
     public void addProfessor(Professor professor) {
         professor.setDepartment(this);
         this.professors.add(professor);
+    }
+
+    public void updateProfessors(Professor professor, Professor updatedProfessor) {
+        this.removeProfessor(professor);
+        this.addProfessor(updatedProfessor);
+    }
+
+    public void addProfessors(Set<Professor> professors) {
+        professors.forEach(p -> p.setDepartment(this));
+        this.professors.addAll(professors);
+    }
+
+    public void removeProfessor(Professor professor) {
+        this.professors.remove(professor);
     }
 }

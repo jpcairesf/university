@@ -19,4 +19,13 @@ public enum Rank {
 
     private final Degree degreeRequirement;
 
+    public static Rank toRank(String description) {
+        for (Rank r : values()) {
+            if (r.description.equalsIgnoreCase(description)) {
+                return r;
+            }
+        }
+        throw new IllegalArgumentException("Invalid Rank.");
+    }
+
 }
