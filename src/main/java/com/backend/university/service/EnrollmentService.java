@@ -15,6 +15,11 @@ public class EnrollmentService {
 
     private final EnrollmentRepository repository;
 
+    public Long findIdByNumber(int number) {
+        return repository.findIdByNumber(number)
+                .orElseThrow(() -> new BusinessException(format("There is no enrollment with number \"%s\".", number)));
+    }
+
     public Enrollment findEntityById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new BusinessException(format("There is no enrollment with ID \"%s\".", id)));

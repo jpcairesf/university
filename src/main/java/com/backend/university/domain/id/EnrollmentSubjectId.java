@@ -1,5 +1,6 @@
 package com.backend.university.domain.id;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 public class EnrollmentSubjectId implements Serializable {
 
     private static final long serialVersionUID = 8978894067704319617L;
