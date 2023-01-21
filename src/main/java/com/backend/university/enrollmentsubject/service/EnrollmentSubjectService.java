@@ -2,6 +2,7 @@ package com.backend.university.enrollmentsubject.service;
 
 import com.backend.university.common.error.BusinessException;
 import com.backend.university.enrollmentsubject.domain.EnrollmentSubject;
+import com.backend.university.enrollmentsubject.dto.mapper.EnrollmentSubjectMapper;
 import com.backend.university.enrollmentsubject.repository.EnrollmentSubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import static java.lang.String.format;
 public class EnrollmentSubjectService {
 
     private final EnrollmentSubjectRepository repository;
+
+    private final EnrollmentSubjectMapper mapper;
 
     public EnrollmentSubject findEntityByNumberAndCodeAndSemester(int number, String code, int semester) {
         return repository.findByEnrollmentNumberAndSubjectCodeAndSemester(number, code, semester)

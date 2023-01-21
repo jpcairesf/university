@@ -25,7 +25,6 @@ public class CourseSubjectMapper {
 
     public CourseSubject inputToEntity(CourseSubjectInputDTO input) {
         CourseSubject courseSubject = new CourseSubject();
-        courseSubject.setCourse(courseService.findEntityByName(input.getCourse()));
         courseSubject.setSubject(subjectService.findEntityByCode(input.getSubjectCode()));
         courseSubject.setSemester(input.getSemester());
         courseSubject.setRequired(input.isRequired());
@@ -34,9 +33,6 @@ public class CourseSubjectMapper {
 
     public CourseSubject updateToEntity(CourseSubjectUpdateDTO update) {
         CourseSubject courseSubject = courseSubjectService.findEntityById(update.getId());
-        if (!courseSubject.getSubject().getCode().equalsIgnoreCase(update.getSubjectCode())) {
-            courseSubject.setSubject(subjectService.findEntityByCode(update.getSubjectCode()));
-            }
         setIfNotNull(update.getRequired(), courseSubject::setRequired);
         setIfNotNull(update.getSemester(), courseSubject::setSemester);
         return courseSubject;

@@ -1,11 +1,19 @@
 package com.backend.university.coursesubject.service;
 
 import com.backend.university.common.error.BusinessException;
+import com.backend.university.course.service.CourseService;
 import com.backend.university.coursesubject.domain.CourseSubject;
+import com.backend.university.coursesubject.dto.CourseSubjectInputDTO;
+import com.backend.university.coursesubject.dto.CourseSubjectOutputDTO;
+import com.backend.university.coursesubject.dto.mapper.CourseSubjectMapper;
 import com.backend.university.coursesubject.repository.CourseSubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.String.format;
 
@@ -14,6 +22,42 @@ import static java.lang.String.format;
 public class CourseSubjectService {
 
     private final CourseSubjectRepository repository;
+
+    private final CourseSubjectMapper mapper;
+
+    private final CourseService courseService;
+
+    @Transactional
+    public List<CourseSubjectOutputDTO> createMany(List<CourseSubjectInputDTO> inputs) {
+        long nameCounter = inputs.stream().map(CourseSubjectInputDTO::getCourse).distinct().count();
+        if (nameCounter > 1L) {
+            throw new BusinessException("More then one name found for course.");
+        } else if (nameCounter == 0) {
+            throw new BusinessException("No name defined for course.");
+        }
+
+        List<CourseSubjectOutputDTO> outputs = new ArrayList<>();
+        for (CourseSubjectInputDTO input : inputs) {
+            CourseSubject subject = mapper.inputToEntity(input);
+            courseService.addSubject(subject);
+            outputs.add(mapper.entityToOutput(subject));
+        }
+
+        return outputs;
+    }
+
+    @Transactional
+    public CourseSubjectOutputDTO create(CourseSubjectInputDTO input) {
+        CourseSubject subject = mapper.inputToEntity(input);
+        courseService.addSubject(subject);
+        return mapper.entityToOutput(subject);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        repository.delete(this.findEntityById(id));
+    }
+
 
     public CourseSubject findEntityByCourseNameAndSubjectCode(String courseName, String subjectCode) {
         return repository.findByCourseNameAndSubjectCode(courseName, subjectCode)

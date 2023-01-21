@@ -30,4 +30,10 @@ public class EnrollmentService {
                 .orElseThrow(() -> new BusinessException(format("There is no enrollment with number \"%s\".", number)));
     }
 
+    private void validateExistsByNumber(int number) {
+        if (repository.existsByNumber(number)) {
+            throw new BusinessException(format("There is already an enrollment with number \"%s\".", number));
+        }
+    }
+
 }

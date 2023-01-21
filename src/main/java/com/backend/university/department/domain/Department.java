@@ -43,7 +43,7 @@ public class Department {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "department")
     @OrderBy("NAME ASC")
-    private Set<Professor> professors = new HashSet<>();
+    private Set<Professor> professors;
 
     @Column(name = "NAME", nullable = false)
     private String name;

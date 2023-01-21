@@ -20,4 +20,5 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
     Optional<Long> findIdByNumber(int number);
 
+    boolean existsByNumber(int number);
 }

@@ -43,7 +43,7 @@ public class Course {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     @OrderBy("SEMESTER DESC, NAME ASC")
-    private Set<CourseSubject> courseSubjects = new HashSet<>();
+    private Set<CourseSubject> courseSubjects;
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -71,11 +71,11 @@ public class Course {
     }
 
     public void updateCourseSubject(CourseSubject subject, CourseSubject updatedSubject) {
-        this.removeCourseSubject(subject);
-        this.addCourseSubject(updatedSubject);
+        this.courseSubjects.remove(subject);
+        this.courseSubjects.add(updatedSubject);
     }
 
-    public void removeCourseSubject(CourseSubject courseSubject) {
-        this.courseSubjects.remove(courseSubject);
+    public void removeCourseSubject(String subjectCode) {
+        this.courseSubjects.removeIf(subject -> subject.getSubject().getName().equalsIgnoreCase(subjectCode));
     }
 }
