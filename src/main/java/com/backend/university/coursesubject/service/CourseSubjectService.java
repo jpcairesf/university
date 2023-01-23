@@ -36,21 +36,25 @@ public class CourseSubjectService {
             throw new BusinessException("No name defined for course.");
         }
 
+        List<CourseSubject> entities = new ArrayList<>();
         List<CourseSubjectOutputDTO> outputs = new ArrayList<>();
         for (CourseSubjectInputDTO input : inputs) {
-            CourseSubject subject = mapper.inputToEntity(input);
-            courseService.addSubject(subject);
-            outputs.add(mapper.entityToOutput(subject));
+            CourseSubject courseSubject = mapper.inputToEntity(input);
+            courseService.addSubject(courseSubject);
+            entities.add(courseSubject);
+            outputs.add(mapper.entityToOutput(courseSubject));
         }
 
+        repository.saveAll(entities);
         return outputs;
     }
 
     @Transactional
     public CourseSubjectOutputDTO create(CourseSubjectInputDTO input) {
-        CourseSubject subject = mapper.inputToEntity(input);
-        courseService.addSubject(subject);
-        return mapper.entityToOutput(subject);
+        CourseSubject courseSubject = mapper.inputToEntity(input);
+        courseService.addSubject(courseSubject);
+        repository.save(courseSubject);
+        return mapper.entityToOutput(courseSubject);
     }
 
     @Transactional

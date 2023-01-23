@@ -22,6 +22,7 @@ public class CourseMapper {
 
     private final DepartmentService departmentService;
 
+    //TODO Refactor inputToEntity method to services
     public Course inputToEntity(CourseInputDTO input) {
         Course course = new Course();
         course.setName(input.getName());
@@ -31,6 +32,7 @@ public class CourseMapper {
         return course;
     }
 
+    //TODO Make entityToOutput method static
     public CourseOutputDTO entityToOutput(Course course) {
         Set<CourseSubjectOutputDTO> subjects =
                 course.getCourseSubjects().stream()

@@ -16,8 +16,6 @@ import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StudentMapper {
 
-    private final StudentService studentService;
-
     private final EnrollmentService enrollmentService;
 
     public Student inputToEntity(StudentInputDTO input) {
@@ -27,18 +25,6 @@ public class StudentMapper {
         student.setEmail(input.getEmail());
         student.setBirthDate(input.getBirthDate());
         student.setEnrollment(enrollmentService.findEntityByNumber(input.getEnrollmentNumber()));
-        return student;
-    }
-
-    public Student updateToEntity(StudentUpdateDTO update) {
-        Student student = studentService.findEntityById(update.getId());
-        if (student.getEnrollment().getNumber() != update.getEnrollmentNumber()) {
-            student.setEnrollment(enrollmentService.findEntityByNumber(update.getEnrollmentNumber()));
-        }
-        setIfNotNull(update.getCpf(), student::setCpf);
-        setIfNotNull(update.getName(), student::setName);
-        setIfNotNull(update.getEmail(), student::setEmail);
-        setIfNotNull(update.getBirthDate(), student::setBirthDate);
         return student;
     }
 

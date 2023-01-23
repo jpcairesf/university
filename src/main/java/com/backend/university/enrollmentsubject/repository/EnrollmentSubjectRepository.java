@@ -11,18 +11,8 @@ import java.util.Optional;
 @Repository
 public interface EnrollmentSubjectRepository extends JpaRepository<EnrollmentSubject, EnrollmentSubjectId> {
 
-    int countBySubjectCode(String code);
-
-    int countByEnrollmentNumber(int number);
-
-    List<EnrollmentSubject> findBySubjectCodeAndSemester(String code, int semester);
-
-    List<EnrollmentSubject> findByEnrollmentNumberAndSemester(int number, int semester);
-
-    List<EnrollmentSubject> findBySubjectCodeOrderBySemesterDesc(String code);
-
-    List<EnrollmentSubject> findByEnrollmentNumberOrderBySemesterDesc(int number);
-
     Optional<EnrollmentSubject> findByEnrollmentNumberAndSubjectCodeAndSemester(int number, String code, int semester);
+
+    boolean existsByEnrollmentNumberAndSubjectCodeAndSemester(int number, String code, int semester);
 
 }

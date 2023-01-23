@@ -31,7 +31,7 @@ public class Student {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "ENROLLMENT_ID", nullable = false)
+    @JoinColumn(name = "ENROLLMENT_ID")
     private Enrollment enrollment;
 
     @Column(name = "CPF", nullable = false)

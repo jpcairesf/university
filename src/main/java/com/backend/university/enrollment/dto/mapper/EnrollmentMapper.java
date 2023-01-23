@@ -25,8 +25,6 @@ public class EnrollmentMapper {
 
     private final EnrollmentSubjectMapper enrollmentSubjectMapper;
 
-    private final EnrollmentService enrollmentService;
-
     private final StudentService studentService;
 
     private final CourseService courseService;
@@ -38,19 +36,6 @@ public class EnrollmentMapper {
         enrollment.setEnrollmentSubjects(new ArrayList<>());
         enrollment.setNumber(input.getNumber());
         enrollment.setEnrollmentDate(input.getEnrollmentDate());
-        return enrollment;
-    }
-
-    public Enrollment updateToEntity(EnrollmentUpdateDTO update) {
-        Enrollment enrollment = enrollmentService.findEntityById(update.getId());
-        if (!enrollment.getStudent().getCpf().equalsIgnoreCase(update.getStudentCpf())) {
-            enrollment.setStudent(studentService.findEntityByCpf(update.getStudentCpf()));
-        }
-        if(!enrollment.getCourse().getName().equalsIgnoreCase(update.getCourse())) {
-            enrollment.setCourse(courseService.findEntityByName(update.getCourse()));
-        }
-        setIfNotNull(update.getNumber(), enrollment::setNumber);
-        setIfNotNull(update.getEnrollmentDate(), enrollment::setEnrollmentDate);
         return enrollment;
     }
 

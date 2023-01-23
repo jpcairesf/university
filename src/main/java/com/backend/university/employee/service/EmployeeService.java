@@ -41,6 +41,7 @@ public class EmployeeService {
         employee.setEmail(update.getEmail());
         employee.setBirthDate(update.getBirthDate());
         employee.setHiringDate(update.getHiringDate());
+        repository.save(employee);
         return mapper.entityToOutput(employee);
     }
 

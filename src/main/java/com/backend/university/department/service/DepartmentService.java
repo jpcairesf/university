@@ -44,6 +44,7 @@ public class DepartmentService {
         if (!update.getInstitute().equalsIgnoreCase(department.getInstitute().getName())) {
             department.setInstitute(instituteService.findEntityByName(update.getInstitute()));
         }
+        repository.save(department);
         return mapper.entityToOutput(department);
     }
 

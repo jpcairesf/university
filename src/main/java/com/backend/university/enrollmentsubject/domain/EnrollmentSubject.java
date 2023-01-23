@@ -1,8 +1,8 @@
 package com.backend.university.enrollmentsubject.domain;
 
-import com.backend.university.subject.domain.Subject;
-import com.backend.university.enrollmentsubject.domain.id.EnrollmentSubjectId;
 import com.backend.university.enrollment.domain.Enrollment;
+import com.backend.university.enrollmentsubject.domain.id.EnrollmentSubjectId;
+import com.backend.university.subject.domain.Subject;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

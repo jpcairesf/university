@@ -8,7 +8,6 @@ import com.backend.university.course.dto.CourseUpdateDTO;
 import com.backend.university.course.dto.mapper.CourseMapper;
 import com.backend.university.course.repository.CourseRepository;
 import com.backend.university.coursesubject.domain.CourseSubject;
-import com.backend.university.coursesubject.dto.mapper.CourseSubjectMapper;
 import com.backend.university.department.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +48,7 @@ public class CourseService {
         if (!update.getDepartment().equalsIgnoreCase(course.getDepartment().getName())) {
             course.setDepartment(departmentService.findEntityByName(update.getDepartment()));
         }
+        repository.save(course);
         return mapper.entityToOutput(course);
     }
 
@@ -61,21 +61,22 @@ public class CourseService {
     public void addSubject(CourseSubject subject) {
         Course course = subject.getCourse();
         course.addCourseSubject(subject);
+        //TODO Set course load retrieving all subjects study load via repository
         repository.save(course);
     }
 
     @Transactional(readOnly = true)
-    public CourseOutputDTO getById(Long id) {
+    public CourseOutputDTO findById(Long id) {
         return mapper.entityToOutput(this.findEntityById(id));
     }
 
     @Transactional(readOnly = true)
-    public CourseOutputDTO getByName(String name) {
+    public CourseOutputDTO findByName(String name) {
         return mapper.entityToOutput(this.findEntityByName(name));
     }
 
     @Transactional(readOnly = true)
-    public List<CourseOutputDTO> getAll() {
+    public List<CourseOutputDTO> findAll() {
         return repository.findAll().stream()
                 .map(mapper::entityToOutput)
                 .collect(Collectors.toList());

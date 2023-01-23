@@ -18,8 +18,6 @@ import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class EnrollmentSubjectMapper {
 
-    private final EnrollmentSubjectService enrollmentSubjectService;
-
     private final EnrollmentService enrollmentService;
 
     private final SubjectService subjectService;
@@ -30,18 +28,6 @@ public class EnrollmentSubjectMapper {
                 enrollmentService.findIdByNumber(input.getEnrollmentNumber()),
                 subjectService.findIdByCode(input.getSubjectCode())));
         enrollmentSubject.setSemester(input.getSemester());
-        return enrollmentSubject;
-    }
-
-    public EnrollmentSubject updateToEntity(EnrollmentSubjectUpdateDTO update) {
-        EnrollmentSubject enrollmentSubject =
-                enrollmentSubjectService.findEntityByNumberAndCodeAndSemester(
-                update.getEnrollmentNumber(),
-                update.getSubjectCode(),
-                update.getSemester());
-
-        setIfNotNull(update.getSemester(), enrollmentSubject::setSemester);
-        setIfNotNull(update.getGrade(), enrollmentSubject::setGrade);
         return enrollmentSubject;
     }
 
