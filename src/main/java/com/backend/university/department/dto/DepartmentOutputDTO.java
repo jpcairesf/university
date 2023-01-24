@@ -4,7 +4,7 @@ import com.backend.university.professor.dto.ProfessorOutputDTO;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Builder
@@ -16,6 +16,6 @@ public class DepartmentOutputDTO {
 
     private String institute;
 
-    private Set<ProfessorOutputDTO> professors;
+    private List<ProfessorOutputDTO> professors;
 
 }

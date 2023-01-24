@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.String.format;
 
 @Service
@@ -23,21 +25,37 @@ public class SubjectService {
 
     private final SubjectRepository repository;
 
-    private final SubjectMapper mapper;
-
     private final RoomService roomService;
 
     private final ProfessorService professorService;
 
     @Transactional
-    public SubjectOutputDTO create(SubjectInputDTO input) {
-        this.validateExistsByCode(input.getCode());
-        Subject subject = mapper.inputToEntity(input);
-        repository.save(subject);
-        return mapper.entityToOutput(subject);
+    public SubjectOutputDTO findById(Long id) {
+        return SubjectMapper.entityToOutput(this.findEntityById(id));
     }
 
-    //TODO Create find methods
+    @Transactional
+    public List<SubjectOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(SubjectMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public SubjectOutputDTO create(SubjectInputDTO input) {
+        this.validateExistsByCode(input.getCode());
+
+        Subject subject = new Subject();
+        subject.setCode(input.getCode());
+        subject.setName(input.getName());
+        subject.setStudyLoad(input.getStudyLoad());
+        subject.setVacancies(input.getVacancies());
+        subject.setRoom(roomService.findEntityByName(input.getRoom()));
+        subject.setProfessor(professorService.findEntityByCpf(input.getProfessorCpf()));
+
+        repository.save(subject);
+        return SubjectMapper.entityToOutput(subject);
+    }
 
     @Transactional
     public SubjectOutputDTO update(SubjectUpdateDTO update) {
@@ -56,8 +74,9 @@ public class SubjectService {
         subject.setName(update.getName());
         subject.setStudyLoad(update.getStudyLoad());
         subject.setVacancies(update.getVacancies());
+
         repository.save(subject);
-        return mapper.entityToOutput(subject);
+        return SubjectMapper.entityToOutput(subject);
     }
 
     @Transactional

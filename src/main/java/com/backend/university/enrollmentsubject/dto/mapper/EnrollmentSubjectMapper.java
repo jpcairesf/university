@@ -1,37 +1,14 @@
 package com.backend.university.enrollmentsubject.dto.mapper;
 
 import com.backend.university.enrollmentsubject.domain.EnrollmentSubject;
-import com.backend.university.enrollmentsubject.domain.id.EnrollmentSubjectId;
-import com.backend.university.enrollmentsubject.dto.EnrollmentSubjectInputDTO;
 import com.backend.university.enrollmentsubject.dto.EnrollmentSubjectOutputDTO;
-import com.backend.university.enrollmentsubject.dto.EnrollmentSubjectUpdateDTO;
-import com.backend.university.enrollment.service.EnrollmentService;
-import com.backend.university.enrollmentsubject.service.EnrollmentSubjectService;
-import com.backend.university.subject.service.SubjectService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
-
-@Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EnrollmentSubjectMapper {
 
-    private final EnrollmentService enrollmentService;
-
-    private final SubjectService subjectService;
-
-    public EnrollmentSubject inputToEntity(EnrollmentSubjectInputDTO input) {
-        EnrollmentSubject enrollmentSubject = new EnrollmentSubject();
-        enrollmentSubject.setId(new EnrollmentSubjectId(
-                enrollmentService.findIdByNumber(input.getEnrollmentNumber()),
-                subjectService.findIdByCode(input.getSubjectCode())));
-        enrollmentSubject.setSemester(input.getSemester());
-        return enrollmentSubject;
-    }
-
-    public EnrollmentSubjectOutputDTO entityToOutput(EnrollmentSubject enrollmentSubject) {
+    public static EnrollmentSubjectOutputDTO entityToOutput(EnrollmentSubject enrollmentSubject) {
         return EnrollmentSubjectOutputDTO.builder()
                 .id(enrollmentSubject.getId())
                 .enrollmentNumber(enrollmentSubject.getEnrollment().getNumber())

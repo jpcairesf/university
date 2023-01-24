@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.String.format;
 
 @Service
@@ -21,16 +25,31 @@ public class DepartmentService {
 
     private final DepartmentRepository repository;
 
-    private final DepartmentMapper mapper;
-
     private final InstituteService instituteService;
+
+    @Transactional
+    public DepartmentOutputDTO findById(Long id) {
+        return DepartmentMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional
+    public List<DepartmentOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(DepartmentMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public DepartmentOutputDTO create(DepartmentInputDTO input) {
         this.validateExistsByName(input.getName());
-        Department department = mapper.inputToEntity(input);
+
+        Department department = new Department();
+        department.setName(input.getName());
+        department.setInstitute(instituteService.findEntityByName(input.getInstitute()));
+        department.setProfessors(new ArrayList<>());
+
         repository.save(department);
-        return mapper.entityToOutput(department);
+        return DepartmentMapper.entityToOutput(department);
     }
 
     @Transactional
@@ -45,7 +64,7 @@ public class DepartmentService {
             department.setInstitute(instituteService.findEntityByName(update.getInstitute()));
         }
         repository.save(department);
-        return mapper.entityToOutput(department);
+        return DepartmentMapper.entityToOutput(department);
     }
 
     @Transactional

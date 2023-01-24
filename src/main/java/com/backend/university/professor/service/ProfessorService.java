@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.backend.university.professor.domain.enumx.Degree.toDegree;
 import static com.backend.university.professor.domain.enumx.Rank.toRank;
 import static java.lang.String.format;
@@ -23,16 +26,36 @@ public class ProfessorService {
 
     private final ProfessorRepository repository;
 
-    private final ProfessorMapper mapper;
-
     private final DepartmentService departmentService;
+
+    @Transactional
+    public ProfessorOutputDTO findById(Long id) {
+        return ProfessorMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional
+    public List<ProfessorOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(ProfessorMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public ProfessorOutputDTO create(ProfessorInputDTO input) {
         this.validateExistsByCpf(input.getCpf());
-        Professor professor = mapper.inputToEntity(input);
+
+        Professor professor = new Professor();
+        professor.setCpf(input.getCpf());
+        professor.setName(input.getName());
+        professor.setEmail(input.getEmail());
+        professor.setBirthDate(input.getBirthDate());
+        professor.setHiringDate(input.getHiringDate());
+        professor.setDepartment(departmentService.findEntityByName(input.getDepartment()));
+        professor.setRank(toRank(input.getRank()));
+        professor.setDegree(toDegree(input.getDegree()));
+
         repository.save(professor);
-        return mapper.entityToOutput(professor);
+        return ProfessorMapper.entityToOutput(professor);
     }
 
     @Transactional
@@ -52,8 +75,9 @@ public class ProfessorService {
         professor.setHiringDate(update.getHiringDate());
         professor.setRank(toRank(update.getRank()));
         professor.setDegree(toDegree(update.getDegree()));
+
         repository.save(professor);
-        return mapper.entityToOutput(professor);
+        return ProfessorMapper.entityToOutput(professor);
     }
 
     @Transactional

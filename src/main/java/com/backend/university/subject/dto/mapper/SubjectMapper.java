@@ -1,67 +1,25 @@
 package com.backend.university.subject.dto.mapper;
 
-import com.backend.university.subject.domain.Subject;
-import com.backend.university.subject.dto.SubjectInputDTO;
-import com.backend.university.subject.dto.SubjectOutputDTO;
-import com.backend.university.subject.dto.SubjectUpdateDTO;
 import com.backend.university.enrollmentsubject.dto.EnrollmentSubjectOutputDTO;
 import com.backend.university.enrollmentsubject.dto.mapper.EnrollmentSubjectMapper;
-import com.backend.university.professor.service.ProfessorService;
-import com.backend.university.room.service.RoomService;
-import com.backend.university.subject.service.SubjectService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.backend.university.subject.domain.Subject;
+import com.backend.university.subject.dto.SubjectOutputDTO;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
 import static com.backend.university.common.utils.ScheduleUtils.toPairs;
 
-@Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SubjectMapper {
 
-    private final SubjectService subjectService;
-
-    private final ProfessorService professorService;
-
-    private final RoomService roomService;
-
-    private final EnrollmentSubjectMapper enrollmentSubjectMapper;
-
-    public Subject inputToEntity(SubjectInputDTO input) {
-        Subject subject = new Subject();
-        subject.setCode(input.getCode());
-        subject.setName(input.getName());
-        subject.setStudyLoad(input.getStudyLoad());
-        subject.setVacancies(input.getVacancies());
-        subject.setRoom(roomService.findEntityByName(input.getRoom()));
-        subject.setProfessor(professorService.findEntityByCpf(input.getProfessorCpf()));
-        return subject;
-    }
-
-    public Subject updateToEntity(SubjectUpdateDTO update) {
-        Subject subject = subjectService.findEntityById(update.getId());
-        if (!subject.getRoom().getName().equalsIgnoreCase(update.getRoom())) {
-            subject.setRoom(roomService.findEntityByName(update.getRoom()));
-        }
-        if (!subject.getProfessor().getCpf().equalsIgnoreCase(update.getProfessorCpf())) {
-            subject.setProfessor(professorService.findEntityByCpf(update.getProfessorCpf()));
-        }
-        setIfNotNull(update.getCode(), subject::setCode);
-        setIfNotNull(update.getName(), subject::setName);
-        setIfNotNull(update.getStudyLoad(), subject::setStudyLoad);
-        setIfNotNull(update.getVacancies(), subject::setVacancies);
-        return subject;
-    }
-
-    public SubjectOutputDTO entityToOutput(Subject subject) {
-        Set<EnrollmentSubjectOutputDTO> subjects =
+    public static SubjectOutputDTO entityToOutput(Subject subject) {
+        List<EnrollmentSubjectOutputDTO> subjects =
                 subject.getEnrollmentSubjects().stream()
-                .map(enrollmentSubjectMapper::entityToOutput)
-                .collect(Collectors.toSet());
+                .map(EnrollmentSubjectMapper::entityToOutput)
+                .collect(Collectors.toList());
 
         return SubjectOutputDTO.builder()
                 .id(subject.getId())

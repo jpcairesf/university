@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -23,16 +25,33 @@ public class StudentService {
 
     private final StudentRepository repository;
 
-    private final StudentMapper mapper;
-
     private final EnrollmentService enrollmentService;
+
+    @Transactional
+    public StudentOutputDTO findById(Long id) {
+        return StudentMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional
+    public List<StudentOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(StudentMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public StudentOutputDTO create(StudentInputDTO input) {
         this.validateExistsByCpf(input.getCpf());
-        Student student = mapper.inputToEntity(input);
+
+        Student student = new Student();
+        student.setCpf(input.getCpf());
+        student.setName(input.getName());
+        student.setEmail(input.getEmail());
+        student.setBirthDate(input.getBirthDate());
+        student.setEnrollment(enrollmentService.findEntityByNumber(input.getEnrollmentNumber()));
+
         repository.save(student);
-        return mapper.entityToOutput(student);
+        return StudentMapper.entityToOutput(student);
     }
 
     @Transactional
@@ -49,8 +68,9 @@ public class StudentService {
         student.setName(update.getName());
         student.setEmail(update.getEmail());
         student.setBirthDate(update.getBirthDate());
+
         repository.save(student);
-        return mapper.entityToOutput(student);
+        return StudentMapper.entityToOutput(student);
     }
 
     @Transactional

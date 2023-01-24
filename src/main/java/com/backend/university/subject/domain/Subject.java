@@ -23,7 +23,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -50,7 +49,7 @@ public class Subject {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "subject")
     @OrderBy("SEMESTER DESC, NAME ASC")
-    private Set<EnrollmentSubject> enrollmentSubjects;
+    private List<EnrollmentSubject> enrollmentSubjects;
 
     @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "SUBJ_SCHD", joinColumns = {

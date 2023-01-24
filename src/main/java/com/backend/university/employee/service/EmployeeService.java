@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.String.format;
 
 @Component
@@ -20,19 +23,37 @@ public class EmployeeService {
 
     private final EmployeeRepository repository;
 
-    private final EmployeeMapper mapper;
+    @Transactional
+    public EmployeeOutputDTO findById(Long id) {
+        return EmployeeMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional
+    public List<EmployeeOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(EmployeeMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public EmployeeOutputDTO create(EmployeeInputDTO input) {
         this.validateExistsByCpf(input.getCpf());
-        Employee employee = mapper.inputToEntity(input);
+
+        Employee employee = new Employee();
+        employee.setCpf(input.getCpf());
+        employee.setName(input.getName());
+        employee.setEmail(input.getEmail());
+        employee.setBirthDate(input.getBirthDate());
+        employee.setHiringDate(input.getHiringDate());
+
         repository.save(employee);
-        return mapper.entityToOutput(employee);
+        return EmployeeMapper.entityToOutput(employee);
     }
 
     @Transactional
     public EmployeeOutputDTO update(EmployeeUpdateDTO update) {
         Employee employee = this.findEntityById(update.getId());
+
         if (!update.getCpf().equalsIgnoreCase(employee.getCpf())) {
             this.validateExistsByCpf(update.getCpf());
             employee.setCpf(update.getCpf());
@@ -41,8 +62,9 @@ public class EmployeeService {
         employee.setEmail(update.getEmail());
         employee.setBirthDate(update.getBirthDate());
         employee.setHiringDate(update.getHiringDate());
+
         repository.save(employee);
-        return mapper.entityToOutput(employee);
+        return EmployeeMapper.entityToOutput(employee);
     }
 
     @Transactional

@@ -7,6 +7,7 @@ import com.backend.university.coursesubject.dto.CourseSubjectInputDTO;
 import com.backend.university.coursesubject.dto.CourseSubjectOutputDTO;
 import com.backend.university.coursesubject.dto.mapper.CourseSubjectMapper;
 import com.backend.university.coursesubject.repository.CourseSubjectRepository;
+import com.backend.university.subject.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -23,26 +25,39 @@ public class CourseSubjectService {
 
     private final CourseSubjectRepository repository;
 
-    private final CourseSubjectMapper mapper;
+    private final SubjectService subjectService;
 
     private final CourseService courseService;
 
     @Transactional
-    public List<CourseSubjectOutputDTO> createMany(List<CourseSubjectInputDTO> inputs) {
-        long nameCounter = inputs.stream().map(CourseSubjectInputDTO::getCourse).distinct().count();
-        if (nameCounter > 1L) {
-            throw new BusinessException("More then one name found for course.");
-        } else if (nameCounter == 0) {
-            throw new BusinessException("No name defined for course.");
-        }
+    public CourseSubjectOutputDTO findById(Long id) {
+        return CourseSubjectMapper.entityToOutput(this.findEntityById(id));
+    }
 
+    @Transactional
+    public List<CourseSubjectOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(CourseSubjectMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<CourseSubjectOutputDTO> createMany(List<CourseSubjectInputDTO> inputs) {
         List<CourseSubject> entities = new ArrayList<>();
         List<CourseSubjectOutputDTO> outputs = new ArrayList<>();
+
         for (CourseSubjectInputDTO input : inputs) {
-            CourseSubject courseSubject = mapper.inputToEntity(input);
+            this.validateExistsByCourseNameAndSubjectCode(
+                    input.getCourse(),
+                    input.getSubjectCode());
+            CourseSubject courseSubject = new CourseSubject();
+            courseSubject.setSubject(subjectService.findEntityByCode(input.getSubjectCode()));
+            courseSubject.setSemester(input.getSemester());
+            courseSubject.setRequired(input.isRequired());
+
             courseService.addSubject(courseSubject);
             entities.add(courseSubject);
-            outputs.add(mapper.entityToOutput(courseSubject));
+            outputs.add(CourseSubjectMapper.entityToOutput(courseSubject));
         }
 
         repository.saveAll(entities);
@@ -51,10 +66,14 @@ public class CourseSubjectService {
 
     @Transactional
     public CourseSubjectOutputDTO create(CourseSubjectInputDTO input) {
-        CourseSubject courseSubject = mapper.inputToEntity(input);
+        CourseSubject courseSubject = new CourseSubject();
+        courseSubject.setSubject(subjectService.findEntityByCode(input.getSubjectCode()));
+        courseSubject.setSemester(input.getSemester());
+        courseSubject.setRequired(input.isRequired());
+
         courseService.addSubject(courseSubject);
         repository.save(courseSubject);
-        return mapper.entityToOutput(courseSubject);
+        return CourseSubjectMapper.entityToOutput(courseSubject);
     }
 
     @Transactional

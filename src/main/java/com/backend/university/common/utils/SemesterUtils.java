@@ -1,10 +1,10 @@
 package com.backend.university.common.utils;
 
-public class SemesterUtils {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-    private SemesterUtils() {
-        throw new IllegalStateException("Utility class");
-    }
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class SemesterUtils {
 
     public static String getDescription(int semester) {
         int year = semester/10;

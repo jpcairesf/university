@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,16 +26,31 @@ public class CourseService {
 
     private final CourseRepository repository;
 
-    private final CourseMapper mapper;
-
     private final DepartmentService departmentService;
+
+    @Transactional(readOnly = true)
+    public CourseOutputDTO findById(Long id) {
+        return CourseMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<CourseOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(CourseMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public CourseOutputDTO create(CourseInputDTO input) {
         this.validateExistsByName(input.getName());
-        Course course = mapper.inputToEntity(input);
+
+        Course course = new Course();
+        course.setName(input.getName());
+        course.setDepartment(departmentService.findEntityByName(input.getDepartment()));
+        course.setCourseSubjects(new ArrayList<>());
+
         repository.save(course);
-        return mapper.entityToOutput(course);
+        return CourseMapper.entityToOutput(course);
     }
 
     @Transactional
@@ -49,7 +65,7 @@ public class CourseService {
             course.setDepartment(departmentService.findEntityByName(update.getDepartment()));
         }
         repository.save(course);
-        return mapper.entityToOutput(course);
+        return CourseMapper.entityToOutput(course);
     }
 
     @Transactional
@@ -58,28 +74,11 @@ public class CourseService {
     }
 
     @Transactional
-    public void addSubject(CourseSubject subject) {
-        Course course = subject.getCourse();
-        course.addCourseSubject(subject);
-        //TODO Set course load retrieving all subjects study load via repository
+    public void addSubject(CourseSubject courseSubject) {
+        Course course = courseSubject.getCourse();
+        course.addCourseSubject(courseSubject);
+
         repository.save(course);
-    }
-
-    @Transactional(readOnly = true)
-    public CourseOutputDTO findById(Long id) {
-        return mapper.entityToOutput(this.findEntityById(id));
-    }
-
-    @Transactional(readOnly = true)
-    public CourseOutputDTO findByName(String name) {
-        return mapper.entityToOutput(this.findEntityByName(name));
-    }
-
-    @Transactional(readOnly = true)
-    public List<CourseOutputDTO> findAll() {
-        return repository.findAll().stream()
-                .map(mapper::entityToOutput)
-                .collect(Collectors.toList());
     }
 
     public Course findEntityByName(String name) {

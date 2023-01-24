@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.String.format;
 
 @Service
@@ -21,26 +23,42 @@ public class InstituteService {
 
     private final InstituteRepository repository;
 
-    private final InstituteMapper mapper;
+    @Transactional
+    public InstituteOutputDTO findById(Long id) {
+        return InstituteMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional
+    public List<InstituteOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(InstituteMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public InstituteOutputDTO create(InstituteInputDTO input) {
         this.validateExistsByName(input.getName());
-        Institute institute = mapper.inputToEntity(input);
+
+        Institute institute = new Institute();
+        institute.setName(input.getName());
+        institute.setFoundationDate(input.getFoundationDate());
+
         repository.save(institute);
-        return mapper.entityToOutput(institute);
+        return InstituteMapper.entityToOutput(institute);
     }
 
     @Transactional
     public InstituteOutputDTO update(InstituteUpdateDTO update) {
         Institute institute = this.findEntityById(update.getId());
+
         if (!update.getName().equalsIgnoreCase(institute.getName())) {
             this.validateExistsByName(update.getName());
             institute.setName(update.getName());
         }
         institute.setFoundationDate(update.getFoundationDate());
+
         repository.save(institute);
-        return mapper.entityToOutput(institute);
+        return InstituteMapper.entityToOutput(institute);
     }
 
     @Transactional

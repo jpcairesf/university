@@ -20,8 +20,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,19 +42,16 @@ public class Course {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     @OrderBy("SEMESTER DESC, NAME ASC")
-    private Set<CourseSubject> courseSubjects;
+    private List<CourseSubject> courseSubjects;
 
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "COURSE_LOAD", nullable = false)
-    private int courseLoad;
-
-    public Set<CourseSubject> getCourseSubjects() {
-        return Collections.unmodifiableSet(this.courseSubjects);
+    public List<CourseSubject> getCourseSubjects() {
+        return Collections.unmodifiableList(this.courseSubjects);
     }
 
-    public void setCourseSubjects(Set<CourseSubject> courseSubjects) {
+    public void setCourseSubjects(List<CourseSubject> courseSubjects) {
         courseSubjects.forEach(s -> s.setCourse(this));
         this.courseSubjects = courseSubjects;
     }
@@ -65,7 +61,7 @@ public class Course {
         this.courseSubjects.add(courseSubject);
     }
 
-    public void addCourseSubjects(Set<CourseSubject> courseSubjects) {
+    public void addCourseSubjects(List<CourseSubject> courseSubjects) {
         courseSubjects.forEach(s -> s.setCourse(this));
         this.courseSubjects.addAll(courseSubjects);
     }

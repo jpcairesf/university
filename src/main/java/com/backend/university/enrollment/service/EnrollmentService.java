@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.String.format;
 
 @Service
@@ -23,18 +26,35 @@ public class EnrollmentService {
 
     private final EnrollmentRepository repository;
 
-    private final EnrollmentMapper mapper;
-
     private final StudentService studentService;
 
     private final CourseService courseService;
 
     @Transactional
+    public EnrollmentOutputDTO findById(Long id) {
+        return EnrollmentMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional
+    public List<EnrollmentOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(EnrollmentMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public EnrollmentOutputDTO create(EnrollmentInputDTO input) {
         this.validateExistsByNumber(input.getNumber());
-        Enrollment enrollment = mapper.inputToEntity(input);
+
+        Enrollment enrollment = new Enrollment();
+        enrollment.setStudent(studentService.findEntityByCpf(input.getStudentCpf()));
+        enrollment.setCourse(courseService.findEntityByName(input.getCourse()));
+        enrollment.setEnrollmentSubjects(new ArrayList<>());
+        enrollment.setNumber(input.getNumber());
+        enrollment.setEnrollmentDate(input.getEnrollmentDate());
+
         repository.save(enrollment);
-        return mapper.entityToOutput(enrollment);
+        return EnrollmentMapper.entityToOutput(enrollment);
     }
 
     @Transactional
@@ -49,8 +69,9 @@ public class EnrollmentService {
         }
         enrollment.setNumber(update.getNumber());
         enrollment.setEnrollmentDate(update.getEnrollmentDate());
+
         repository.save(enrollment);
-        return mapper.entityToOutput(enrollment);
+        return EnrollmentMapper.entityToOutput(enrollment);
     }
 
     @Transactional

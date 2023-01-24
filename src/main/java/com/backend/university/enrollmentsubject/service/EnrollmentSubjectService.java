@@ -1,6 +1,7 @@
 package com.backend.university.enrollmentsubject.service;
 
 import com.backend.university.common.error.BusinessException;
+import com.backend.university.enrollment.service.EnrollmentService;
 import com.backend.university.enrollmentsubject.domain.EnrollmentSubject;
 import com.backend.university.enrollmentsubject.domain.id.EnrollmentSubjectId;
 import com.backend.university.enrollmentsubject.dto.EnrollmentSubjectInputDTO;
@@ -8,12 +9,15 @@ import com.backend.university.enrollmentsubject.dto.EnrollmentSubjectOutputDTO;
 import com.backend.university.enrollmentsubject.dto.EnrollmentSubjectUpdateDTO;
 import com.backend.university.enrollmentsubject.dto.mapper.EnrollmentSubjectMapper;
 import com.backend.university.enrollmentsubject.repository.EnrollmentSubjectRepository;
+import com.backend.university.subject.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.String.format;
 
 @Service
@@ -22,7 +26,21 @@ public class EnrollmentSubjectService {
 
     private final EnrollmentSubjectRepository repository;
 
-    private final EnrollmentSubjectMapper mapper;
+    private final EnrollmentService enrollmentService;
+
+    private final SubjectService subjectService;
+
+    @Transactional
+    public EnrollmentSubjectOutputDTO findById(EnrollmentSubjectId id) {
+        return EnrollmentSubjectMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional
+    public List<EnrollmentSubjectOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(EnrollmentSubjectMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public EnrollmentSubjectOutputDTO create(EnrollmentSubjectInputDTO input) {
@@ -30,9 +48,15 @@ public class EnrollmentSubjectService {
                 input.getEnrollmentNumber(),
                 input.getSubjectCode(),
                 input.getSemester());
-        EnrollmentSubject enrollmentSubject = mapper.inputToEntity(input);
+
+        EnrollmentSubject enrollmentSubject = new EnrollmentSubject();
+        enrollmentSubject.setId(new EnrollmentSubjectId(
+                enrollmentService.findIdByNumber(input.getEnrollmentNumber()),
+                subjectService.findIdByCode(input.getSubjectCode())));
+        enrollmentSubject.setSemester(input.getSemester());
+
         repository.save(enrollmentSubject);
-        return mapper.entityToOutput(enrollmentSubject);
+        return EnrollmentSubjectMapper.entityToOutput(enrollmentSubject);
     }
 
     @Transactional
@@ -42,11 +66,11 @@ public class EnrollmentSubjectService {
                         update.getEnrollmentNumber(),
                         update.getSubjectCode(),
                         update.getSemester());
-
         enrollmentSubject.setSemester(update.getSemester());
         enrollmentSubject.setGrade(update.getGrade());
+
         repository.save(enrollmentSubject);
-        return mapper.entityToOutput(enrollmentSubject);
+        return EnrollmentSubjectMapper.entityToOutput(enrollmentSubject);
     }
 
     @Transactional

@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.String.format;
 
 @Service
@@ -21,16 +24,35 @@ public class SecretaryService {
 
     private final SecretaryRepository repository;
 
-    private final SecretaryMapper mapper;
-
     private final InstituteService instituteService;
+
+    @Transactional
+    public SecretaryOutputDTO findById(Long id) {
+        return SecretaryMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional
+    public List<SecretaryOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(SecretaryMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public SecretaryOutputDTO create(SecretaryInputDTO input) {
         this.validateExistsByCpf(input.getCpf());
-        Secretary secretary = mapper.inputToEntity(input);
+
+        Secretary secretary = new Secretary();
+        secretary.setCpf(input.getCpf());
+        secretary.setName(input.getName());
+        secretary.setEmail(input.getEmail());
+        secretary.setBirthDate(input.getBirthDate());
+        secretary.setHiringDate(input.getHiringDate());
+        secretary.setTenderNotice(input.getTenderNotice());
+        secretary.setInstitute(instituteService.findEntityByName(input.getInstitute()));
+
         repository.save(secretary);
-        return mapper.entityToOutput(secretary);
+        return SecretaryMapper.entityToOutput(secretary);
     }
 
     @Transactional
@@ -49,8 +71,9 @@ public class SecretaryService {
         secretary.setBirthDate(update.getBirthDate());
         secretary.setHiringDate(update.getHiringDate());
         secretary.setTenderNotice(update.getTenderNotice());
+
         repository.save(secretary);
-        return mapper.entityToOutput(secretary);
+        return SecretaryMapper.entityToOutput(secretary);
     }
 
     @Transactional

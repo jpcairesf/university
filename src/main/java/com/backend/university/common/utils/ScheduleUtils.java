@@ -1,17 +1,16 @@
 package com.backend.university.common.utils;
 
 import com.backend.university.subject.domain.enumx.SubjectSchedule;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.data.util.Pair;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ScheduleUtils {
-
-    private ScheduleUtils() {
-        throw new IllegalStateException("Utility class");
-    }
 
     public static List<String> toSchedule(List<Pair<DayOfWeek, SubjectSchedule>> pairs) {
         List<String> schedule = new ArrayList<>();

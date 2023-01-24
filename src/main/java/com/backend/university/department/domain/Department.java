@@ -20,8 +20,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,16 +42,16 @@ public class Department {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "department")
     @OrderBy("NAME ASC")
-    private Set<Professor> professors;
+    private List<Professor> professors;
 
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    public Set<Professor> getProfessors() {
-        return Collections.unmodifiableSet(this.professors);
+    public List<Professor> getProfessors() {
+        return Collections.unmodifiableList(this.professors);
     }
 
-    public void setProfessors(Set<Professor> professors) {
+    public void setProfessors(List<Professor> professors) {
         professors.forEach(p -> p.setDepartment(this));
         this.professors = professors;
     }
@@ -67,7 +66,7 @@ public class Department {
         this.addProfessor(updatedProfessor);
     }
 
-    public void addProfessors(Set<Professor> professors) {
+    public void addProfessors(List<Professor> professors) {
         professors.forEach(p -> p.setDepartment(this));
         this.professors.addAll(professors);
     }

@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.String.format;
 
 @Service
@@ -20,14 +23,28 @@ public class RoomService {
 
     private final RoomRepository repository;
 
-    private final RoomMapper mapper;
+    @Transactional
+    public RoomOutputDTO findById(Long id) {
+        return RoomMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional
+    public List<RoomOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(RoomMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public RoomOutputDTO create(RoomInputDTO input) {
         this.validateExistsByName(input.getName());
-        Room room = mapper.inputToEntity(input);
+
+        Room room = new Room();
+        room.setName(input.getName());
+        room.setLocation(input.getLocation());
         repository.save(room);
-        return mapper.entityToOutput(room);
+
+        return RoomMapper.entityToOutput(room);
     }
 
     @Transactional
@@ -39,8 +56,9 @@ public class RoomService {
             room.setName(update.getName());
         }
         room.setLocation(update.getLocation());
+
         repository.save(room);
-        return mapper.entityToOutput(room);
+        return RoomMapper.entityToOutput(room);
     }
 
     @Transactional
