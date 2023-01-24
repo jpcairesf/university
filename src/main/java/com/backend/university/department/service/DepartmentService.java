@@ -2,10 +2,20 @@ package com.backend.university.department.service;
 
 import com.backend.university.common.error.BusinessException;
 import com.backend.university.department.domain.Department;
+import com.backend.university.department.dto.DepartmentInputDTO;
+import com.backend.university.department.dto.DepartmentOutputDTO;
+import com.backend.university.department.dto.DepartmentUpdateDTO;
+import com.backend.university.department.dto.mapper.DepartmentMapper;
 import com.backend.university.department.repository.DepartmentRepository;
+import com.backend.university.institute.service.InstituteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -14,6 +24,53 @@ import static java.lang.String.format;
 public class DepartmentService {
 
     private final DepartmentRepository repository;
+
+    private final InstituteService instituteService;
+
+    @Transactional
+    public DepartmentOutputDTO findById(Long id) {
+        return DepartmentMapper.entityToOutput(this.findEntityById(id));
+    }
+
+    @Transactional
+    public List<DepartmentOutputDTO> findAll() {
+        return repository.findAll().stream()
+                .map(DepartmentMapper::entityToOutput)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public DepartmentOutputDTO create(DepartmentInputDTO input) {
+        this.validateExistsByName(input.getName());
+
+        Department department = new Department();
+        department.setName(input.getName());
+        department.setInstitute(instituteService.findEntityByName(input.getInstitute()));
+        department.setProfessors(new ArrayList<>());
+
+        repository.save(department);
+        return DepartmentMapper.entityToOutput(department);
+    }
+
+    @Transactional
+    public DepartmentOutputDTO update(DepartmentUpdateDTO update) {
+        Department department = this.findEntityById(update.getId());
+
+        if (!update.getName().equalsIgnoreCase(department.getName())) {
+            this.validateExistsByName(update.getName());
+            department.setName(update.getName());
+        }
+        if (!update.getInstitute().equalsIgnoreCase(department.getInstitute().getName())) {
+            department.setInstitute(instituteService.findEntityByName(update.getInstitute()));
+        }
+        repository.save(department);
+        return DepartmentMapper.entityToOutput(department);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        repository.delete(this.findEntityById(id));
+    }
 
     public Department findEntityByName(String name) {
         return repository.findByName(name)

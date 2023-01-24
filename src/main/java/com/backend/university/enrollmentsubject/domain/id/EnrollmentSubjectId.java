@@ -1,18 +1,15 @@
 package com.backend.university.enrollmentsubject.domain.id;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class EnrollmentSubjectId implements Serializable {

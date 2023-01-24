@@ -15,17 +15,4 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     boolean existsByName(String name);
 
-    List<Course> findByDepartmentName(String departmentName);
-
-    @Query("SELECT dep.name FROM Course course" +
-            " JOIN course.department dep" +
-            " WHERE course.id = :id")
-    Optional<String> getDepartmentNameById(Long id);
-
-    @Query("SELECT course FROM Course course" +
-            " JOIN course.department dep" +
-            " JOIN course.courseSubject cs" +
-            " WHERE course.id = :id")
-    Optional<Course> retrieveById(Long id);
-
 }

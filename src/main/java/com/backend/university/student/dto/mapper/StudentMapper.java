@@ -1,48 +1,14 @@
 package com.backend.university.student.dto.mapper;
 
 import com.backend.university.student.domain.Student;
-import com.backend.university.student.dto.StudentInputDTO;
 import com.backend.university.student.dto.StudentOutputDTO;
-import com.backend.university.student.dto.StudentUpdateDTO;
-import com.backend.university.enrollment.service.EnrollmentService;
-import com.backend.university.student.service.StudentService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-import static com.backend.university.common.utils.MapperUtils.setIfNotNull;
-
-@Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StudentMapper {
 
-    private final StudentService studentService;
-
-    private final EnrollmentService enrollmentService;
-
-    public Student inputToEntity(StudentInputDTO input) {
-        Student student = new Student();
-        student.setCpf(input.getCpf());
-        student.setName(input.getName());
-        student.setEmail(input.getEmail());
-        student.setBirthDate(input.getBirthDate());
-        student.setEnrollment(enrollmentService.findEntityByNumber(input.getEnrollmentNumber()));
-        return student;
-    }
-
-    public Student updateToEntity(StudentUpdateDTO update) {
-        Student student = studentService.findEntityById(update.getId());
-        if (student.getEnrollment().getNumber() != update.getEnrollmentNumber()) {
-            student.setEnrollment(enrollmentService.findEntityByNumber(update.getEnrollmentNumber()));
-        }
-        setIfNotNull(update.getCpf(), student::setCpf);
-        setIfNotNull(update.getName(), student::setName);
-        setIfNotNull(update.getEmail(), student::setEmail);
-        setIfNotNull(update.getBirthDate(), student::setBirthDate);
-        return student;
-    }
-
-    public StudentOutputDTO entityToOutput(Student student) {
+    public static StudentOutputDTO entityToOutput(Student student) {
         return StudentOutputDTO.builder()
                 .id(student.getId())
                 .cpf(student.getCpf())
