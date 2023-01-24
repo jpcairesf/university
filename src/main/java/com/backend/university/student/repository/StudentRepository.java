@@ -12,6 +12,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     Optional<Student> findByCpf(String cpf);
 
+    Optional<Student> findByCpfAndEnrollmentIsNull(String cpf);
+
     List<Student> findByName(String name);
 
     boolean existsByCpf(String cpf);

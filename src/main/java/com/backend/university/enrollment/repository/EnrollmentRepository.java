@@ -10,8 +10,6 @@ import java.util.Optional;
 @Repository
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
-    List<Enrollment> findByStudentName(String name);
-
     Optional<Enrollment> findByNumber(int number);
 
     Optional<Enrollment> findByStudentCpf(String cpf);

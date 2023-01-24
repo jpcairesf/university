@@ -10,14 +10,6 @@ import java.util.Optional;
 @Repository
 public interface CourseSubjectRepository extends JpaRepository<CourseSubject, Long> {
 
-    List<CourseSubject> findByCourseName(String courseName);
-
-    List<CourseSubject> findByCourseNameAndRequired(String courseName, boolean required);
-
-    List<CourseSubject> findByCourseNameAndSemester(String courseName, int semester);
-
-    List<CourseSubject> findBySubjectCode(String code);
-
     Optional<CourseSubject> findByCourseNameAndSubjectCode(String courseName, String code);
 
     boolean existsByCourseNameAndSubjectCode(String courseName, String code);

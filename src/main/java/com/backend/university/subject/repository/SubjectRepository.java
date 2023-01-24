@@ -16,12 +16,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
     List<Subject> findByName(String name);
 
-    List<Subject> findByProfessorCpf(String cpf);
-
-    List<Subject> findByRoomName(String roomName);
-
-    Optional<Subject> findByRoomNameAndSchedule(String roomName, String schedule);
-
     Optional<Long> findIdByCode(String code);
 
 }

@@ -22,9 +22,4 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
     List<Professor> findByDepartmentName(String departmentName);
 
-    List<Professor> findByDepartmentNameAndRank(String departmentName, Rank rank);
-
-    List<Professor> findByDepartmentNameAndDegree(String departmentName, Degree degree);
-
-    List<Professor> findByDepartmentNameAndRankAndDegree(String departmentName, Rank rank, Degree degree);
 }

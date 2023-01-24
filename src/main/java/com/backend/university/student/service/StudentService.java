@@ -89,11 +89,8 @@ public class StudentService {
     }
 
     public Student findEntityByCfpWithoutEnrollment(String cpf) {
-        Student student = this.findEntityByCpf(cpf);
-        if (Optional.ofNullable(student.getEnrollment()).isEmpty()) {
-            throw new BusinessException(format("The student with CPF \"%s\" already has an enrollment.", cpf));
-        }
-        return student;
+        return repository.findByCpfAndEnrollmentIsNull(cpf)
+                .orElseThrow(() -> new BusinessException(format("The student with CPF \"%s\" already has an enrollment.", cpf)));
     }
 
     private void validateExistsByCpf(String cpf) {

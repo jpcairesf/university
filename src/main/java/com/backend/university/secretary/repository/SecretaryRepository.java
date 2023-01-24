@@ -20,8 +20,4 @@ public interface SecretaryRepository extends JpaRepository<Secretary, Long> {
 
     List<Secretary> findByInstituteName(String instituteName);
 
-    List<Secretary> findByTenderNotice(String tenderNotice);
-
-    List<Secretary> findByInstituteNameAndTenderNotice(String instituteName, String tenderNotice);
-
 }
