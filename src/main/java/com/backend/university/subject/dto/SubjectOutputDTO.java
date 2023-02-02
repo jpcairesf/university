@@ -25,7 +25,7 @@ public class SubjectOutputDTO {
 
     private List<EnrollmentSubjectOutputDTO> enrollmentSubjects;
 
-    private List<Pair<DayOfWeek, SubjectSchedule>> schedule;
+    private String schedule;
 
     private int studyLoad;
 

@@ -17,8 +17,6 @@ public class StudentOutputDTO {
 
     private String email;
 
-    private int enrollmentNumber;
-
     private LocalDate birthDate;
 
 }

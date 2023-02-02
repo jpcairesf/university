@@ -14,7 +14,6 @@ public class StudentMapper {
                 .cpf(student.getCpf())
                 .name(student.getName())
                 .birthDate(student.getBirthDate())
-                .enrollmentNumber(student.getEnrollment().getNumber())
                 .build();
     }
 

@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.backend.university.common.utils.ScheduleUtils.toPairs;
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SubjectMapper {
 
@@ -27,7 +25,7 @@ public class SubjectMapper {
                 .name(subject.getName())
                 .studyLoad(subject.getStudyLoad())
                 .vacancies(subject.getVacancies())
-                .schedule(toPairs(subject.getSchedule()))
+                .schedule(subject.getSchedule())
                 .room(subject.getRoom().getName())
                 .professorCpf(subject.getProfessor().getCpf())
                 .enrollmentSubjects(subjects)

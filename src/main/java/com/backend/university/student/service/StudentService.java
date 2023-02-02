@@ -1,7 +1,6 @@
 package com.backend.university.student.service;
 
 import com.backend.university.common.error.BusinessException;
-import com.backend.university.enrollment.service.EnrollmentService;
 import com.backend.university.student.domain.Student;
 import com.backend.university.student.dto.StudentInputDTO;
 import com.backend.university.student.dto.StudentOutputDTO;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
@@ -24,8 +22,6 @@ import static java.lang.String.format;
 public class StudentService {
 
     private final StudentRepository repository;
-
-    private final EnrollmentService enrollmentService;
 
     @Transactional
     public StudentOutputDTO findById(Long id) {
@@ -48,7 +44,6 @@ public class StudentService {
         student.setName(input.getName());
         student.setEmail(input.getEmail());
         student.setBirthDate(input.getBirthDate());
-        student.setEnrollment(enrollmentService.findEntityByNumber(input.getEnrollmentNumber()));
 
         repository.save(student);
         return StudentMapper.entityToOutput(student);
@@ -61,9 +56,6 @@ public class StudentService {
         if (!update.getCpf().equalsIgnoreCase(student.getCpf())) {
             this.validateExistsByCpf(update.getCpf());
             student.setCpf(update.getCpf());
-        }
-        if (update.getEnrollmentNumber() != student.getEnrollment().getNumber()) {
-            student.setEnrollment(enrollmentService.findEntityByNumber(update.getEnrollmentNumber()));
         }
         student.setName(update.getName());
         student.setEmail(update.getEmail());

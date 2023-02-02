@@ -1,6 +1,5 @@
 package com.backend.university.student.domain;
 
-import com.backend.university.enrollment.domain.Enrollment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -29,10 +26,6 @@ public class Student {
     @GeneratedValue(generator = "STUDENT_SEQ")
     @Column(name = "STUDENT_ID", nullable = false)
     private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "ENROLLMENT_ID")
-    private Enrollment enrollment;
 
     @Column(name = "CPF", nullable = false)
     private String cpf;

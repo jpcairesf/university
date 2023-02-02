@@ -17,8 +17,6 @@ public class StudentUpdateDTO {
 
     private String email;
 
-    private int enrollmentNumber;
-
     private LocalDate birthDate;
 
 }

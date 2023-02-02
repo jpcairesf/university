@@ -1,9 +1,9 @@
-package com.backend.university.course.controller;
+package com.backend.university.department.controller;
 
-import com.backend.university.course.dto.CourseInputDTO;
-import com.backend.university.course.dto.CourseOutputDTO;
-import com.backend.university.course.dto.CourseUpdateDTO;
-import com.backend.university.course.service.CourseService;
+import com.backend.university.department.dto.DepartmentInputDTO;
+import com.backend.university.department.dto.DepartmentOutputDTO;
+import com.backend.university.department.dto.DepartmentUpdateDTO;
+import com.backend.university.department.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,24 +18,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/department")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class CourseController {
+public class DepartmentController {
 
-    private final CourseService service;
+    private final DepartmentService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<CourseOutputDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<DepartmentOutputDTO> findById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<CourseOutputDTO> create(@RequestBody CourseInputDTO input) {
+    public ResponseEntity<DepartmentOutputDTO> create(@RequestBody DepartmentInputDTO input) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(input));
     }
 
     @PutMapping
-    public ResponseEntity<CourseOutputDTO> update(@RequestBody CourseUpdateDTO update) {
+    public ResponseEntity<DepartmentOutputDTO> update(@RequestBody DepartmentUpdateDTO update) {
         return ResponseEntity.status(HttpStatus.OK).body(service.update(update));
     }
 

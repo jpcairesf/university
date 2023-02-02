@@ -51,11 +51,8 @@ public class Subject {
     @OrderBy("SEMESTER DESC, NAME ASC")
     private List<EnrollmentSubject> enrollmentSubjects;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "SUBJ_SCHD", joinColumns = {
-            @JoinColumn(name = "SUBJECT_ID", nullable = false)})
     @Column(name = "SCHEDULE")
-    private List<String> schedule;
+    private String schedule;
 
     @Column(name = "CODE", nullable = false)
     private String code;
