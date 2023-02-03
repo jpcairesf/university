@@ -80,10 +80,10 @@ public class StudentService {
                 .orElseThrow(() -> new BusinessException(format("There is no student with CPF \"%s\".", cpf)));
     }
 
-    public Student findEntityByCfpWithoutEnrollment(String cpf) {
-        return repository.findByCpfAndEnrollmentIsNull(cpf)
-                .orElseThrow(() -> new BusinessException(format("The student with CPF \"%s\" already has an enrollment.", cpf)));
-    }
+//    public Student findEntityByCfpWithoutEnrollment(String cpf) {
+//        return repository.findByCpfAndEnrollmentIsNull(cpf)
+//                .orElseThrow(() -> new BusinessException(format("The student with CPF \"%s\" already has an enrollment.", cpf)));
+//    }
 
     private void validateExistsByCpf(String cpf) {
         if (repository.existsByCpf(cpf)) {

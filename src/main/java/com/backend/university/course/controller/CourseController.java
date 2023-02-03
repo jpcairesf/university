@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
+import static org.springframework.http.ResponseEntity.status;
+
 @RestController
 @RequestMapping("/course")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -26,23 +30,28 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CourseOutputDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
+        return status(HttpStatus.OK).body(service.findById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CourseOutputDTO>> findAll() {
+        return status(HttpStatus.OK).body(service.findAll());
     }
 
     @PostMapping
     public ResponseEntity<CourseOutputDTO> create(@RequestBody CourseInputDTO input) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(input));
+        return status(HttpStatus.CREATED).body(service.create(input));
     }
 
     @PutMapping
     public ResponseEntity<CourseOutputDTO> update(@RequestBody CourseUpdateDTO update) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.update(update));
+        return status(HttpStatus.OK).body(service.update(update));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return status(HttpStatus.OK).build();
     }
 
 }

@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -38,10 +37,6 @@ public class Enrollment {
     @Column(name = "ENROLLMENT_ID", nullable = false)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "STUDENT_ID", nullable = false)
-    private Student student;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COURSE_ID", nullable = false)
     private Course course;
@@ -49,6 +44,9 @@ public class Enrollment {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "enrollment")
     @OrderBy("SEMESTER DESC, NAME ASC")
     private List<EnrollmentSubject> enrollmentSubjects;
+
+    @JoinColumn(name = "STUDENT_ID", nullable = false)
+    private Student student;
 
     @Column(name = "NUMBER", nullable = false)
     private int number;

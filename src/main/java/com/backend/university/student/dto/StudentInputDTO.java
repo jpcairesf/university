@@ -15,8 +15,6 @@ public class StudentInputDTO {
 
     private String email;
 
-    private int enrollmentNumber;
-
     private LocalDate birthDate;
 
 }

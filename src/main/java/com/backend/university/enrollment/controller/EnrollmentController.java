@@ -1,9 +1,9 @@
-package com.backend.university.department.controller;
+package com.backend.university.enrollment.controller;
 
-import com.backend.university.department.dto.DepartmentInputDTO;
-import com.backend.university.department.dto.DepartmentOutputDTO;
-import com.backend.university.department.dto.DepartmentUpdateDTO;
-import com.backend.university.department.service.DepartmentService;
+import com.backend.university.enrollment.dto.EnrollmentInputDTO;
+import com.backend.university.enrollment.dto.EnrollmentOutputDTO;
+import com.backend.university.enrollment.dto.EnrollmentUpdateDTO;
+import com.backend.university.enrollment.service.EnrollmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,29 +22,29 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/enrollment")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class DepartmentController {
+public class EnrollmentController {
 
-    private final DepartmentService service;
+    private final EnrollmentService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<DepartmentOutputDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<EnrollmentOutputDTO> findById(@PathVariable Long id) {
         return status(HttpStatus.OK).body(service.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<DepartmentOutputDTO>> findAll() {
+    public ResponseEntity<List<EnrollmentOutputDTO>> findAll() {
         return status(HttpStatus.OK).body(service.findAll());
     }
 
     @PostMapping
-    public ResponseEntity<DepartmentOutputDTO> create(@RequestBody DepartmentInputDTO input) {
+    public ResponseEntity<EnrollmentOutputDTO> create(@RequestBody EnrollmentInputDTO input) {
         return status(HttpStatus.CREATED).body(service.create(input));
     }
 
     @PutMapping
-    public ResponseEntity<DepartmentOutputDTO> update(@RequestBody DepartmentUpdateDTO update) {
+    public ResponseEntity<EnrollmentOutputDTO> update(@RequestBody EnrollmentUpdateDTO update) {
         return status(HttpStatus.OK).body(service.update(update));
     }
 

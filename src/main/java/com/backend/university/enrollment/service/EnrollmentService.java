@@ -62,7 +62,7 @@ public class EnrollmentService {
         Enrollment enrollment = this.findEntityById(update.getId());
 
         if (!update.getStudentCpf().equalsIgnoreCase(enrollment.getStudent().getCpf())) {
-            enrollment.setStudent(studentService.findEntityByCfpWithoutEnrollment(update.getStudentCpf()));
+            enrollment.setStudent(studentService.findEntityByCpf(update.getStudentCpf()));
         }
         if (!update.getCourse().equalsIgnoreCase(enrollment.getCourse().getName())) {
             enrollment.setCourse(courseService.findEntityByName(update.getCourse()));

@@ -1,9 +1,9 @@
-package com.backend.university.department.controller;
+package com.backend.university.secretary.controller;
 
-import com.backend.university.department.dto.DepartmentInputDTO;
-import com.backend.university.department.dto.DepartmentOutputDTO;
-import com.backend.university.department.dto.DepartmentUpdateDTO;
-import com.backend.university.department.service.DepartmentService;
+import com.backend.university.secretary.dto.SecretaryInputDTO;
+import com.backend.university.secretary.dto.SecretaryOutputDTO;
+import com.backend.university.secretary.dto.SecretaryUpdateDTO;
+import com.backend.university.secretary.service.SecretaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,29 +22,29 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/secretary")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class DepartmentController {
+public class SecretaryController {
 
-    private final DepartmentService service;
+    private final SecretaryService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<DepartmentOutputDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<SecretaryOutputDTO> findById(@PathVariable Long id) {
         return status(HttpStatus.OK).body(service.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<DepartmentOutputDTO>> findAll() {
+    public ResponseEntity<List<SecretaryOutputDTO>> findAll() {
         return status(HttpStatus.OK).body(service.findAll());
     }
 
     @PostMapping
-    public ResponseEntity<DepartmentOutputDTO> create(@RequestBody DepartmentInputDTO input) {
+    public ResponseEntity<SecretaryOutputDTO> create(@RequestBody SecretaryInputDTO input) {
         return status(HttpStatus.CREATED).body(service.create(input));
     }
 
     @PutMapping
-    public ResponseEntity<DepartmentOutputDTO> update(@RequestBody DepartmentUpdateDTO update) {
+    public ResponseEntity<SecretaryOutputDTO> update(@RequestBody SecretaryUpdateDTO update) {
         return status(HttpStatus.OK).body(service.update(update));
     }
 
