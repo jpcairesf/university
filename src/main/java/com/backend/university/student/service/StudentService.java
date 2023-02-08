@@ -1,6 +1,7 @@
 package com.backend.university.student.service;
 
 import com.backend.university.common.error.BusinessException;
+import com.backend.university.enrollment.service.EnrollmentService;
 import com.backend.university.student.domain.Student;
 import com.backend.university.student.dto.StudentInputDTO;
 import com.backend.university.student.dto.StudentOutputDTO;

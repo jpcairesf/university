@@ -46,7 +46,6 @@ public class DepartmentService {
         Department department = new Department();
         department.setName(input.getName());
         department.setInstitute(instituteService.findEntityByName(input.getInstitute()));
-        department.setProfessors(new ArrayList<>());
 
         repository.save(department);
         return DepartmentMapper.entityToOutput(department);

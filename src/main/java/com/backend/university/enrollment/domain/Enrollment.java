@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -45,6 +46,7 @@ public class Enrollment {
     @OrderBy("SEMESTER DESC, NAME ASC")
     private List<EnrollmentSubject> enrollmentSubjects;
 
+    @OneToOne
     @JoinColumn(name = "STUDENT_ID", nullable = false)
     private Student student;
 

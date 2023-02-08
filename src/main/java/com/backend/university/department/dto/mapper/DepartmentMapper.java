@@ -14,15 +14,10 @@ import java.util.stream.Collectors;
 public class DepartmentMapper {
 
     public static DepartmentOutputDTO entityToOutput(Department department) {
-        List<ProfessorOutputDTO> professors =
-                department.getProfessors().stream()
-                .map(ProfessorMapper::entityToOutput)
-                .collect(Collectors.toList());
 
         return DepartmentOutputDTO.builder()
                 .name(department.getName())
                 .institute(department.getInstitute().getName())
-                .professors(professors)
                 .build();
     }
 

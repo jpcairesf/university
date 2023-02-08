@@ -41,11 +41,6 @@ public class CourseSubjectController {
         return status(HttpStatus.CREATED).body(service.create(input));
     }
 
-    @PostMapping
-    public ResponseEntity<List<CourseSubjectOutputDTO>> create(@RequestBody List<CourseSubjectInputDTO> inputList) {
-        return status(HttpStatus.CREATED).body(service.createMany(inputList));
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
