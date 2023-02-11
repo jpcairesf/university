@@ -1,7 +1,7 @@
 package com.backend.university.subject.dto.mapper;
 
-import com.backend.university.enrollmentsubject.dto.EnrollmentSubjectOutputDTO;
-import com.backend.university.enrollmentsubject.dto.mapper.EnrollmentSubjectMapper;
+import com.backend.university.studentsubject.dto.EnrollmentSubjectOutputDTO;
+import com.backend.university.studentsubject.dto.mapper.EnrollmentSubjectMapper;
 import com.backend.university.subject.domain.Subject;
 import com.backend.university.subject.dto.SubjectOutputDTO;
 import lombok.AccessLevel;

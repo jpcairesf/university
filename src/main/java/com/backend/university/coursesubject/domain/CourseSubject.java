@@ -12,7 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,28 +21,28 @@ import javax.persistence.UniqueConstraint;
 @Getter
 @Setter
 @NoArgsConstructor
-@SequenceGenerator(name = "CRSE_SUBJ_SEQ", sequenceName = "CRSE_SUBJ_SEQ")
-@Table(name = "CRSE_SUBJ", uniqueConstraints = {
-        @UniqueConstraint(name = "UQ_CRSE_SUBJ", columnNames = {"COURSE_ID", "SUBJECT_ID"})})
+@SequenceGenerator(name = "COURSE_SUBJECT_SEQ", sequenceName = "COURSE_SUBJECT_SEQ")
+@Table(name = "COURSE_SUBJECT", uniqueConstraints = {
+        @UniqueConstraint(name = "UQ_CRSE_SUBJ_CURRICULUM_YEAR", columnNames = {"COURSE_ID", "SUBJECT_ID, CURRICULUM_YEAR"})})
 public class CourseSubject {
 
     @Id
-    @GeneratedValue(generator = "CRSE_SUBJ_SEQ")
-    @Column(name = "CRSE_SUBJ_ID")
+    @GeneratedValue(generator = "COURSE_SUBJECT_SEQ")
+    @Column(name = "COURSE_SUBJECT_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COURSE_ID", nullable = false)
-    private Course course;
-
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SUBJECT_ID", nullable = false)
     private Subject subject;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COURSE_ID", nullable = false)
+    private Course course;
 
     @Column(name = "REQUIRED", nullable = false)
     private boolean required;
 
-    @Column(name = "SEMESTER", nullable = false)
-    private int semester;
+    @Column(name = "CURRICULUM_YEAR")
+    private int curriculumYear;
 
 }

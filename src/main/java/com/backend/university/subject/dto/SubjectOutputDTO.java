@@ -1,12 +1,9 @@
 package com.backend.university.subject.dto;
 
-import com.backend.university.enrollmentsubject.dto.EnrollmentSubjectOutputDTO;
-import com.backend.university.subject.domain.enumx.SubjectSchedule;
+import com.backend.university.studentsubject.dto.EnrollmentSubjectOutputDTO;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.util.Pair;
 
-import java.time.DayOfWeek;
 import java.util.List;
 
 @Data
