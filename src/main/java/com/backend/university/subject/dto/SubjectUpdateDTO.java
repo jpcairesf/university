@@ -19,6 +19,4 @@ public class SubjectUpdateDTO {
 
     private int studyLoad;
 
-    private int vacancies;
-
 }

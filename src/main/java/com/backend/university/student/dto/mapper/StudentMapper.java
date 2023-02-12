@@ -1,9 +1,9 @@
 package com.backend.university.student.dto.mapper;
 
 import com.backend.university.student.domain.Student;
-import com.backend.university.student.dto.EnrollmentOutputDTO;
-import com.backend.university.studentsubject.dto.EnrollmentSubjectOutputDTO;
-import com.backend.university.studentsubject.dto.mapper.EnrollmentSubjectMapper;
+import com.backend.university.student.dto.StudentOutputDTO;
+import com.backend.university.studentsubject.dto.StudentSubjectOutputDTO;
+import com.backend.university.studentsubject.dto.mapper.StudentSubjectMapper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -12,15 +12,15 @@ import java.util.stream.Collectors;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class EnrollmentMapper {
+public class StudentMapper {
 
-    public static EnrollmentOutputDTO entityToOutput(Student student) {
-        List<EnrollmentSubjectOutputDTO> subjects =
+    public static StudentOutputDTO entityToOutput(Student student) {
+        List<StudentSubjectOutputDTO> subjects =
                 student.getEnrollmentSubjects().stream()
-                .map(EnrollmentSubjectMapper::entityToOutput)
+                .map(StudentSubjectMapper::entityToOutput)
                 .collect(Collectors.toList());
 
-        return EnrollmentOutputDTO.builder()
+        return StudentOutputDTO.builder()
                 .id(student.getId())
                 .studentCpf(student.getStudent().getCpf())
                 .course(student.getCourse().getName())

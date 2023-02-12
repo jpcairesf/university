@@ -7,14 +7,20 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-public class EnrollmentInputDTO {
+public class StudentUpdateDTO {
 
-    private String studentCpf;
+    private Long id;
 
     private String course;
 
-    private int number;
+    private int enrollmentNumber;
 
     private LocalDate enrollmentDate;
+
+    private String cpf;
+
+    private String name;
+
+    private String email;
 
 }

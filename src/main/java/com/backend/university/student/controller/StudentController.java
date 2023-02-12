@@ -1,9 +1,9 @@
 package com.backend.university.student.controller;
 
-import com.backend.university.student.dto.EnrollmentInputDTO;
-import com.backend.university.student.dto.EnrollmentOutputDTO;
-import com.backend.university.student.dto.EnrollmentUpdateDTO;
-import com.backend.university.student.service.EnrollmentService;
+import com.backend.university.student.dto.StudentInputDTO;
+import com.backend.university.student.dto.StudentOutputDTO;
+import com.backend.university.student.dto.StudentUpdateDTO;
+import com.backend.university.student.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,27 +24,27 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequestMapping("/enrollment")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class EnrollmentController {
+public class StudentController {
 
-    private final EnrollmentService service;
+    private final StudentService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<EnrollmentOutputDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<StudentOutputDTO> findById(@PathVariable Long id) {
         return status(HttpStatus.OK).body(service.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<EnrollmentOutputDTO>> findAll() {
+    public ResponseEntity<List<StudentOutputDTO>> findAll() {
         return status(HttpStatus.OK).body(service.findAll());
     }
 
     @PostMapping
-    public ResponseEntity<EnrollmentOutputDTO> create(@RequestBody EnrollmentInputDTO input) {
+    public ResponseEntity<StudentOutputDTO> create(@RequestBody StudentInputDTO input) {
         return status(HttpStatus.CREATED).body(service.create(input));
     }
 
     @PutMapping
-    public ResponseEntity<EnrollmentOutputDTO> update(@RequestBody EnrollmentUpdateDTO update) {
+    public ResponseEntity<StudentOutputDTO> update(@RequestBody StudentUpdateDTO update) {
         return status(HttpStatus.OK).body(service.update(update));
     }
 

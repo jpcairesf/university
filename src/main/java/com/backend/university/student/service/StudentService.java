@@ -1,6 +1,7 @@
 package com.backend.university.student.service;
 
 import com.backend.university.common.error.BusinessException;
+import com.backend.university.course.service.CourseService;
 import com.backend.university.student.domain.Student;
 import com.backend.university.student.dto.StudentInputDTO;
 import com.backend.university.student.dto.StudentOutputDTO;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,8 @@ import static java.lang.String.format;
 public class StudentService {
 
     private final StudentRepository repository;
+
+    private final CourseService courseService;
 
     @Transactional
     public StudentOutputDTO findById(Long id) {
@@ -37,13 +41,16 @@ public class StudentService {
 
     @Transactional
     public StudentOutputDTO create(StudentInputDTO input) {
+        this.validateExistsByNumber(input.getEnrollmentNumber());
         this.validateExistsByCpf(input.getCpf());
 
         Student student = new Student();
-        student.setCpf(input.getCpf());
         student.setName(input.getName());
         student.setEmail(input.getEmail());
-        student.setBirthDate(input.getBirthDate());
+        student.setCpf(input.getCpf());
+        student.setCourse(courseService.findEntityByName(input.getCourse()));
+        student.setEnrollmentNumber(input.getEnrollmentNumber());
+        student.setEnrollmentDate(input.getEnrollmentDate());
 
         repository.save(student);
         return StudentMapper.entityToOutput(student);
@@ -53,13 +60,22 @@ public class StudentService {
     public StudentOutputDTO update(StudentUpdateDTO update) {
         Student student = this.findEntityById(update.getId());
 
+        if (update.getEnrollmentNumber() != student.getEnrollmentNumber()) {
+            this.validateExistsByNumber(update.getEnrollmentNumber());
+            student.setEnrollmentNumber(update.getEnrollmentNumber());
+        }
         if (!update.getCpf().equalsIgnoreCase(student.getCpf())) {
             this.validateExistsByCpf(update.getCpf());
             student.setCpf(update.getCpf());
         }
+        if (!update.getCourse().equalsIgnoreCase(student.getCourse().getName())) {
+            student.setCourse(courseService.findEntityByName(update.getCourse()));
+        }
+
         student.setName(update.getName());
         student.setEmail(update.getEmail());
-        student.setBirthDate(update.getBirthDate());
+        student.setEnrollmentNumber(update.getEnrollmentNumber());
+        student.setEnrollmentDate(update.getEnrollmentDate());
 
         repository.save(student);
         return StudentMapper.entityToOutput(student);
@@ -70,24 +86,36 @@ public class StudentService {
         repository.delete(this.findEntityById(id));
     }
 
+    public Long findIdByNumber(int number) {
+        return repository.findIdByNumber(number)
+                .orElseThrow(() -> new BusinessException(format("There is no student with number \"%s\".", number)));
+    }
+
+    public StudentOutputDTO findByNumber(int number) {
+        Student student = repository.findByNumber(number)
+                .orElseThrow(() -> new EntityNotFoundException(""));
+        return StudentMapper.entityToOutput(student);
+    }
+
     public Student findEntityById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new BusinessException(format("There is no student with ID \"%s\".", id)));
     }
 
-    public Student findEntityByCpf(String cpf) {
-        return repository.findByCpf(cpf)
-                .orElseThrow(() -> new BusinessException(format("There is no student with CPF \"%s\".", cpf)));
+    public Student findEntityByNumber(int number) {
+        return repository.findByNumber(number)
+                .orElseThrow(() -> new BusinessException(format("There is no student with number \"%s\".", number)));
     }
 
-//    public Student findEntityByCfpWithoutEnrollment(String cpf) {
-//        return repository.findByCpfAndEnrollmentIsNull(cpf)
-//                .orElseThrow(() -> new BusinessException(format("The student with CPF \"%s\" already has an enrollment.", cpf)));
-//    }
+    private void validateExistsByNumber(int number) {
+        if (repository.existsByNumber(number)) {
+            throw new BusinessException(format("There is already an student with number \"%s\".", number));
+        }
+    }
 
     private void validateExistsByCpf(String cpf) {
         if (repository.existsByCpf(cpf)) {
-            throw new BusinessException(format("There is already a student with CPF \"%s\".", cpf));
+            throw new BusinessException(format("There is already an student with CPF \"%s\".", cpf));
         }
     }
 

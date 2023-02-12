@@ -13,10 +13,6 @@ public class SubjectInputDTO {
 
     private String professorCpf;
 
-    private String room;
-
     private int studyLoad;
-
-    private int vacancies;
 
 }

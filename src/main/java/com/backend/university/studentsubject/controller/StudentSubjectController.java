@@ -1,9 +1,9 @@
 package com.backend.university.studentsubject.controller;
 
-import com.backend.university.studentsubject.dto.EnrollmentSubjectInputDTO;
-import com.backend.university.studentsubject.dto.EnrollmentSubjectOutputDTO;
-import com.backend.university.studentsubject.dto.EnrollmentSubjectUpdateDTO;
-import com.backend.university.studentsubject.service.EnrollmentSubjectService;
+import com.backend.university.studentsubject.dto.StudentSubjectInputDTO;
+import com.backend.university.studentsubject.dto.StudentSubjectOutputDTO;
+import com.backend.university.studentsubject.dto.StudentSubjectUpdateDTO;
+import com.backend.university.studentsubject.service.StudentSubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,22 +22,22 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequestMapping("/enrollment-subject")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class EnrollmentSubjectController {
+public class StudentSubjectController {
 
-    private final EnrollmentSubjectService service;
+    private final StudentSubjectService service;
 
     @GetMapping
-    public ResponseEntity<List<EnrollmentSubjectOutputDTO>> findAll() {
+    public ResponseEntity<List<StudentSubjectOutputDTO>> findAll() {
         return status(HttpStatus.OK).body(service.findAll());
     }
 
     @PostMapping
-    public ResponseEntity<EnrollmentSubjectOutputDTO> create(@RequestBody EnrollmentSubjectInputDTO input) {
+    public ResponseEntity<StudentSubjectOutputDTO> create(@RequestBody StudentSubjectInputDTO input) {
         return status(HttpStatus.CREATED).body(service.create(input));
     }
 
     @PutMapping
-    public ResponseEntity<EnrollmentSubjectOutputDTO> update(@RequestBody EnrollmentSubjectUpdateDTO update) {
+    public ResponseEntity<StudentSubjectOutputDTO> update(@RequestBody StudentSubjectUpdateDTO update) {
         return status(HttpStatus.OK).body(service.update(update));
     }
 

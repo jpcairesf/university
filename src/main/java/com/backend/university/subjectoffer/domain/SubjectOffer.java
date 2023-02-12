@@ -7,6 +7,7 @@ import com.backend.university.subject.domain.Subject;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Check;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,6 +32,7 @@ import java.util.Set;
 @SequenceGenerator(name = "SUBJECT_OFFER_SEQ", sequenceName = "SUBJECT_OFFER_SEQ")
 @Table(name = "SUBJECT_OFFER", uniqueConstraints = {
         @UniqueConstraint(name = "UQ_SUBJECT_OFFER_COURSE_SUBJECT_SEMESTER_CLASS", columnNames = {"COURSE_ID", "SUBJECT_ID", "SEMESTER", "CLASS_NUMBER"})})
+@Check(constraints = "COUNT(STUDENT_SUBJECT_ID) <= VACANCIES")
 public class SubjectOffer {
 
     @Id
@@ -38,7 +40,7 @@ public class SubjectOffer {
     @Column(name = "SUBJECT_OFFER_ID", nullable = false)
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "subjectOffer")
     @JoinColumn(name = "STUDENT_SUBJECT_ID")
     private Set<StudentSubject> studentSubjects = new HashSet<>();
 

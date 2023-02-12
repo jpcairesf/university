@@ -25,8 +25,6 @@ public class SubjectService {
 
     private final SubjectRepository repository;
 
-    private final RoomService roomService;
-
     private final ProfessorService professorService;
 
     @Transactional
@@ -49,8 +47,6 @@ public class SubjectService {
         subject.setCode(input.getCode());
         subject.setName(input.getName());
         subject.setStudyLoad(input.getStudyLoad());
-        subject.setVacancies(input.getVacancies());
-        subject.setRoom(roomService.findEntityByName(input.getRoom()));
         subject.setProfessor(professorService.findEntityByCpf(input.getProfessorCpf()));
 
         repository.save(subject);
@@ -65,15 +61,11 @@ public class SubjectService {
             this.validateExistsByCode(update.getCode());
             subject.setCode(update.getCode());
         }
-        if (!update.getRoom().equalsIgnoreCase(subject.getRoom().getName())) {
-            subject.setRoom(roomService.findEntityByName(update.getRoom()));
-        }
         if (!update.getProfessorCpf().equalsIgnoreCase(subject.getProfessor().getCpf())) {
             subject.setProfessor(professorService.findEntityByCpf(update.getProfessorCpf()));
         }
         subject.setName(update.getName());
         subject.setStudyLoad(update.getStudyLoad());
-        subject.setVacancies(update.getVacancies());
 
         repository.save(subject);
         return SubjectMapper.entityToOutput(subject);

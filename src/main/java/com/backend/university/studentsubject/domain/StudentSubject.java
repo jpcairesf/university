@@ -27,13 +27,15 @@ public class StudentSubject {
     @EmbeddedId
     private StudentSubjectId id = new StudentSubjectId();
 
+    //Deixei todos os atributos EAGER porque todos os contextos
+    //dessa entidade vão precisar dos atributos carregados
     @MapsId("studentId")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "STUDENT_ID", nullable = false)
     private Student student;
 
     @MapsId("subjectOfferId")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "SUBJECT_OFFER_ID", nullable = false)
     private SubjectOffer subjectOffer;
 

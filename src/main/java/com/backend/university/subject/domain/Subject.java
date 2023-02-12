@@ -1,7 +1,6 @@
 package com.backend.university.subject.domain;
 
 import com.backend.university.professor.domain.Professor;
-import com.backend.university.room.domain.Room;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +23,6 @@ import javax.persistence.UniqueConstraint;
 @SequenceGenerator(name = "SUBJECT_SEQ", sequenceName = "SUBJECT_SEQ")
 @Table(name = "SUBJECT", uniqueConstraints = {
         @UniqueConstraint(name = "UQ_SUBJECT_CODE", columnNames = {"CODE"})})
-//        @UniqueConstraint(name = "UQ_SUBJECT_ROOM_SCHD", columnNames = {"ROOM_ID", "SCHEDULE"})})
 public class Subject {
 
     @Id

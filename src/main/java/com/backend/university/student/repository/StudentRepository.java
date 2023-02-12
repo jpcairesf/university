@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EnrollmentRepository extends JpaRepository<Student, Long> {
+public interface StudentRepository extends JpaRepository<Student, Long> {
 
     Optional<Student> findByNumber(int number);
 
@@ -19,4 +19,6 @@ public interface EnrollmentRepository extends JpaRepository<Student, Long> {
     Optional<Long> findIdByNumber(int number);
 
     boolean existsByNumber(int number);
+
+    boolean existsByCpf(String cpf);
 }
