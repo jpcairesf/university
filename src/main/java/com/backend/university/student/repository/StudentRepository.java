@@ -10,15 +10,15 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    Optional<Student> findByNumber(int number);
+    Optional<Student> findByEnrollmentNumber(int enrollmentNumber);
 
-    Optional<Student> findByStudentCpf(String cpf);
+    Optional<Student> findByCpf(String cpf);
 
     List<Student> findByCourseName(String courseName);
 
-    Optional<Long> findIdByNumber(int number);
+    Optional<Long> findIdByEnrollmentNumber(int enrollmentNumber);
 
-    boolean existsByNumber(int number);
+    boolean existsByEnrollmentNumber(int enrollmentNumber);
 
     boolean existsByCpf(String cpf);
 }

@@ -13,7 +13,7 @@ public class StudentOutputDTO {
 
     private Long id;
 
-    private String course;
+    private String courseName;
 
     private int enrollmentNumber;
 

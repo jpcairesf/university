@@ -11,18 +11,21 @@ import java.util.Optional;
 @Repository
 public interface StudentSubjectRepository extends JpaRepository<StudentSubject, StudentSubjectId> {
 
-    @Query("SELECT ssbj FROM StudentSubject ssbj" +
-            "   JOIN FETCH ssbj.student AS std" +
-            "   JOIN FETCH ssbj.subjectOffer AS soff" +
-            "   JOIN FETCH std.subject AS sbj" +
+    // Devo fazer a consulta assim? Faz sentido relacionar o curso do SubjectOffer direto do Student?
+    @Query(value = "SELECT ssbj FROM StudentSubject ssbj" +
+            "   INNER JOIN ssbj.student AS std" +
+            "   INNER JOIN ssbj.subjectOffer AS soff" +
+            "   INNER JOINE std.subject AS sbj" +
             "   WHERE std.enrollmentNumber = :enrollmentNumber" +
             "   AND sbj.code = :subjectCode" +
             "   AND soff.classNumber = :classNumber" +
             "   AND ssbj.semester = :semester" +
-            "   AND soff.course.id = std.course_id")
+            "   AND soff.course.id = std.course_id",
+    nativeQuery = true)
     Optional<StudentSubject> findEagerByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber);
 
-    @Query("EXISTS ssbj FROM StudentSubject ssbj" +
+    @Query(value = "SELECT CASE WHEN EXISTS " +
+            "(SELECT ssbj FROM StudentSubject ssbj" +
             "   INNER JOIN ssbj.student AS std" +
             "   INNER JOIN ssbj.subjectOffer AS soff" +
             "   INNER JOIN std.subject AS sbj" +
@@ -30,7 +33,9 @@ public interface StudentSubjectRepository extends JpaRepository<StudentSubject, 
             "   AND sbj.code = :subjectCode" +
             "   AND soff.classNumber = :classNumber" +
             "   AND ssbj.semester = :semester"+
-            "   AND soff.course.id = std.course_id")
+            "   AND soff.course.id = std.course_id)" +
+            "   THEN 'true' ELSE 'false' END",
+    nativeQuery = true)
     boolean existsByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber);
 
 }

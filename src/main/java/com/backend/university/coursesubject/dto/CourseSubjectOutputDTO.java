@@ -9,7 +9,7 @@ public class CourseSubjectOutputDTO {
 
     private Long id;
 
-    private String course;
+    private String courseName;
 
     private String subjectCode;
 

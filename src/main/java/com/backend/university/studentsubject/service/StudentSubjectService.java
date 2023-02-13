@@ -56,7 +56,7 @@ public class StudentSubjectService {
         StudentOutputDTO studentOutput = studentService.findByNumber(input.getEnrollmentNumber());
 
         Long subjectOfferId = subjectOfferService.findIdByCourseSubjectSemesterClass(
-                studentOutput.getCourse(),
+                studentOutput.getCourseName(),
                 input.getSubjectCode(),
                 input.getSemester(),
                 input.getClassNumber());
@@ -90,12 +90,12 @@ public class StudentSubjectService {
         repository.delete(findEntityById(id));
     }
 
-    public StudentSubject findEagerByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber) {
+    private StudentSubject findEagerByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber) {
         return repository.findEagerByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber)
                 .orElseThrow(() -> new EntityNotFoundException(format("There is no enrollment number \"%s\" in the subject with code \"%s\" in semester \"%s\" in class with number \"%s\".", enrollmentNumber, subjectCode, semester, classNumber)));
     }
 
-    public void validateExistsByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber) {
+    private void validateExistsByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber) {
         if (repository.existsByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber)) {
             throw new BusinessException(format("There is already an enrollment number \"%s\" in the subject with code \"%s\" in semester \"%s\" in class with number \"%s\".", enrollmentNumber, subjectCode, semester, classNumber));
         }

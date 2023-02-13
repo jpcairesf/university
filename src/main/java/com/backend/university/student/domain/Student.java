@@ -41,7 +41,7 @@ public class Student {
     @JoinColumn(name = "COURSE_ID", nullable = false)
     private Course course;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "student")
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "STUDENT_SUBJECT_ID")
     private Set<StudentSubject> studentSubjects = new HashSet<>();
 

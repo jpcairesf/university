@@ -23,7 +23,7 @@ import javax.persistence.UniqueConstraint;
 @NoArgsConstructor
 @SequenceGenerator(name = "COURSE_SUBJECT_SEQ", sequenceName = "COURSE_SUBJECT_SEQ")
 @Table(name = "COURSE_SUBJECT", uniqueConstraints = {
-        @UniqueConstraint(name = "UQ_CRSE_SUBJ_CURRICULUM_YEAR", columnNames = {"COURSE_ID", "SUBJECT_ID, CURRICULUM_YEAR"})})
+        @UniqueConstraint(name = "UQ_CRSE_SUBJ_CURRICULUM_YEAR", columnNames = {"COURSE_ID", "SUBJECT_ID", "CURRICULUM_YEAR"})})
 public class CourseSubject {
 
     @Id

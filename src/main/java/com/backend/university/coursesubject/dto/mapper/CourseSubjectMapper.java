@@ -11,9 +11,8 @@ public class CourseSubjectMapper {
     public static CourseSubjectOutputDTO entityToOutput(CourseSubject courseSubject) {
         return CourseSubjectOutputDTO.builder()
                 .id(courseSubject.getId())
-                .course(courseSubject.getCourse().getName())
+                .courseName(courseSubject.getCourse().getName())
                 .subjectCode(courseSubject.getSubject().getCode())
-                .semester(courseSubject.getSemester())
                 .required(courseSubject.isRequired())
                 .build();
     }

@@ -87,28 +87,27 @@ public class StudentService {
     }
 
     public Long findIdByNumber(int number) {
-        return repository.findIdByNumber(number)
+        return repository.findIdByEnrollmentNumber(number)
                 .orElseThrow(() -> new BusinessException(format("There is no student with number \"%s\".", number)));
     }
 
     public StudentOutputDTO findByNumber(int number) {
-        Student student = repository.findByNumber(number)
-                .orElseThrow(() -> new EntityNotFoundException(""));
+        Student student = findEntityByNumber(number);
         return StudentMapper.entityToOutput(student);
     }
 
-    public Student findEntityById(Long id) {
+    private Student findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new BusinessException(format("There is no student with ID \"%s\".", id)));
+                .orElseThrow(() -> new EntityNotFoundException(format("There is no student with ID \"%s\".", id)));
     }
 
-    public Student findEntityByNumber(int number) {
-        return repository.findByNumber(number)
-                .orElseThrow(() -> new BusinessException(format("There is no student with number \"%s\".", number)));
+    private Student findEntityByNumber(int number) {
+        return repository.findByEnrollmentNumber(number)
+                .orElseThrow(() -> new EntityNotFoundException(format("There is no student with number \"%s\".", number)));
     }
 
     private void validateExistsByNumber(int number) {
-        if (repository.existsByNumber(number)) {
+        if (repository.existsByEnrollmentNumber(number)) {
             throw new BusinessException(format("There is already an student with number \"%s\".", number));
         }
     }

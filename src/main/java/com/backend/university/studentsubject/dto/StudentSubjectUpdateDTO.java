@@ -1,6 +1,5 @@
 package com.backend.university.studentsubject.dto;
 
-import com.backend.university.studentsubject.domain.id.StudentSubjectId;
 import lombok.Builder;
 import lombok.Data;
 

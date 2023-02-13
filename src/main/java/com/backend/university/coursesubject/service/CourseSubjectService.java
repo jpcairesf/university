@@ -52,7 +52,6 @@ public class CourseSubjectService {
                     input.getSubjectCode());
             CourseSubject courseSubject = new CourseSubject();
             courseSubject.setSubject(subjectService.findEntityByCode(input.getSubjectCode()));
-            courseSubject.setSemester(input.getSemester());
             courseSubject.setRequired(input.isRequired());
 
             courseService.addSubject(courseSubject);
@@ -68,7 +67,6 @@ public class CourseSubjectService {
     public CourseSubjectOutputDTO create(CourseSubjectInputDTO input) {
         CourseSubject courseSubject = new CourseSubject();
         courseSubject.setSubject(subjectService.findEntityByCode(input.getSubjectCode()));
-        courseSubject.setSemester(input.getSemester());
         courseSubject.setRequired(input.isRequired());
 
         courseService.addSubject(courseSubject);

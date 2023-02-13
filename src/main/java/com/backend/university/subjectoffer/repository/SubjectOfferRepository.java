@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface SubjectOfferRepository extends JpaRepository<Long, SubjectOffer> {
+public interface SubjectOfferRepository extends JpaRepository<SubjectOffer, Long> {
 
     @Query("SELECT soff.id FROM SubjectOffer soff" +
             "   INNER JOIN Subject sbj" +

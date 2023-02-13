@@ -22,7 +22,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/enrollment")
+@RequestMapping("/student")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StudentController {
 
