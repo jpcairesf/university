@@ -13,6 +13,6 @@ public class CourseSubjectInputDTO {
 
     private boolean required;
 
-    private int semester;
+    private int curriculumYear;
 
 }

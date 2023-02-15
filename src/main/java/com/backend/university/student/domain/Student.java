@@ -43,7 +43,7 @@ public class Student {
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "STUDENT_SUBJECT_ID")
-    private Set<StudentSubject> studentSubjects = new HashSet<>();
+    private Set<StudentSubject> studentSubjects;
 
     @Column(name = "ENROLLMENT_NUMBER", nullable = false)
     private int enrollmentNumber;

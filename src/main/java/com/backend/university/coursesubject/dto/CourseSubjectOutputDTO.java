@@ -15,6 +15,6 @@ public class CourseSubjectOutputDTO {
 
     private boolean required;
 
-    private int semester;
+    private int curriculumYear;
 
 }

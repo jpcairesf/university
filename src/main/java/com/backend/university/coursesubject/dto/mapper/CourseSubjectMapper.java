@@ -14,6 +14,7 @@ public class CourseSubjectMapper {
                 .courseName(courseSubject.getCourse().getName())
                 .subjectCode(courseSubject.getSubject().getCode())
                 .required(courseSubject.isRequired())
+                .curriculumYear(courseSubject.getCurriculumYear())
                 .build();
     }
 }

@@ -16,4 +16,6 @@ public interface SubjectOfferRepository extends JpaRepository<SubjectOffer, Long
             "   AND soff.semester = :semester" +
             "   AND soff.classNumber = :classNumber")
     Optional<Long> findIdByCourseSubjectSemesterClass(String courseName, String subjectCode, int semester, int classNumber);
+
+    boolean existsByCourseNameAndSubjectCodeAndSemesterAndClassNumber(String courseName, String subjectCode, int semester, int classNumber);
 }

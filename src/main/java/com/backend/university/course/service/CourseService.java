@@ -73,14 +73,6 @@ public class CourseService {
         repository.delete(this.findEntityById(id));
     }
 
-    @Transactional
-    public void addSubject(CourseSubject courseSubject) {
-        Course course = courseSubject.getCourse();
-        course.addCourseSubject(courseSubject);
-
-        repository.save(course);
-    }
-
     public Course findEntityByName(String name) {
         return repository.findByName(name)
                 .orElseThrow(() -> new BusinessException(format("There is no course named \"%s\".", name)));

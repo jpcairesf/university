@@ -54,7 +54,6 @@ public class CourseSubjectService {
             courseSubject.setSubject(subjectService.findEntityByCode(input.getSubjectCode()));
             courseSubject.setRequired(input.isRequired());
 
-            courseService.addSubject(courseSubject);
             entities.add(courseSubject);
             outputs.add(CourseSubjectMapper.entityToOutput(courseSubject));
         }
@@ -67,9 +66,10 @@ public class CourseSubjectService {
     public CourseSubjectOutputDTO create(CourseSubjectInputDTO input) {
         CourseSubject courseSubject = new CourseSubject();
         courseSubject.setSubject(subjectService.findEntityByCode(input.getSubjectCode()));
+        courseSubject.setCourse(courseService.findEntityByName(input.getCourse()));
         courseSubject.setRequired(input.isRequired());
+        courseSubject.setCurriculumYear(input.getCurriculumYear());
 
-        courseService.addSubject(courseSubject);
         repository.save(courseSubject);
         return CourseSubjectMapper.entityToOutput(courseSubject);
     }

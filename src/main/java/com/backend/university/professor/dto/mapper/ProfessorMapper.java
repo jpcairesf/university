@@ -10,6 +10,7 @@ public class ProfessorMapper {
 
     public static ProfessorOutputDTO entityToOutput(Professor professor) {
         return ProfessorOutputDTO.builder()
+                .id(professor.getId())
                 .cpf(professor.getCpf())
                 .name(professor.getName())
                 .email(professor.getEmail())
