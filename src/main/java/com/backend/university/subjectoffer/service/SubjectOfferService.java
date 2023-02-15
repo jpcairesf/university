@@ -3,6 +3,7 @@ package com.backend.university.subjectoffer.service;
 import com.backend.university.common.error.BusinessException;
 import com.backend.university.course.service.CourseService;
 import com.backend.university.room.service.RoomService;
+import com.backend.university.studentsubject.service.StudentSubjectService;
 import com.backend.university.subject.service.SubjectService;
 import com.backend.university.subjectoffer.domain.SubjectOffer;
 import com.backend.university.subjectoffer.dto.SubjectOfferInputDTO;
@@ -34,9 +35,9 @@ public class SubjectOfferService {
 
     private final RoomService roomService;
 
-    public Long findIdByCourseSubjectSemesterClass(String courseName, String subjectCode, int semester, int classNumber) {
-        return repository.findIdByCourseSubjectSemesterClass(courseName, subjectCode, semester, classNumber)
-                .orElseThrow(() -> new EntityNotFoundException(format("There is no subject offer for course with name \"%s\" in subject with code \"%s\" in semester \"%s\" in class of number \"%s\".", courseName, subjectCode, semester, classNumber)));
+    public SubjectOffer findIdByCourseSubjectSemesterClass(Long courseId, String subjectCode, int semester, int classNumber) {
+        return repository.findIdByCourseSubjectSemesterClass(courseId, subjectCode, semester, classNumber)
+                .orElseThrow(() -> new EntityNotFoundException(format("There is no subject offer for course with ID \"%s\" in subject with code \"%s\" in semester \"%s\" in class of number \"%s\".", courseId, subjectCode, semester, classNumber)));
     }
 
     public SubjectOfferOutputDTO findById(Long id) {
@@ -71,6 +72,27 @@ public class SubjectOfferService {
         return SubjectOfferMapper.entityToOutput(subjectOffer);
     }
 
+    public SubjectOfferOutputDTO update(SubjectOfferUpdateDTO update) {
+        this.validateDayOfWeek(update.getDayOfWeek());
+        this.validateAmPm(update.getAmPm());
+
+        SubjectOffer subjectOffer = this.findEntityById(update.getId());
+
+        subjectOffer.setRoom(roomService.findEntityByName(update.getRoomName()));
+        subjectOffer.setStartTime(update.getStartTime());
+        subjectOffer.setDayOfWeek(update.getDayOfWeek());
+        subjectOffer.setAmPm(update.getAmPm());
+        subjectOffer.setDurationMin(update.getDurationMin());
+        subjectOffer.setVacancies(update.getVacancies());
+
+        repository.save(subjectOffer);
+        return SubjectOfferMapper.entityToOutput(subjectOffer);
+    }
+
+    public void delete(Long id) {
+        repository.delete(this.findEntityById(id));
+    }
+
     private void validateAmPm(String amPm) {
         try {
             AmPm.valueOf(amPm);
@@ -98,26 +120,5 @@ public class SubjectOfferService {
     private SubjectOffer findEntityById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(format("There is no subject offer with ID \"%s\".", id)));
-    }
-
-    public SubjectOfferOutputDTO update(SubjectOfferUpdateDTO update) {
-        this.validateDayOfWeek(update.getDayOfWeek());
-        this.validateAmPm(update.getAmPm());
-
-        SubjectOffer subjectOffer = this.findEntityById(update.getId());
-
-        subjectOffer.setRoom(roomService.findEntityByName(update.getRoomName()));
-        subjectOffer.setStartTime(update.getStartTime());
-        subjectOffer.setDayOfWeek(update.getDayOfWeek());
-        subjectOffer.setAmPm(update.getAmPm());
-        subjectOffer.setDurationMin(update.getDurationMin());
-        subjectOffer.setVacancies(update.getVacancies());
-
-        repository.save(subjectOffer);
-        return SubjectOfferMapper.entityToOutput(subjectOffer);
-    }
-
-    public void delete(Long id) {
-        repository.delete(this.findEntityById(id));
     }
 }

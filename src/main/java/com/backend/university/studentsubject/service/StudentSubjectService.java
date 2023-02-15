@@ -1,6 +1,7 @@
 package com.backend.university.studentsubject.service;
 
 import com.backend.university.common.error.BusinessException;
+import com.backend.university.student.domain.Student;
 import com.backend.university.student.dto.StudentOutputDTO;
 import com.backend.university.student.service.StudentService;
 import com.backend.university.studentsubject.domain.StudentSubject;
@@ -10,6 +11,7 @@ import com.backend.university.studentsubject.dto.StudentSubjectOutputDTO;
 import com.backend.university.studentsubject.dto.StudentSubjectUpdateDTO;
 import com.backend.university.studentsubject.dto.mapper.StudentSubjectMapper;
 import com.backend.university.studentsubject.repository.StudentSubjectRepository;
+import com.backend.university.subjectoffer.domain.SubjectOffer;
 import com.backend.university.subjectoffer.service.SubjectOfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,18 +55,22 @@ public class StudentSubjectService {
                 input.getClassNumber());
 
         StudentSubject studentSubject = new StudentSubject();
-        StudentOutputDTO studentOutput = studentService.findByNumber(input.getEnrollmentNumber());
+        Student student = studentService.findEntityByNumber(input.getEnrollmentNumber());
 
-        Long subjectOfferId = subjectOfferService.findIdByCourseSubjectSemesterClass(
-                studentOutput.getCourseName(),
+        SubjectOffer subjectOffer = subjectOfferService.findIdByCourseSubjectSemesterClass(
+                student.getCourse().getId(),
                 input.getSubjectCode(),
                 input.getSemester(),
                 input.getClassNumber());
 
+        this.validateVacanciesOffer(subjectOffer);
+
         studentSubject.setId(new StudentSubjectId(
-                studentOutput.getId(),
-                subjectOfferId));
+                student.getId(),
+                subjectOffer.getId()));
         studentSubject.setSemester(input.getSemester());
+        studentSubject.setStudent(student);
+        studentSubject.setSubjectOffer(subjectOffer);
 
         repository.save(studentSubject);
         return StudentSubjectMapper.entityToOutput(studentSubject);
@@ -90,13 +96,19 @@ public class StudentSubjectService {
         repository.delete(findEntityById(id));
     }
 
+    public void validateVacanciesOffer(SubjectOffer subjectOffer) {
+        if (repository.countBySubjectOffer(subjectOffer) == subjectOffer.getVacancies()) {
+            throw new BusinessException("There is no available vacancies");
+        }
+    }
+
     private StudentSubject findEagerByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber) {
         return repository.findEagerByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber)
                 .orElseThrow(() -> new EntityNotFoundException(format("There is no enrollment number \"%s\" in the subject with code \"%s\" in semester \"%s\" in class with number \"%s\".", enrollmentNumber, subjectCode, semester, classNumber)));
     }
 
     private void validateExistsByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber) {
-        if (repository.existsByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber)) {
+        if (repository.findEagerByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber).isPresent()) {
             throw new BusinessException(format("There is already an enrollment number \"%s\" in the subject with code \"%s\" in semester \"%s\" in class with number \"%s\".", enrollmentNumber, subjectCode, semester, classNumber));
         }
     }

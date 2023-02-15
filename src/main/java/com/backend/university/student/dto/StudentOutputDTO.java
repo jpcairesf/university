@@ -25,6 +25,6 @@ public class StudentOutputDTO {
 
     private String email;
 
-    private List<StudentSubjectOutputDTO> enrollmentSubjects;
+    private List<StudentSubjectOutputDTO> studentSubjects;
 
 }

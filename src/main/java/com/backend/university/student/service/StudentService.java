@@ -103,7 +103,7 @@ public class StudentService {
                 .orElseThrow(() -> new EntityNotFoundException(format("There is no student with ID \"%s\".", id)));
     }
 
-    private Student findEntityByNumber(int number) {
+    public Student findEntityByNumber(int number) {
         return repository.findByEnrollmentNumber(number)
                 .orElseThrow(() -> new EntityNotFoundException(format("There is no student with number \"%s\".", number)));
     }

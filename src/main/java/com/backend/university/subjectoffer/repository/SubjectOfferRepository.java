@@ -8,14 +8,13 @@ import java.util.Optional;
 
 public interface SubjectOfferRepository extends JpaRepository<SubjectOffer, Long> {
 
-    @Query("SELECT soff.id FROM SubjectOffer soff" +
-            "   INNER JOIN Subject sbj" +
-            "   INNER JOIN Course crs" +
-            "   WHERE crs.name = :courseName" +
+    @Query("SELECT soff FROM SubjectOffer soff" +
+            "   INNER JOIN soff.subject AS sbj" +
+            "   WHERE soff.course.id = :courseId" +
             "   AND sbj.code = :subjectCode" +
             "   AND soff.semester = :semester" +
             "   AND soff.classNumber = :classNumber")
-    Optional<Long> findIdByCourseSubjectSemesterClass(String courseName, String subjectCode, int semester, int classNumber);
+    Optional<SubjectOffer> findIdByCourseSubjectSemesterClass(Long courseId, String subjectCode, int semester, int classNumber);
 
     boolean existsByCourseNameAndSubjectCodeAndSemesterAndClassNumber(String courseName, String subjectCode, int semester, int classNumber);
 }
