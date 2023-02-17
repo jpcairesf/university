@@ -3,14 +3,13 @@ package com.backend.university.subjectoffer.service;
 import com.backend.university.common.error.BusinessException;
 import com.backend.university.course.service.CourseService;
 import com.backend.university.room.service.RoomService;
-import com.backend.university.studentsubject.service.StudentSubjectService;
 import com.backend.university.subject.service.SubjectService;
 import com.backend.university.subjectoffer.domain.SubjectOffer;
 import com.backend.university.subjectoffer.dto.SubjectOfferInputDTO;
 import com.backend.university.subjectoffer.dto.SubjectOfferOutputDTO;
 import com.backend.university.subjectoffer.dto.SubjectOfferUpdateDTO;
 import com.backend.university.subjectoffer.dto.mapper.SubjectOfferMapper;
-import com.backend.university.subjectoffer.enumx.AmPm;
+import com.backend.university.subjectoffer.enumx.AmPmEnum;
 import com.backend.university.subjectoffer.repository.SubjectOfferRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +94,7 @@ public class SubjectOfferService {
 
     private void validateAmPm(String amPm) {
         try {
-            AmPm.valueOf(amPm);
+            AmPmEnum.valueOf(amPm);
         }
         catch (IllegalArgumentException e) {
             throw new BusinessException("Invalid AM/PM value.");

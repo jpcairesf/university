@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum AmPm {
+public enum AmPmEnum {
 
     AM("AM"),
     PM("PM");
