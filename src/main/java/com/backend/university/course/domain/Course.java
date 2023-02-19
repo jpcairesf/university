@@ -40,7 +40,6 @@ public class Course {
     private Department department;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
-    @JoinColumn(name = "COURSE_SUBJECT_ID")
     private List<CourseSubject> courseSubjects;
 
     @Column(name = "NAME", nullable = false)

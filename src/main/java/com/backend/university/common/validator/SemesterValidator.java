@@ -1,7 +1,10 @@
 package com.backend.university.common.validator;
 
+import org.springframework.stereotype.Component;
+
 import static java.lang.String.format;
 
+@Component
 public class SemesterValidator implements ValueValidator<Integer> {
 
     private static final String INVALID_YEAR = "Invalid year for value: \"%s\".";

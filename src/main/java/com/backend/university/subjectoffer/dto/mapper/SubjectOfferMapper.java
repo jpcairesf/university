@@ -19,7 +19,7 @@ public class SubjectOfferMapper {
                 .professorName(subjectOffer.getProfessor().getName())
                 .roomName(subjectOffer.getRoom().getName())
                 .startTime(subjectOffer.getStartTime())
-                .dayOfWeek(subjectOffer.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()))
+                .dayOfWeek(subjectOffer.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH))
                 .amPm(subjectOffer.getAmPm().getDescription())
                 .semester(subjectOffer.getSemester())
                 .classNumber(subjectOffer.getClassNumber())

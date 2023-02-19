@@ -33,15 +33,14 @@ public class Professor extends Employee {
     private Department department;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "professor")
-    @JoinColumn(name = "SUBJECT_OFFER_ID")
     private List<SubjectOffer> subjectOffers;
 
     @Column(name = "RANK", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Rank rank;
 
     @Column(name = "DEGREE", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Degree degree;
 
 }

@@ -1,9 +1,12 @@
 package com.backend.university.common.validator;
 
+import org.springframework.stereotype.Component;
+
 import java.time.DayOfWeek;
 
 import static java.lang.String.format;
 
+@Component
 public class DayOfWeekValidator implements ValueValidator<String> {
 
     private static final String INVALID_DAY_OF_WEEK = "Invalid Day Of Week value: \"%s\".";

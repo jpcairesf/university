@@ -1,7 +1,5 @@
 package com.backend.university.professor.dto;
 
-import com.backend.university.professor.domain.enumx.Degree;
-import com.backend.university.professor.domain.enumx.Rank;
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,8 +23,8 @@ public class ProfessorOutputDTO {
 
     private String department;
 
-    private Rank rank;
+    private String rank;
 
-    private Degree degree;
+    private String degree;
 
 }

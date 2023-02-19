@@ -17,8 +17,8 @@ public class ProfessorMapper {
                 .birthDate(professor.getBirthDate())
                 .hiringDate(professor.getHiringDate())
                 .department(professor.getDepartment().getName())
-                .rank(professor.getRank())
-                .degree(professor.getDegree())
+                .rank(professor.getRank().getDescription())
+                .degree(professor.getDegree().getDescription())
                 .build();
     }
 

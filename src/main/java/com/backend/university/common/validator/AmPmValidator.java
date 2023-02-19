@@ -1,9 +1,11 @@
 package com.backend.university.common.validator;
 
 import com.backend.university.subjectoffer.enumx.AmPmEnum;
+import org.springframework.stereotype.Component;
 
 import static java.lang.String.format;
 
+@Component
 public class AmPmValidator implements ValueValidator<String> {
 
     private static final String INVALID_AM_PM = "Invalid AM/PM value: \"%s\".";
