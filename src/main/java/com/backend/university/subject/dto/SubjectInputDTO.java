@@ -11,8 +11,6 @@ public class SubjectInputDTO {
 
     private String code;
 
-    private String professorCpf;
-
     private int studyLoad;
 
 }

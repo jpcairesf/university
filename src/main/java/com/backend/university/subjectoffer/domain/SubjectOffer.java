@@ -1,9 +1,11 @@
 package com.backend.university.subjectoffer.domain;
 
 import com.backend.university.course.domain.Course;
+import com.backend.university.professor.domain.Professor;
 import com.backend.university.room.domain.Room;
 import com.backend.university.studentsubject.domain.StudentSubject;
 import com.backend.university.subject.domain.Subject;
+import com.backend.university.subjectoffer.enumx.AmPmEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,15 +13,19 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -42,6 +48,10 @@ public class SubjectOffer {
     @JoinColumn(name = "STUDENT_SUBJECT_ID")
     private Set<StudentSubject> studentSubjects = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROFESSOR_ID", nullable = false)
+    private Professor professor;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COURSE_ID", nullable = false)
     private Course course;
@@ -57,12 +67,13 @@ public class SubjectOffer {
     @Column(name = "START_TIME", nullable = false)
     private LocalTime startTime;
 
-    // Porque não salvar o enum?
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "DAY_OF_WEEK", nullable = false)
-    private String dayOfWeek;
+    private DayOfWeek dayOfWeek;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "AM_PM", nullable = false)
-    private String amPm;
+    private AmPmEnum amPm;
 
     @Column(name = "SEMESTER", nullable = false)
     private int semester;

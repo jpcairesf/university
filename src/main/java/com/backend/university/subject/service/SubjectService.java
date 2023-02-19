@@ -1,8 +1,6 @@
 package com.backend.university.subject.service;
 
 import com.backend.university.common.error.BusinessException;
-import com.backend.university.professor.service.ProfessorService;
-import com.backend.university.room.service.RoomService;
 import com.backend.university.subject.domain.Subject;
 import com.backend.university.subject.dto.SubjectInputDTO;
 import com.backend.university.subject.dto.SubjectOutputDTO;
@@ -14,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,8 +22,6 @@ import static java.lang.String.format;
 public class SubjectService {
 
     private final SubjectRepository repository;
-
-    private final ProfessorService professorService;
 
     @Transactional
     public SubjectOutputDTO findById(Long id) {
@@ -49,7 +43,6 @@ public class SubjectService {
         subject.setCode(input.getCode());
         subject.setName(input.getName());
         subject.setStudyLoad(input.getStudyLoad());
-        subject.setProfessor(professorService.findEntityByCpf(input.getProfessorCpf()));
 
         repository.save(subject);
         return SubjectMapper.entityToOutput(subject);
@@ -63,9 +56,7 @@ public class SubjectService {
             this.validateExistsByCode(update.getCode());
             subject.setCode(update.getCode());
         }
-        if (!update.getProfessorCpf().equalsIgnoreCase(subject.getProfessor().getCpf())) {
-            subject.setProfessor(professorService.findEntityByCpf(update.getProfessorCpf()));
-        }
+
         subject.setName(update.getName());
         subject.setStudyLoad(update.getStudyLoad());
 

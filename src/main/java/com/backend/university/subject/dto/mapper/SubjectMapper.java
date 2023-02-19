@@ -15,7 +15,6 @@ public class SubjectMapper {
                 .code(subject.getCode())
                 .name(subject.getName())
                 .studyLoad(subject.getStudyLoad())
-                .professorCpf(subject.getProfessor().getCpf())
                 .build();
     }
 

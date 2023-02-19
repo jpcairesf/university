@@ -15,6 +15,8 @@ public class SubjectOfferInputDTO {
 
     private String roomName;
 
+    private String professorCpf;
+
     private LocalTime startTime;
 
     private String dayOfWeek;

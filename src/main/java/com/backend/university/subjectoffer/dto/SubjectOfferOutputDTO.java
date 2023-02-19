@@ -17,6 +17,8 @@ public class SubjectOfferOutputDTO {
 
     private String roomName;
 
+    private String professorName;
+
     private LocalTime startTime;
 
     private String dayOfWeek;

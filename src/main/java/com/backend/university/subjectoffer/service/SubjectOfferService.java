@@ -1,7 +1,11 @@
 package com.backend.university.subjectoffer.service;
 
 import com.backend.university.common.error.BusinessException;
+import com.backend.university.common.validator.AmPmValidator;
+import com.backend.university.common.validator.DayOfWeekValidator;
+import com.backend.university.common.validator.SemesterValidator;
 import com.backend.university.course.service.CourseService;
+import com.backend.university.professor.service.ProfessorService;
 import com.backend.university.room.service.RoomService;
 import com.backend.university.subject.service.SubjectService;
 import com.backend.university.subjectoffer.domain.SubjectOffer;
@@ -32,7 +36,15 @@ public class SubjectOfferService {
 
     private final SubjectService subjectService;
 
+    private final ProfessorService professorService;
+
     private final RoomService roomService;
+
+    private final DayOfWeekValidator dayOfWeekValidator;
+
+    private final AmPmValidator amPmValidator;
+
+    private final SemesterValidator semesterValidator;
 
     public SubjectOffer findIdByCourseSubjectSemesterClass(Long courseId, String subjectCode, int semester, int classNumber) {
         return repository.findIdByCourseSubjectSemesterClass(courseId, subjectCode, semester, classNumber)
@@ -51,17 +63,19 @@ public class SubjectOfferService {
     }
 
     public SubjectOfferOutputDTO create(SubjectOfferInputDTO input) {
-        this.validateExistsByCourseSubjectSemesterClass(input.getCourseName(), input.getSubjectCode(), input.getSemester(), input.getClassNumber());
+        this.validateSemester(input.getSemester());
         this.validateDayOfWeek(input.getDayOfWeek());
         this.validateAmPm(input.getAmPm());
+        this.validateExistsByCourseSubjectSemesterClass(input.getCourseName(), input.getSubjectCode(), input.getSemester(), input.getClassNumber());
 
         SubjectOffer subjectOffer = new SubjectOffer();
         subjectOffer.setCourse(courseService.findEntityByName(input.getCourseName()));
         subjectOffer.setSubject(subjectService.findEntityByCode(input.getSubjectCode()));
+        subjectOffer.setProfessor(professorService.findEntityByCpf(input.getProfessorCpf()));
         subjectOffer.setRoom(roomService.findEntityByName(input.getRoomName()));
         subjectOffer.setStartTime(input.getStartTime());
-        subjectOffer.setDayOfWeek(input.getDayOfWeek());
-        subjectOffer.setAmPm(input.getAmPm());
+        subjectOffer.setDayOfWeek(DayOfWeek.valueOf(input.getDayOfWeek()));
+        subjectOffer.setAmPm(AmPmEnum.valueOf(input.getAmPm()));
         subjectOffer.setSemester(input.getSemester());
         subjectOffer.setClassNumber(input.getClassNumber());
         subjectOffer.setDurationMin(input.getDurationMin());
@@ -79,8 +93,8 @@ public class SubjectOfferService {
 
         subjectOffer.setRoom(roomService.findEntityByName(update.getRoomName()));
         subjectOffer.setStartTime(update.getStartTime());
-        subjectOffer.setDayOfWeek(update.getDayOfWeek());
-        subjectOffer.setAmPm(update.getAmPm());
+        subjectOffer.setDayOfWeek(DayOfWeek.valueOf(update.getDayOfWeek()));
+        subjectOffer.setAmPm(AmPmEnum.valueOf(update.getAmPm()));
         subjectOffer.setDurationMin(update.getDurationMin());
         subjectOffer.setVacancies(update.getVacancies());
 
@@ -93,21 +107,15 @@ public class SubjectOfferService {
     }
 
     private void validateAmPm(String amPm) {
-        try {
-            AmPmEnum.valueOf(amPm);
-        }
-        catch (IllegalArgumentException e) {
-            throw new BusinessException("Invalid AM/PM value.");
-        }
+        this.amPmValidator.validate(amPm);
     }
 
     private void validateDayOfWeek(String dayOfWeek) {
-        try {
-            DayOfWeek.valueOf(dayOfWeek);
-        }
-        catch (IllegalArgumentException e) {
-            throw new BusinessException("Invalid day of week.");
-        }
+        this.dayOfWeekValidator.validate(dayOfWeek);
+    }
+
+    private void validateSemester(int semester) {
+        this.semesterValidator.validate(semester);
     }
 
     private void validateExistsByCourseSubjectSemesterClass(String courseName, String subjectCode, int semester, int classNumber) {
