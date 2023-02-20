@@ -4,7 +4,6 @@ import com.backend.university.coursesubject.dto.CourseSubjectInputDTO;
 import com.backend.university.coursesubject.dto.CourseSubjectOutputDTO;
 import com.backend.university.coursesubject.service.CourseSubjectService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +20,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/course-subject")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class CourseSubjectController {
 
     private final CourseSubjectService service;

@@ -5,7 +5,6 @@ import com.backend.university.student.dto.StudentOutputDTO;
 import com.backend.university.student.dto.StudentUpdateDTO;
 import com.backend.university.student.service.StudentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +22,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/student")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class StudentController {
 
     private final StudentService service;

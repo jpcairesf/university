@@ -5,7 +5,6 @@ import com.backend.university.room.dto.RoomOutputDTO;
 import com.backend.university.room.dto.RoomUpdateDTO;
 import com.backend.university.room.service.RoomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +22,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/room")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class RoomController {
     
     private final RoomService service;

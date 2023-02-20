@@ -2,10 +2,9 @@ package com.backend.university.department.dto.mapper;
 
 import com.backend.university.department.domain.Department;
 import com.backend.university.department.dto.DepartmentOutputDTO;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class DepartmentMapper {
 
     public static DepartmentOutputDTO entityToOutput(Department department) {

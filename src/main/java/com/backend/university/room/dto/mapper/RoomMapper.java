@@ -2,10 +2,9 @@ package com.backend.university.room.dto.mapper;
 
 import com.backend.university.room.domain.Room;
 import com.backend.university.room.dto.RoomOutputDTO;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class RoomMapper {
 
     public static RoomOutputDTO entityToOutput(Room room) {

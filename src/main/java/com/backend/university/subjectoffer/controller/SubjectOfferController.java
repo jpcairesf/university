@@ -5,7 +5,6 @@ import com.backend.university.subjectoffer.dto.SubjectOfferOutputDTO;
 import com.backend.university.subjectoffer.dto.SubjectOfferUpdateDTO;
 import com.backend.university.subjectoffer.service.SubjectOfferService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +22,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/subject-offer")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class SubjectOfferController {
 
     private final SubjectOfferService service;

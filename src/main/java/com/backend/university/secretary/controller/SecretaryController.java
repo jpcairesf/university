@@ -5,7 +5,6 @@ import com.backend.university.secretary.dto.SecretaryOutputDTO;
 import com.backend.university.secretary.dto.SecretaryUpdateDTO;
 import com.backend.university.secretary.service.SecretaryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +22,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/secretary")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class SecretaryController {
 
     private final SecretaryService service;

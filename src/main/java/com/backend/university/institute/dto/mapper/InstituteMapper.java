@@ -2,10 +2,9 @@ package com.backend.university.institute.dto.mapper;
 
 import com.backend.university.institute.domain.Institute;
 import com.backend.university.institute.dto.InstituteOutputDTO;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class InstituteMapper {
 
     public static InstituteOutputDTO entityToOutput(Institute institute) {

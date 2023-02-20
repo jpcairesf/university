@@ -5,7 +5,6 @@ import com.backend.university.department.dto.DepartmentOutputDTO;
 import com.backend.university.department.dto.DepartmentUpdateDTO;
 import com.backend.university.department.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +22,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/department")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class DepartmentController {
 
     private final DepartmentService service;

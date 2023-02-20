@@ -1,93 +1,65 @@
 package com.backend.university.subject.service;
 
 import com.backend.university.common.error.BusinessException;
+import com.backend.university.subject.action.SubjectCreateAction;
+import com.backend.university.subject.action.SubjectDeleteAction;
+import com.backend.university.subject.action.SubjectGetAction;
+import com.backend.university.subject.action.SubjectUpdateAction;
 import com.backend.university.subject.domain.Subject;
 import com.backend.university.subject.dto.SubjectInputDTO;
 import com.backend.university.subject.dto.SubjectOutputDTO;
 import com.backend.university.subject.dto.SubjectUpdateDTO;
-import com.backend.university.subject.dto.mapper.SubjectMapper;
 import com.backend.university.subject.repository.SubjectRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class SubjectService {
 
     private final SubjectRepository repository;
 
-    @Transactional
+    private final SubjectGetAction getAction;
+
+    private final SubjectCreateAction createAction;
+
+    private final SubjectUpdateAction updateAction;
+
+    private final SubjectDeleteAction deleteAction;
+
+    @Transactional(readOnly = true)
     public SubjectOutputDTO findById(Long id) {
-        return SubjectMapper.entityToOutput(this.findEntityById(id));
+        return this.getAction.findById(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<SubjectOutputDTO> findAll() {
-        return repository.findAll().stream()
-                .map(SubjectMapper::entityToOutput)
-                .collect(Collectors.toList());
+        return this.getAction.findAll();
     }
 
     @Transactional
     public SubjectOutputDTO create(SubjectInputDTO input) {
-        this.validateExistsByCode(input.getCode());
-
-        Subject subject = new Subject();
-        subject.setCode(input.getCode());
-        subject.setName(input.getName());
-        subject.setStudyLoad(input.getStudyLoad());
-
-        repository.save(subject);
-        return SubjectMapper.entityToOutput(subject);
+        return this.createAction.create(input);
     }
 
     @Transactional
     public SubjectOutputDTO update(SubjectUpdateDTO update) {
-        Subject subject = this.findEntityById(update.getId());
-
-        if (!update.getCode().equalsIgnoreCase(subject.getCode())) {
-            this.validateExistsByCode(update.getCode());
-            subject.setCode(update.getCode());
-        }
-
-        subject.setName(update.getName());
-        subject.setStudyLoad(update.getStudyLoad());
-
-        repository.save(subject);
-        return SubjectMapper.entityToOutput(subject);
+        return this.updateAction.update(update);
     }
 
     @Transactional
     public void delete(Long id) {
-        repository.delete(this.findEntityById(id));
-    }
-
-    public Long findIdByCode(String code) {
-        return repository.findIdByCode(code)
-                .orElseThrow(() -> new BusinessException(format("There is no subject with code \"%s\".", code)));
-    }
-
-    public Subject findEntityById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new BusinessException(format("There is no subject with ID \"%s\".", id)));
+        this.deleteAction.delete(id);
     }
 
     public Subject findEntityByCode(String code) {
         return repository.findByCode(code)
                 .orElseThrow(() -> new BusinessException(format("There is no subject with code \"%s\".", code)));
-    }
-
-    private void validateExistsByCode(String code) {
-        if (repository.existsByCode(code)) {
-            throw new BusinessException(format("There is already a subject with code \"%s\".", code));
-        }
     }
 
 }

@@ -2,14 +2,12 @@ package com.backend.university.subject.dto.mapper;
 
 import com.backend.university.subject.domain.Subject;
 import com.backend.university.subject.dto.SubjectOutputDTO;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class SubjectMapper {
 
     public static SubjectOutputDTO entityToOutput(Subject subject) {
-
         return SubjectOutputDTO.builder()
                 .id(subject.getId())
                 .code(subject.getCode())

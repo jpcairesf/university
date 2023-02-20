@@ -5,7 +5,6 @@ import com.backend.university.professor.dto.ProfessorOutputDTO;
 import com.backend.university.professor.dto.ProfessorUpdateDTO;
 import com.backend.university.professor.service.ProfessorService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +22,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/professor")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class ProfessorController {
 
     private final ProfessorService service;

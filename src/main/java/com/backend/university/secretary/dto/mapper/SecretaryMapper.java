@@ -2,10 +2,9 @@ package com.backend.university.secretary.dto.mapper;
 
 import com.backend.university.secretary.domain.Secretary;
 import com.backend.university.secretary.dto.SecretaryOutputDTO;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class SecretaryMapper {
 
     public static SecretaryOutputDTO entityToOutput(Secretary secretary) {

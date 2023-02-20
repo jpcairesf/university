@@ -2,13 +2,12 @@ package com.backend.university.subjectoffer.dto.mapper;
 
 import com.backend.university.subjectoffer.domain.SubjectOffer;
 import com.backend.university.subjectoffer.dto.SubjectOfferOutputDTO;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class SubjectOfferMapper {
 
     public static SubjectOfferOutputDTO entityToOutput(SubjectOffer subjectOffer) {

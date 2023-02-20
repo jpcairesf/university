@@ -5,7 +5,6 @@ import com.backend.university.employee.dto.EmployeeOutputDTO;
 import com.backend.university.employee.dto.EmployeeUpdateDTO;
 import com.backend.university.employee.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +22,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/employee")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class EmployeeController {
 
     private final EmployeeService service;

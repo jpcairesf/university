@@ -5,7 +5,6 @@ import com.backend.university.course.dto.CourseOutputDTO;
 import com.backend.university.course.dto.CourseUpdateDTO;
 import com.backend.university.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +22,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/course")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class CourseController {
 
     private final CourseService service;

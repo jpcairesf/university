@@ -5,7 +5,6 @@ import com.backend.university.studentsubject.dto.StudentSubjectOutputDTO;
 import com.backend.university.studentsubject.dto.StudentSubjectUpdateDTO;
 import com.backend.university.studentsubject.service.StudentSubjectService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/student-subject")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class StudentSubjectController {
 
     private final StudentSubjectService service;

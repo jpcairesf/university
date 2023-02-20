@@ -4,14 +4,13 @@ import com.backend.university.student.domain.Student;
 import com.backend.university.student.dto.StudentOutputDTO;
 import com.backend.university.studentsubject.dto.StudentSubjectOutputDTO;
 import com.backend.university.studentsubject.dto.mapper.StudentSubjectMapper;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class StudentMapper {
 
     public static StudentOutputDTO entityToOutput(Student student) {
