@@ -14,7 +14,7 @@ public class CourseSubjectValidatorAction {
 
     public void validateExistsByCourseNameAndSubjectCodeAndCurriculumYear(String courseName, String subjectCode, int curriculumYear) {
         if (repository.findByCourseNameAndSubjectCodeAndCurriculumYear(courseName, subjectCode, curriculumYear).isPresent()) {
-            throw new BusinessException(CourseSubjectExceptionMessages.courseSubjectExistsByCourseSubjectCurriculum(subjectCode, courseName, curriculumYear));
+            throw new BusinessException(CourseSubjectExceptionMessages.existsByCourseNameAndSubjectCodeAndCurriculumYear(subjectCode, courseName, curriculumYear));
         }
     }
 

@@ -8,21 +8,15 @@ import com.backend.university.subjectoffer.domain.SubjectOffer;
 import com.backend.university.subjectoffer.dto.SubjectOfferInputDTO;
 import com.backend.university.subjectoffer.dto.SubjectOfferOutputDTO;
 import com.backend.university.subjectoffer.dto.SubjectOfferUpdateDTO;
-import com.backend.university.subjectoffer.repository.SubjectOfferRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
-
-import static java.lang.String.format;
 
 @Service
 @RequiredArgsConstructor
 public class SubjectOfferService {
-
-    private final SubjectOfferRepository repository;
 
     private final SubjectOfferGetAction getAction;
 
@@ -43,6 +37,11 @@ public class SubjectOfferService {
     }
 
     @Transactional
+    public SubjectOffer findIdByCourseSubjectSemesterClass(Long courseId, String subjectCode, int semester, int classNumber) {
+        return this.getAction.findIdByCourseSubjectSemesterClass(courseId, subjectCode, semester, classNumber);
+    }
+
+    @Transactional
     public SubjectOfferOutputDTO create(SubjectOfferInputDTO input) {
         return this.createAction.create(input);
     }
@@ -55,11 +54,6 @@ public class SubjectOfferService {
     @Transactional
     public void delete(Long id) {
         this.deleteAction.delete(id);
-    }
-
-    public SubjectOffer findIdByCourseSubjectSemesterClass(Long courseId, String subjectCode, int semester, int classNumber) {
-        return repository.findIdByCourseSubjectSemesterClass(courseId, subjectCode, semester, classNumber)
-                .orElseThrow(() -> new EntityNotFoundException(format("There is no subject offer for course with ID \"%s\" in subject with code \"%s\" in semester \"%s\" in class of number \"%s\".", courseId, subjectCode, semester, classNumber)));
     }
 
 }

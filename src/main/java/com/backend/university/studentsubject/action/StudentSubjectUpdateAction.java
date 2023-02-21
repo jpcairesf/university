@@ -4,14 +4,11 @@ import com.backend.university.studentsubject.domain.StudentSubject;
 import com.backend.university.studentsubject.dto.StudentSubjectOutputDTO;
 import com.backend.university.studentsubject.dto.StudentSubjectUpdateDTO;
 import com.backend.university.studentsubject.dto.mapper.StudentSubjectMapper;
+import com.backend.university.studentsubject.exception.StudentSubjectExceptionSupplier;
 import com.backend.university.studentsubject.repository.StudentSubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityNotFoundException;
-
-import static java.lang.String.format;
 
 @Component
 @RequiredArgsConstructor
@@ -36,7 +33,7 @@ public class StudentSubjectUpdateAction {
 
     private StudentSubject findEagerByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber) {
         return repository.findEagerByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber)
-                .orElseThrow(() -> new EntityNotFoundException(format("There is no enrollment number \"%s\" in the subject with code \"%s\" in semester \"%s\" in class with number \"%s\".", enrollmentNumber, subjectCode, semester, classNumber)));
+                .orElseThrow(StudentSubjectExceptionSupplier.notFoundByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber));
     }
 
 }

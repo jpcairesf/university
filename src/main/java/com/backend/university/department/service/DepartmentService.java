@@ -8,8 +8,6 @@ import com.backend.university.department.domain.Department;
 import com.backend.university.department.dto.DepartmentInputDTO;
 import com.backend.university.department.dto.DepartmentOutputDTO;
 import com.backend.university.department.dto.DepartmentUpdateDTO;
-import com.backend.university.department.exception.DepartmentExceptionSupplier;
-import com.backend.university.department.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +17,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DepartmentService {
-
-    private final DepartmentRepository repository;
 
     private final DepartmentGetAction getAction;
 
@@ -41,6 +37,11 @@ public class DepartmentService {
     }
 
     @Transactional
+    public Department findEntityByName(String name) {
+        return this.getAction.findEntityByName(name);
+    }
+
+    @Transactional
     public DepartmentOutputDTO create(DepartmentInputDTO input) {
         return this.createAction.create(input);
     }
@@ -53,11 +54,6 @@ public class DepartmentService {
     @Transactional
     public void delete(Long id) {
         this.deleteAction.delete(id);
-    }
-
-    public Department findEntityByName(String name) {
-        return repository.findByName(name)
-                .orElseThrow(DepartmentExceptionSupplier.departmentNotFoundByName(name));
     }
 
 }

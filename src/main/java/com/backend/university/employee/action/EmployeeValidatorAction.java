@@ -14,7 +14,7 @@ public class EmployeeValidatorAction {
 
     public void validateExistsByCpf(String cpf) {
         if (repository.existsByCpf(cpf)) {
-            throw new BusinessException(EmployeeExceptionMessages.employeeExistsByCpf(cpf));
+            throw new BusinessException(EmployeeExceptionMessages.existsByCpf(cpf));
         }
     }
 

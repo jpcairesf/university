@@ -8,21 +8,15 @@ import com.backend.university.student.domain.Student;
 import com.backend.university.student.dto.StudentInputDTO;
 import com.backend.university.student.dto.StudentOutputDTO;
 import com.backend.university.student.dto.StudentUpdateDTO;
-import com.backend.university.student.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
-
-import static java.lang.String.format;
 
 @Service
 @RequiredArgsConstructor
 public class StudentService {
-
-    private final StudentRepository repository;
 
     private final StudentGetAction getAction;
 
@@ -43,6 +37,11 @@ public class StudentService {
     }
 
     @Transactional
+    public Student findEntityByNumber(int number) {
+        return this.getAction.findEntityByNumber(number);
+    }
+
+    @Transactional
     public StudentOutputDTO create(StudentInputDTO input) {
         return this.createAction.create(input);
     }
@@ -55,11 +54,6 @@ public class StudentService {
     @Transactional
     public void delete(Long id) {
         this.deleteAction.delete(id);
-    }
-
-    public Student findEntityByNumber(int number) {
-        return repository.findByEnrollmentNumber(number)
-                .orElseThrow(() -> new EntityNotFoundException(format("There is no student with number \"%s\".", number)));
     }
 
 }

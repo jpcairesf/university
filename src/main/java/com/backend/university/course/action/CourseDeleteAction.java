@@ -20,7 +20,7 @@ public class CourseDeleteAction {
 
     private Course findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(CourseExceptionSupplier.courseNotFoundById(id));
+                .orElseThrow(CourseExceptionSupplier.notFoundById(id));
     }
 
 }

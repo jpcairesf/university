@@ -8,8 +8,8 @@ import java.util.function.Supplier;
 @UtilityClass
 public class CourseSubjectExceptionSupplier {
 
-    public static Supplier<EntityNotFoundException> courseSubjectNotFoundById(Long id) {
-        return () -> new EntityNotFoundException(CourseSubjectExceptionMessages.courseSubjectNotFoundById(id));
+    public static Supplier<EntityNotFoundException> notFoundById(Long id) {
+        return () -> new EntityNotFoundException(CourseSubjectExceptionMessages.notFoundById(id));
     }
 
 }

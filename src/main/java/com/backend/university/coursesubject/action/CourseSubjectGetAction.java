@@ -32,7 +32,7 @@ public class CourseSubjectGetAction {
 
     private CourseSubject findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(CourseSubjectExceptionSupplier.courseSubjectNotFoundById(id));
+                .orElseThrow(CourseSubjectExceptionSupplier.notFoundById(id));
     }
 
 }

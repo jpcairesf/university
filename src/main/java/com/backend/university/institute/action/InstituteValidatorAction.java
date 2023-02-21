@@ -14,7 +14,7 @@ public class InstituteValidatorAction {
 
     public void validateExistsByName(String name) {
         if (repository.existsByName(name)) {
-            throw new BusinessException(InstituteExceptionMessages.instituteExistsByName(name));
+            throw new BusinessException(InstituteExceptionMessages.existsByName(name));
         }
     }
 

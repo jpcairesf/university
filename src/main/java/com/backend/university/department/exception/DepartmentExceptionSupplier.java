@@ -8,12 +8,12 @@ import java.util.function.Supplier;
 @UtilityClass
 public class DepartmentExceptionSupplier {
 
-    public static Supplier<EntityNotFoundException> departmentNotFoundByName(String name) {
-        return () -> new EntityNotFoundException(DepartmentExceptionMessages.departmentNotFoundByName(name));
+    public static Supplier<EntityNotFoundException> notFoundByName(String name) {
+        return () -> new EntityNotFoundException(DepartmentExceptionMessages.notFoundByName(name));
     }
 
-    public static Supplier<EntityNotFoundException> departmentNotFoundById(Long id) {
-        return () -> new EntityNotFoundException(DepartmentExceptionMessages.departmentNotFoundById(id));
+    public static Supplier<EntityNotFoundException> notFoundById(Long id) {
+        return () -> new EntityNotFoundException(DepartmentExceptionMessages.notFoundById(id));
     }
 
 }

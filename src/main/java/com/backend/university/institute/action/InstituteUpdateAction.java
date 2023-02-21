@@ -34,7 +34,7 @@ public class InstituteUpdateAction {
 
     private Institute findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(InstituteExceptionSupplier.instituteNotFoundById(id));
+                .orElseThrow(InstituteExceptionSupplier.notFoundById(id));
     }
 
 }

@@ -14,7 +14,7 @@ public class CourseValidatorAction {
 
     public void validateExistsByName(String name) {
         if (repository.existsByName(name)) {
-            throw new BusinessException(CourseExceptionMessages.courseExistsByName(name));
+            throw new BusinessException(CourseExceptionMessages.existsByName(name));
         }
     }
 

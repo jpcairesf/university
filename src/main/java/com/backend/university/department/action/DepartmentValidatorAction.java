@@ -14,7 +14,7 @@ public class DepartmentValidatorAction {
 
     public void validateExistsByName(String name) {
         if (repository.existsByName(name)) {
-            throw new BusinessException(DepartmentExceptionMessages.departmentExistsByName(name));
+            throw new BusinessException(DepartmentExceptionMessages.existsByName(name));
         }
     }
 

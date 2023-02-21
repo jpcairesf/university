@@ -6,15 +6,13 @@ import com.backend.university.subjectoffer.dto.SubjectOfferOutputDTO;
 import com.backend.university.subjectoffer.dto.SubjectOfferUpdateDTO;
 import com.backend.university.subjectoffer.dto.mapper.SubjectOfferMapper;
 import com.backend.university.subjectoffer.enumx.AmPmEnum;
+import com.backend.university.subjectoffer.exception.SubjectOfferExceptionSupplier;
 import com.backend.university.subjectoffer.repository.SubjectOfferRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.DayOfWeek;
-
-import static java.lang.String.format;
 
 @Component
 @RequiredArgsConstructor
@@ -46,7 +44,7 @@ public class SubjectOfferUpdateAction {
 
     private SubjectOffer findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(format("There is no subject offer with ID \"%s\".", id)));
+                .orElseThrow(SubjectOfferExceptionSupplier.notFoundById(id));
     }
 
 }

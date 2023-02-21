@@ -30,9 +30,15 @@ public class DepartmentGetAction {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public Department findEntityByName(String name) {
+        return repository.findByName(name)
+                .orElseThrow(DepartmentExceptionSupplier.notFoundByName(name));
+    }
+
     private Department findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(DepartmentExceptionSupplier.departmentNotFoundById(id));
+                .orElseThrow(DepartmentExceptionSupplier.notFoundById(id));
     }
 
 }

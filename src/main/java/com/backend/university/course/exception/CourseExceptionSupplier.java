@@ -8,12 +8,12 @@ import java.util.function.Supplier;
 @UtilityClass
 public class CourseExceptionSupplier {
 
-    public static Supplier<EntityNotFoundException> courseNotFoundByName(String name) {
-        return () -> new EntityNotFoundException(CourseExceptionMessages.courseNotFoundByName(name));
+    public static Supplier<EntityNotFoundException> notFoundByName(String name) {
+        return () -> new EntityNotFoundException(CourseExceptionMessages.notFoundByName(name));
     }
 
-    public static Supplier<EntityNotFoundException> courseNotFoundById(Long id) {
-        return () -> new EntityNotFoundException(CourseExceptionMessages.courseNotFoundById(id));
+    public static Supplier<EntityNotFoundException> notFoundById(Long id) {
+        return () -> new EntityNotFoundException(CourseExceptionMessages.notFoundById(id));
     }
 
 }

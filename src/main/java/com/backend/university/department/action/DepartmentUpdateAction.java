@@ -38,7 +38,7 @@ public class DepartmentUpdateAction {
 
     private Department findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(DepartmentExceptionSupplier.departmentNotFoundById(id));
+                .orElseThrow(DepartmentExceptionSupplier.notFoundById(id));
     }
 
 }

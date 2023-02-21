@@ -30,9 +30,15 @@ public class InstituteGetAction {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public Institute findEntityByName(String name) {
+        return repository.findByName(name)
+                .orElseThrow(InstituteExceptionSupplier.notFoundByName(name));
+    }
+
     private Institute findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(InstituteExceptionSupplier.instituteNotFoundById(id));
+                .orElseThrow(InstituteExceptionSupplier.notFoundById(id));
     }
 
 }

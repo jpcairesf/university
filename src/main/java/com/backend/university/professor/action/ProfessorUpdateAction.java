@@ -1,11 +1,11 @@
 package com.backend.university.professor.action;
 
-import com.backend.university.common.error.BusinessException;
 import com.backend.university.department.service.DepartmentService;
 import com.backend.university.professor.domain.Professor;
 import com.backend.university.professor.dto.ProfessorOutputDTO;
 import com.backend.university.professor.dto.ProfessorUpdateDTO;
 import com.backend.university.professor.dto.mapper.ProfessorMapper;
+import com.backend.university.professor.exception.ProfessorExceptionSupplier;
 import com.backend.university.professor.repository.ProfessorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.backend.university.professor.domain.enumx.Degree.toDegree;
 import static com.backend.university.professor.domain.enumx.Rank.toRank;
-import static java.lang.String.format;
 
 @Component
 @RequiredArgsConstructor
@@ -49,7 +48,7 @@ public class ProfessorUpdateAction {
 
     private Professor findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new BusinessException(format("There is no professor with ID \"%s\".", id)));
+                .orElseThrow(ProfessorExceptionSupplier.notFoundById(id));
     }
 
 }

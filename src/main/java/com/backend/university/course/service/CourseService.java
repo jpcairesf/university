@@ -8,8 +8,6 @@ import com.backend.university.course.domain.Course;
 import com.backend.university.course.dto.CourseInputDTO;
 import com.backend.university.course.dto.CourseOutputDTO;
 import com.backend.university.course.dto.CourseUpdateDTO;
-import com.backend.university.course.exception.CourseExceptionSupplier;
-import com.backend.university.course.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +17,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CourseService {
-
-    private final CourseRepository repository;
 
     private final CourseGetAction getAction;
 
@@ -41,6 +37,11 @@ public class CourseService {
     }
 
     @Transactional
+    public Course findEntityByName(String name) {
+        return this.getAction.findEntityByName(name);
+    }
+
+    @Transactional
     public CourseOutputDTO create(CourseInputDTO input) {
         return this.createAction.create(input);
     }
@@ -53,11 +54,6 @@ public class CourseService {
     @Transactional
     public void delete(Long id) {
         this.deleteAction.delete(id);
-    }
-
-    public Course findEntityByName(String name) {
-        return repository.findByName(name)
-                .orElseThrow(CourseExceptionSupplier.courseNotFoundByName(name));
     }
 
 }

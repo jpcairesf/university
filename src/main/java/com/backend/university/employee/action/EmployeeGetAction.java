@@ -32,7 +32,7 @@ public class EmployeeGetAction {
 
     private Employee findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(EmployeeExceptionSupplier.employeeNotFoundById(id));
+                .orElseThrow(EmployeeExceptionSupplier.notFoundById(id));
     }
 
 }
