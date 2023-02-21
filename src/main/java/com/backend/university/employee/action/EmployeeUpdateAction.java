@@ -23,6 +23,7 @@ public class EmployeeUpdateAction {
         Employee employee = this.findEntityById(update.getId());
 
         if (!update.getCpf().equalsIgnoreCase(employee.getCpf())) {
+            this.validatorAction.validateCpf(update.getCpf());
             this.validatorAction.validateExistsByCpf(update.getCpf());
             employee.setCpf(update.getCpf());
         }

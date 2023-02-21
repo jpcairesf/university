@@ -30,6 +30,7 @@ public class StudentUpdateAction {
             student.setEnrollmentNumber(update.getEnrollmentNumber());
         }
         if (!update.getCpf().equalsIgnoreCase(student.getCpf())) {
+            this.validatorAction.validateCpf(update.getCpf());
             this.validatorAction.validateExistsByCpf(update.getCpf());
             student.setCpf(update.getCpf());
         }

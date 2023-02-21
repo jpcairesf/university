@@ -24,6 +24,7 @@ public class StudentCreateAction {
 
     @Transactional
     public StudentOutputDTO create(StudentInputDTO input) {
+        this.validatorAction.validateCpf(input.getCpf());
         this.validatorAction.validateExistsByNumber(input.getEnrollmentNumber());
         this.validatorAction.validateExistsByCpf(input.getCpf());
 

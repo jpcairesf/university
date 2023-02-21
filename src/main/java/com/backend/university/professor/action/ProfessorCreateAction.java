@@ -25,6 +25,7 @@ public class ProfessorCreateAction {
 
     @Transactional
     public ProfessorOutputDTO create(ProfessorInputDTO input) {
+        this.validatorAction.validateCpf(input.getCpf());
         this.validatorAction.validateExistsByCpf(input.getCpf());
 
         Professor professor = new Professor();

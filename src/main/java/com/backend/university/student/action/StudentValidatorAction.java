@@ -1,6 +1,7 @@
 package com.backend.university.student.action;
 
 import com.backend.university.common.error.BusinessException;
+import com.backend.university.common.validator.CPFValidator;
 import com.backend.university.student.exception.StudentExceptionMessages;
 import com.backend.university.student.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Component;
 public class StudentValidatorAction {
 
     private final StudentRepository repository;
+
+    private final CPFValidator cpfValidator;
 
     public void validateExistsByNumber(int number) {
         if (repository.existsByEnrollmentNumber(number)) {
@@ -24,4 +27,7 @@ public class StudentValidatorAction {
         }
     }
 
+    public void validateCpf(String cpf) {
+        cpfValidator.validate(cpf);
+    }
 }

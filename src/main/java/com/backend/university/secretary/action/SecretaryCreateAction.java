@@ -22,6 +22,7 @@ public class SecretaryCreateAction {
 
     @Transactional
     public SecretaryOutputDTO create(SecretaryInputDTO input) {
+        this.validatorAction.validateCpf(input.getCpf());
         this.validatorAction.validateExistsByCpf(input.getCpf());
 
         Secretary secretary = new Secretary();
