@@ -1,9 +1,9 @@
 package com.backend.university.institute.action;
 
-import com.backend.university.common.error.BusinessException;
 import com.backend.university.institute.domain.Institute;
 import com.backend.university.institute.dto.InstituteOutputDTO;
 import com.backend.university.institute.dto.mapper.InstituteMapper;
+import com.backend.university.institute.exception.InstituteExceptionSupplier;
 import com.backend.university.institute.repository.InstituteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.lang.String.format;
 
 @Component
 @RequiredArgsConstructor
@@ -34,7 +32,7 @@ public class InstituteGetAction {
 
     private Institute findEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new BusinessException(format("There is no institute with ID \"%s\".", id)));
+                .orElseThrow(InstituteExceptionSupplier.instituteNotFoundById(id));
     }
 
 }

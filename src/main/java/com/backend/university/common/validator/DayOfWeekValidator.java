@@ -4,13 +4,11 @@ import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 
-import static java.lang.String.format;
+import static com.backend.university.common.validator.exception.DayOfWeekExceptionMessages.invalidDayOfWeek;
+import static com.backend.university.common.validator.exception.DayOfWeekExceptionMessages.nullDayOfWeek;
 
 @Component
 public class DayOfWeekValidator implements ValueValidator<String> {
-
-    private static final String INVALID_DAY_OF_WEEK = "Invalid Day Of Week value: \"%s\".";
-    private static final String NULL_DAY_OF_WEEK = "Null Day Of Week value.";
 
     @Override
     public void validate(String value) {
@@ -18,10 +16,10 @@ public class DayOfWeekValidator implements ValueValidator<String> {
             DayOfWeek.valueOf(value);
         }
         catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(format(INVALID_DAY_OF_WEEK, value));
+            throw new IllegalArgumentException(invalidDayOfWeek(value));
         }
         catch (NullPointerException e) {
-            throw new IllegalArgumentException(NULL_DAY_OF_WEEK);
+            throw new IllegalArgumentException(nullDayOfWeek());
         }
     }
 }

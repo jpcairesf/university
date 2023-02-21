@@ -3,13 +3,11 @@ package com.backend.university.common.validator;
 import com.backend.university.subjectoffer.enumx.AmPmEnum;
 import org.springframework.stereotype.Component;
 
-import static java.lang.String.format;
+import static com.backend.university.common.validator.exception.AmPmExceptionMessages.invalidAmPm;
+import static com.backend.university.common.validator.exception.AmPmExceptionMessages.nullAmPm;
 
 @Component
 public class AmPmValidator implements ValueValidator<String> {
-
-    private static final String INVALID_AM_PM = "Invalid AM/PM value: \"%s\".";
-    private static final String NULL_AM_PM = "Null AM/PM value.";
 
     @Override
     public void validate(String value) {
@@ -17,10 +15,10 @@ public class AmPmValidator implements ValueValidator<String> {
             AmPmEnum.valueOf(value);
         }
         catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(format(INVALID_AM_PM, value));
+            throw new IllegalArgumentException(invalidAmPm(value));
         }
         catch (NullPointerException e) {
-            throw new IllegalArgumentException(NULL_AM_PM);
+            throw new IllegalArgumentException(nullAmPm());
         }
     }
 }

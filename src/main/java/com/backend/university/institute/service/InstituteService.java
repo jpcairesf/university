@@ -1,6 +1,5 @@
 package com.backend.university.institute.service;
 
-import com.backend.university.common.error.BusinessException;
 import com.backend.university.institute.action.InstituteCreateAction;
 import com.backend.university.institute.action.InstituteDeleteAction;
 import com.backend.university.institute.action.InstituteGetAction;
@@ -9,14 +8,13 @@ import com.backend.university.institute.domain.Institute;
 import com.backend.university.institute.dto.InstituteInputDTO;
 import com.backend.university.institute.dto.InstituteOutputDTO;
 import com.backend.university.institute.dto.InstituteUpdateDTO;
+import com.backend.university.institute.exception.InstituteExceptionSupplier;
 import com.backend.university.institute.repository.InstituteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static java.lang.String.format;
 
 @Service
 @RequiredArgsConstructor
@@ -59,7 +57,7 @@ public class InstituteService {
 
     public Institute findEntityByName(String name) {
         return repository.findByName(name)
-                .orElseThrow(() -> new BusinessException(format("There is no institute named \"%s\".", name)));
+                .orElseThrow(InstituteExceptionSupplier.instituteNotFoundByName(name));
     }
 
 }

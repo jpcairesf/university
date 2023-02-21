@@ -1,6 +1,5 @@
 package com.backend.university.department.service;
 
-import com.backend.university.common.error.BusinessException;
 import com.backend.university.department.action.DepartmentCreateAction;
 import com.backend.university.department.action.DepartmentDeleteAction;
 import com.backend.university.department.action.DepartmentGetAction;
@@ -9,14 +8,13 @@ import com.backend.university.department.domain.Department;
 import com.backend.university.department.dto.DepartmentInputDTO;
 import com.backend.university.department.dto.DepartmentOutputDTO;
 import com.backend.university.department.dto.DepartmentUpdateDTO;
+import com.backend.university.department.exception.DepartmentExceptionSupplier;
 import com.backend.university.department.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static java.lang.String.format;
 
 @Service
 @RequiredArgsConstructor
@@ -59,7 +57,7 @@ public class DepartmentService {
 
     public Department findEntityByName(String name) {
         return repository.findByName(name)
-                .orElseThrow(() -> new BusinessException(format("There is no department named \"%s\".", name)));
+                .orElseThrow(DepartmentExceptionSupplier.departmentNotFoundByName(name));
     }
 
 }

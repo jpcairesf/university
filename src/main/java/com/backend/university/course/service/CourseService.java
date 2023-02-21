@@ -1,6 +1,5 @@
 package com.backend.university.course.service;
 
-import com.backend.university.common.error.BusinessException;
 import com.backend.university.course.action.CourseCreateAction;
 import com.backend.university.course.action.CourseDeleteAction;
 import com.backend.university.course.action.CourseGetAction;
@@ -9,14 +8,13 @@ import com.backend.university.course.domain.Course;
 import com.backend.university.course.dto.CourseInputDTO;
 import com.backend.university.course.dto.CourseOutputDTO;
 import com.backend.university.course.dto.CourseUpdateDTO;
+import com.backend.university.course.exception.CourseExceptionSupplier;
 import com.backend.university.course.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static java.lang.String.format;
 
 @Service
 @RequiredArgsConstructor
@@ -59,7 +57,7 @@ public class CourseService {
 
     public Course findEntityByName(String name) {
         return repository.findByName(name)
-                .orElseThrow(() -> new BusinessException(format("There is no course named \"%s\".", name)));
+                .orElseThrow(CourseExceptionSupplier.courseNotFoundByName(name));
     }
 
 }
