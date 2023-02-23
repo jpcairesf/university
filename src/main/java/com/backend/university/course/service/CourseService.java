@@ -28,32 +28,32 @@ public class CourseService {
 
     @Transactional(readOnly = true)
     public CourseOutputDTO findById(Long id) {
-        return this.getAction.findById(id);
+        return getAction.findById(id);
     }
 
     @Transactional(readOnly = true)
     public List<CourseOutputDTO> findAll() {
-        return this.getAction.findAll();
+        return getAction.findAll();
     }
 
     @Transactional
     public Course findEntityByName(String name) {
-        return this.getAction.findEntityByName(name);
+        return getAction.findEntityByName(name);
     }
 
     @Transactional
     public CourseOutputDTO create(CourseInputDTO input) {
-        return this.createAction.create(input);
+        return createAction.create(input);
     }
 
     @Transactional
     public CourseOutputDTO update(CourseUpdateDTO update) {
-        return this.updateAction.update(update);
+        return updateAction.update(update);
     }
 
     @Transactional
     public void delete(Long id) {
-        this.deleteAction.delete(id);
+        deleteAction.delete(id);
     }
 
 }

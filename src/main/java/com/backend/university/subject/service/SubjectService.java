@@ -28,32 +28,32 @@ public class SubjectService {
 
     @Transactional(readOnly = true)
     public SubjectOutputDTO findById(Long id) {
-        return this.getAction.findById(id);
+        return getAction.findById(id);
     }
 
     @Transactional(readOnly = true)
     public List<SubjectOutputDTO> findAll() {
-        return this.getAction.findAll();
+        return getAction.findAll();
     }
 
     @Transactional
     public Subject findEntityByCode(String code) {
-        return this.getAction.findEntityByCode(code);
+        return getAction.findEntityByCode(code);
     }
 
     @Transactional
     public SubjectOutputDTO create(SubjectInputDTO input) {
-        return this.createAction.create(input);
+        return createAction.create(input);
     }
 
     @Transactional
     public SubjectOutputDTO update(SubjectUpdateDTO update) {
-        return this.updateAction.update(update);
+        return updateAction.update(update);
     }
 
     @Transactional
     public void delete(Long id) {
-        this.deleteAction.delete(id);
+        deleteAction.delete(id);
     }
 
 }

@@ -28,32 +28,32 @@ public class DepartmentService {
 
     @Transactional(readOnly = true)
     public DepartmentOutputDTO findById(Long id) {
-        return this.getAction.findById(id);
+        return getAction.findById(id);
     }
 
     @Transactional(readOnly = true)
     public List<DepartmentOutputDTO> findAll() {
-        return this.getAction.findAll();
+        return getAction.findAll();
     }
 
     @Transactional
     public Department findEntityByName(String name) {
-        return this.getAction.findEntityByName(name);
+        return getAction.findEntityByName(name);
     }
 
     @Transactional
     public DepartmentOutputDTO create(DepartmentInputDTO input) {
-        return this.createAction.create(input);
+        return createAction.create(input);
     }
 
     @Transactional
     public DepartmentOutputDTO update(DepartmentUpdateDTO update) {
-        return this.updateAction.update(update);
+        return updateAction.update(update);
     }
 
     @Transactional
     public void delete(Long id) {
-        this.deleteAction.delete(id);
+        deleteAction.delete(id);
     }
 
 }

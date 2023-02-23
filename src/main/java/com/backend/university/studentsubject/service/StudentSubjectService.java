@@ -28,27 +28,27 @@ public class StudentSubjectService {
 
     @Transactional(readOnly = true)
     public StudentSubjectOutputDTO findById(StudentSubjectId id) {
-        return this.getAction.findById(id);
+        return getAction.findById(id);
     }
 
     @Transactional(readOnly = true)
     public List<StudentSubjectOutputDTO> findAll() {
-        return this.getAction.findAll();
+        return getAction.findAll();
     }
 
     @Transactional
     public StudentSubjectOutputDTO create(StudentSubjectInputDTO input) {
-        return this.createAction.create(input);
+        return createAction.create(input);
     }
 
     @Transactional
     public StudentSubjectOutputDTO update(StudentSubjectUpdateDTO update) {
-        return this.updateAction.update(update);
+        return updateAction.update(update);
     }
 
     @Transactional
     public void delete(StudentSubjectId id) {
-        this.deleteAction.delete(id);
+        deleteAction.delete(id);
     }
 
 }

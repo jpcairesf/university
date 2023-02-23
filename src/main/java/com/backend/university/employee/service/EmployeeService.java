@@ -27,27 +27,27 @@ public class EmployeeService {
 
     @Transactional(readOnly = true)
     public EmployeeOutputDTO findById(Long id) {
-        return this.getAction.findById(id);
+        return getAction.findById(id);
     }
 
     @Transactional(readOnly = true)
     public List<EmployeeOutputDTO> findAll() {
-        return this.getAction.findAll();
+        return getAction.findAll();
     }
 
     @Transactional
     public EmployeeOutputDTO create(EmployeeInputDTO input) {
-        return this.createAction.create(input);
+        return createAction.create(input);
     }
 
     @Transactional
     public EmployeeOutputDTO update(EmployeeUpdateDTO update) {
-        return this.updateAction.update(update);
+        return updateAction.update(update);
     }
 
     @Transactional
     public void delete(Long id) {
-        this.deleteAction.delete(id);
+        deleteAction.delete(id);
     }
 
 }

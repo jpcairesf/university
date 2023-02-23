@@ -28,32 +28,32 @@ public class ProfessorService {
 
     @Transactional(readOnly = true)
     public ProfessorOutputDTO findById(Long id) {
-        return this.getAction.findById(id);
+        return getAction.findById(id);
     }
 
     @Transactional(readOnly = true)
     public List<ProfessorOutputDTO> findAll() {
-        return this.getAction.findAll();
+        return getAction.findAll();
     }
 
     @Transactional
     public Professor findEntityByCpf(String cpf) {
-        return this.getAction.findEntityByCpf(cpf);
+        return getAction.findEntityByCpf(cpf);
     }
 
     @Transactional
     public ProfessorOutputDTO create(ProfessorInputDTO input) {
-        return this.createAction.create(input);
+        return createAction.create(input);
     }
 
     @Transactional
     public ProfessorOutputDTO update(ProfessorUpdateDTO update) {
-        return this.updateAction.update(update);
+        return updateAction.update(update);
     }
 
     @Transactional
     public void delete(Long id) {
-        this.deleteAction.delete(id);
+        deleteAction.delete(id);
     }
 
 }

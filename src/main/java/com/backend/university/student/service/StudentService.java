@@ -28,32 +28,32 @@ public class StudentService {
 
     @Transactional(readOnly = true)
     public StudentOutputDTO findById(Long id) {
-        return this.getAction.findById(id);
+        return getAction.findById(id);
     }
 
     @Transactional(readOnly = true)
     public List<StudentOutputDTO> findAll() {
-        return this.getAction.findAll();
+        return getAction.findAll();
     }
 
     @Transactional
     public Student findEntityByNumber(int number) {
-        return this.getAction.findEntityByNumber(number);
+        return getAction.findEntityByNumber(number);
     }
 
     @Transactional
     public StudentOutputDTO create(StudentInputDTO input) {
-        return this.createAction.create(input);
+        return createAction.create(input);
     }
 
     @Transactional
     public StudentOutputDTO update(StudentUpdateDTO update) {
-        return this.updateAction.update(update);
+        return updateAction.update(update);
     }
 
     @Transactional
     public void delete(Long id) {
-        this.deleteAction.delete(id);
+        deleteAction.delete(id);
     }
 
 }
