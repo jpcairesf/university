@@ -26,12 +26,12 @@ public class StudentUpdateAction {
         Student student = this.findEntityById(update.getId());
 
         if (update.getEnrollmentNumber() != student.getEnrollmentNumber()) {
-            this.validatorAction.validateExistsByNumber(update.getEnrollmentNumber());
+            validatorAction.validateExistsByNumber(update.getEnrollmentNumber());
             student.setEnrollmentNumber(update.getEnrollmentNumber());
         }
         if (!update.getCpf().equalsIgnoreCase(student.getCpf())) {
-            this.validatorAction.validateCpf(update.getCpf());
-            this.validatorAction.validateExistsByCpf(update.getCpf());
+            validatorAction.validateCpf(update.getCpf());
+            validatorAction.validateExistsByCpf(update.getCpf());
             student.setCpf(update.getCpf());
         }
         if (!update.getCourse().equalsIgnoreCase(student.getCourse().getName())) {

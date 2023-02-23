@@ -22,7 +22,7 @@ public class CourseCreateAction {
     private final CourseValidatorAction validatorAction;
 
     public CourseOutputDTO create(CourseInputDTO input) {
-        this.validatorAction.validateExistsByName(input.getName());
+        validatorAction.validateExistsByName(input.getName());
 
         Course course = new Course();
         course.setName(input.getName());

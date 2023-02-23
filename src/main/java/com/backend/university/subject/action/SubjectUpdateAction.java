@@ -23,7 +23,7 @@ public class SubjectUpdateAction {
         Subject subject = this.findEntityById(update.getId());
 
         if (!update.getCode().equalsIgnoreCase(subject.getCode())) {
-            this.validatorAction.validateExistsByCode(update.getCode());
+            validatorAction.validateExistsByCode(update.getCode());
             subject.setCode(update.getCode());
         }
 

@@ -28,7 +28,7 @@ public class StudentSubjectCreateAction {
 
     @Transactional
     public StudentSubjectOutputDTO create(StudentSubjectInputDTO input) {
-        this.validatorAction.validateExistsByEnrollmentSubjectSemesterClass(
+        validatorAction.validateExistsByEnrollmentSubjectSemesterClass(
                 input.getEnrollmentNumber(),
                 input.getSubjectCode(),
                 input.getSemester(),
@@ -43,7 +43,7 @@ public class StudentSubjectCreateAction {
                 input.getSemester(),
                 input.getClassNumber());
 
-        this.validatorAction.validateVacanciesOffer(subjectOffer);
+        validatorAction.validateVacanciesOffer(subjectOffer);
 
         studentSubject.setId(new StudentSubjectId(
                 student.getId(),

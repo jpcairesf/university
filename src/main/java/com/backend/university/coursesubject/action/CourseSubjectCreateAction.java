@@ -25,7 +25,7 @@ public class CourseSubjectCreateAction {
 
     @Transactional
     public CourseSubjectOutputDTO create(CourseSubjectInputDTO input) {
-        this.validatorAction.validateExistsByCourseNameAndSubjectCodeAndCurriculumYear(input.getCourse(), input.getSubjectCode(), input.getCurriculumYear());
+        validatorAction.validateExistsByCourseNameAndSubjectCodeAndCurriculumYear(input.getCourse(), input.getSubjectCode(), input.getCurriculumYear());
 
         CourseSubject courseSubject = new CourseSubject();
         courseSubject.setSubject(subjectService.findEntityByCode(input.getSubjectCode()));

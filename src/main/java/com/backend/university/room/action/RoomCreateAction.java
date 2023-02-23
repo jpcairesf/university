@@ -19,7 +19,7 @@ public class RoomCreateAction {
 
     @Transactional
     public RoomOutputDTO create(RoomInputDTO input) {
-        this.validatorAction.validateExistsByName(input.getName());
+        validatorAction.validateExistsByName(input.getName());
 
         Room room = new Room();
         room.setName(input.getName());

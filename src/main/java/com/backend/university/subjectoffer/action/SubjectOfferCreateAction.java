@@ -34,10 +34,10 @@ public class SubjectOfferCreateAction {
 
     @Transactional
     public SubjectOfferOutputDTO create(SubjectOfferInputDTO input) {
-        this.validatorAction.validateSemester(input.getSemester());
-        this.validatorAction.validateDayOfWeek(input.getDayOfWeek());
-        this.validatorAction.validateAmPm(input.getAmPm());
-        this.validatorAction.validateExistsByCourseSubjectSemesterClass(input.getCourseName(), input.getSubjectCode(), input.getSemester(), input.getClassNumber());
+        validatorAction.validateSemester(input.getSemester());
+        validatorAction.validateDayOfWeek(input.getDayOfWeek());
+        validatorAction.validateAmPm(input.getAmPm());
+        validatorAction.validateExistsByCourseSubjectSemesterClass(input.getCourseName(), input.getSubjectCode(), input.getSemester(), input.getClassNumber());
 
         SubjectOffer subjectOffer = new SubjectOffer();
         subjectOffer.setCourse(courseService.findEntityByName(input.getCourseName()));

@@ -26,7 +26,7 @@ public class CourseUpdateAction {
         Course course = this.findEntityById(update.getId());
 
         if (!update.getName().equalsIgnoreCase(course.getName())) {
-            this.validatorAction.validateExistsByName(update.getName());
+            validatorAction.validateExistsByName(update.getName());
             course.setName(update.getName());
         }
         if (!update.getDepartment().equalsIgnoreCase(course.getDepartment().getName())) {

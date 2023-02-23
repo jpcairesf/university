@@ -26,8 +26,8 @@ public class SubjectOfferUpdateAction {
 
     @Transactional
     public SubjectOfferOutputDTO update(SubjectOfferUpdateDTO update) {
-        this.validatorAction.validateDayOfWeek(update.getDayOfWeek());
-        this.validatorAction.validateAmPm(update.getAmPm());
+        validatorAction.validateDayOfWeek(update.getDayOfWeek());
+        validatorAction.validateAmPm(update.getAmPm());
 
         SubjectOffer subjectOffer = this.findEntityById(update.getId());
 

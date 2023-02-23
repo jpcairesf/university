@@ -19,7 +19,7 @@ public class SubjectCreateAction {
 
     @Transactional
     public SubjectOutputDTO create(SubjectInputDTO input) {
-        this.validatorAction.validateExistsByCode(input.getCode());
+        validatorAction.validateExistsByCode(input.getCode());
 
         Subject subject = new Subject();
         subject.setCode(input.getCode());

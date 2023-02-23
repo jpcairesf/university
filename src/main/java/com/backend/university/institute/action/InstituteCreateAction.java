@@ -19,7 +19,7 @@ public class InstituteCreateAction {
 
     @Transactional
     public InstituteOutputDTO create(InstituteInputDTO input) {
-        this.validatorAction.validateExistsByName(input.getName());
+        validatorAction.validateExistsByName(input.getName());
 
         Institute institute = new Institute();
         institute.setName(input.getName());

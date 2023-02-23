@@ -26,7 +26,7 @@ public class DepartmentUpdateAction {
         Department department = this.findEntityById(update.getId());
 
         if (!update.getName().equalsIgnoreCase(department.getName())) {
-            this.validatorAction.validateExistsByName(update.getName());
+            validatorAction.validateExistsByName(update.getName());
             department.setName(update.getName());
         }
         if (!update.getInstitute().equalsIgnoreCase(department.getInstitute().getName())) {

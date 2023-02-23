@@ -23,7 +23,7 @@ public class RoomUpdateAction {
         Room room = this.findEntityById(update.getId());
 
         if (!update.getName().equalsIgnoreCase(room.getName())) {
-            this.validatorAction.validateExistsByName(update.getName());
+            validatorAction.validateExistsByName(update.getName());
             room.setName(update.getName());
         }
         room.setLocation(update.getLocation());

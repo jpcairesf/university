@@ -22,7 +22,7 @@ public class DepartmentCreateAction {
 
     @Transactional
     public DepartmentOutputDTO create(DepartmentInputDTO input) {
-        this.validatorAction.validateExistsByName(input.getName());
+        validatorAction.validateExistsByName(input.getName());
 
         Department department = new Department();
         department.setName(input.getName());

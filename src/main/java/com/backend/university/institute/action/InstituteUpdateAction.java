@@ -23,7 +23,7 @@ public class InstituteUpdateAction {
         Institute institute = this.findEntityById(update.getId());
 
         if (!update.getName().equalsIgnoreCase(institute.getName())) {
-            this.validatorAction.validateExistsByName(update.getName());
+            validatorAction.validateExistsByName(update.getName());
             institute.setName(update.getName());
         }
         institute.setFoundationDate(update.getFoundationDate());
