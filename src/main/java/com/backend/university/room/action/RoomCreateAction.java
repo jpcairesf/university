@@ -24,8 +24,8 @@ public class RoomCreateAction {
         Room room = new Room();
         room.setName(input.getName());
         room.setLocation(input.getLocation());
-        repository.save(room);
 
+        repository.save(room);
         return RoomMapper.entityToOutput(room);
     }
 

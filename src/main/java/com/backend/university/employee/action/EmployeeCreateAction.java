@@ -19,8 +19,8 @@ public class EmployeeCreateAction {
 
     @Transactional
     public EmployeeOutputDTO create(EmployeeInputDTO input) {
-        validatorAction.validateCpf(input.getCpf());
         validatorAction.validateExistsByCpf(input.getCpf());
+        validatorAction.validateCpf(input.getCpf());
 
         Employee employee = new Employee();
         employee.setCpf(input.getCpf());

@@ -30,8 +30,8 @@ public class StudentUpdateAction {
             student.setEnrollmentNumber(update.getEnrollmentNumber());
         }
         if (!update.getCpf().equalsIgnoreCase(student.getCpf())) {
-            validatorAction.validateCpf(update.getCpf());
             validatorAction.validateExistsByCpf(update.getCpf());
+            validatorAction.validateCpf(update.getCpf());
             student.setCpf(update.getCpf());
         }
         if (!update.getCourse().equalsIgnoreCase(student.getCourse().getName())) {

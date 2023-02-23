@@ -32,8 +32,8 @@ public class ProfessorUpdateAction {
             professor.setDepartment(departmentService.findEntityByName(update.getName()));
         }
         if (!update.getCpf().equalsIgnoreCase(professor.getCpf())) {
-            validatorAction.validateCpf(update.getCpf());
             validatorAction.validateExistsByCpf(update.getCpf());
+            validatorAction.validateCpf(update.getCpf());
             professor.setCpf(update.getCpf());
         }
         professor.setName(update.getName());

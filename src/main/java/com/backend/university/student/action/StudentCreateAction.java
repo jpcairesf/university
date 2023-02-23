@@ -24,9 +24,9 @@ public class StudentCreateAction {
 
     @Transactional
     public StudentOutputDTO create(StudentInputDTO input) {
-        validatorAction.validateCpf(input.getCpf());
         validatorAction.validateExistsByNumber(input.getEnrollmentNumber());
         validatorAction.validateExistsByCpf(input.getCpf());
+        validatorAction.validateCpf(input.getCpf());
 
         Student student = new Student();
         student.setName(input.getName());

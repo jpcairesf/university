@@ -29,8 +29,8 @@ public class SecretaryUpdateAction {
             secretary.setInstitute(instituteService.findEntityByName(update.getInstitute()));
         }
         if (!update.getCpf().equalsIgnoreCase(secretary.getCpf())) {
-            validatorAction.validateCpf(update.getCpf());
             validatorAction.validateExistsByCpf(update.getCpf());
+            validatorAction.validateCpf(update.getCpf());
             secretary.setCpf(update.getCpf());
         }
         secretary.setName(update.getName());
