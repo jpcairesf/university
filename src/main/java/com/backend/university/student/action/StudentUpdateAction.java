@@ -1,15 +1,12 @@
 package com.backend.university.student.action;
 
-import com.backend.university.course.service.CourseService;
+import com.backend.university.course.action.CourseRelatedAction;
 import com.backend.university.student.domain.Student;
-import com.backend.university.student.dto.StudentOutputDTO;
 import com.backend.university.student.dto.StudentUpdateDTO;
-import com.backend.university.student.dto.mapper.StudentMapper;
 import com.backend.university.student.exception.StudentExceptionSupplier;
 import com.backend.university.student.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -19,10 +16,9 @@ public class StudentUpdateAction {
 
     private final StudentValidatorAction validatorAction;
 
-    private final CourseService courseService;
+    private final CourseRelatedAction courseRelatedAction;
 
-    @Transactional
-    public StudentOutputDTO update(StudentUpdateDTO update) {
+    public Student update(StudentUpdateDTO update) {
         Student student = this.findEntityById(update.getId());
 
         if (update.getEnrollmentNumber() != student.getEnrollmentNumber()) {
@@ -35,7 +31,7 @@ public class StudentUpdateAction {
             student.setCpf(update.getCpf());
         }
         if (!update.getCourse().equalsIgnoreCase(student.getCourse().getName())) {
-            student.setCourse(courseService.findEntityByName(update.getCourse()));
+            student.setCourse(courseRelatedAction.findEntityByName(update.getCourse()));
         }
 
         student.setName(update.getName());
@@ -43,8 +39,7 @@ public class StudentUpdateAction {
         student.setEnrollmentNumber(update.getEnrollmentNumber());
         student.setEnrollmentDate(update.getEnrollmentDate());
 
-        repository.save(student);
-        return StudentMapper.entityToOutput(student);
+        return repository.save(student);
     }
 
     private Student findEntityById(Long id) {

@@ -2,12 +2,9 @@ package com.backend.university.employee.action;
 
 import com.backend.university.employee.domain.Employee;
 import com.backend.university.employee.dto.EmployeeInputDTO;
-import com.backend.university.employee.dto.EmployeeOutputDTO;
-import com.backend.university.employee.dto.mapper.EmployeeMapper;
 import com.backend.university.employee.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -17,8 +14,7 @@ public class EmployeeCreateAction {
 
     private final EmployeeValidatorAction validatorAction;
 
-    @Transactional
-    public EmployeeOutputDTO create(EmployeeInputDTO input) {
+    public Employee create(EmployeeInputDTO input) {
         validatorAction.validateExistsByCpf(input.getCpf());
         validatorAction.validateCpf(input.getCpf());
 
@@ -29,8 +25,7 @@ public class EmployeeCreateAction {
         employee.setBirthDate(input.getBirthDate());
         employee.setHiringDate(input.getHiringDate());
 
-        repository.save(employee);
-        return EmployeeMapper.entityToOutput(employee);
+        return repository.save(employee);
     }
 
 }

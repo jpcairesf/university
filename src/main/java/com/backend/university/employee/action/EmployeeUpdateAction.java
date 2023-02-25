@@ -1,14 +1,11 @@
 package com.backend.university.employee.action;
 
 import com.backend.university.employee.domain.Employee;
-import com.backend.university.employee.dto.EmployeeOutputDTO;
 import com.backend.university.employee.dto.EmployeeUpdateDTO;
-import com.backend.university.employee.dto.mapper.EmployeeMapper;
 import com.backend.university.employee.exception.EmployeeExceptionSupplier;
 import com.backend.university.employee.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -18,8 +15,7 @@ public class EmployeeUpdateAction {
 
     private final EmployeeValidatorAction validatorAction;
 
-    @Transactional
-    public EmployeeOutputDTO update(EmployeeUpdateDTO update) {
+    public Employee update(EmployeeUpdateDTO update) {
         Employee employee = this.findEntityById(update.getId());
 
         if (!update.getCpf().equalsIgnoreCase(employee.getCpf())) {
@@ -32,8 +28,7 @@ public class EmployeeUpdateAction {
         employee.setBirthDate(update.getBirthDate());
         employee.setHiringDate(update.getHiringDate());
 
-        repository.save(employee);
-        return EmployeeMapper.entityToOutput(employee);
+        return repository.save(employee);
     }
 
     private Employee findEntityById(Long id) {

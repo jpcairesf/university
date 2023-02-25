@@ -8,11 +8,13 @@ import com.backend.university.studentsubject.domain.id.StudentSubjectId;
 import com.backend.university.studentsubject.dto.StudentSubjectInputDTO;
 import com.backend.university.studentsubject.dto.StudentSubjectOutputDTO;
 import com.backend.university.studentsubject.dto.StudentSubjectUpdateDTO;
+import com.backend.university.studentsubject.dto.mapper.StudentSubjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,22 +30,24 @@ public class StudentSubjectService {
 
     @Transactional(readOnly = true)
     public StudentSubjectOutputDTO findById(StudentSubjectId id) {
-        return getAction.findById(id);
+        return StudentSubjectMapper.entityToOutput(getAction.findById(id));
     }
 
     @Transactional(readOnly = true)
     public List<StudentSubjectOutputDTO> findAll() {
-        return getAction.findAll();
+        return getAction.findAll().stream()
+                .map(StudentSubjectMapper::entityToOutput)
+                .collect(Collectors.toList());
     }
 
     @Transactional
     public StudentSubjectOutputDTO create(StudentSubjectInputDTO input) {
-        return createAction.create(input);
+        return StudentSubjectMapper.entityToOutput(createAction.create(input));
     }
 
     @Transactional
     public StudentSubjectOutputDTO update(StudentSubjectUpdateDTO update) {
-        return updateAction.update(update);
+        return StudentSubjectMapper.entityToOutput(updateAction.update(update));
     }
 
     @Transactional

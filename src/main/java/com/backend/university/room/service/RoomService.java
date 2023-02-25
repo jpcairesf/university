@@ -4,10 +4,10 @@ import com.backend.university.room.action.RoomCreateAction;
 import com.backend.university.room.action.RoomDeleteAction;
 import com.backend.university.room.action.RoomGetAction;
 import com.backend.university.room.action.RoomUpdateAction;
-import com.backend.university.room.domain.Room;
 import com.backend.university.room.dto.RoomInputDTO;
 import com.backend.university.room.dto.RoomOutputDTO;
 import com.backend.university.room.dto.RoomUpdateDTO;
+import com.backend.university.room.dto.mapper.RoomMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ public class RoomService {
 
     @Transactional(readOnly = true)
     public RoomOutputDTO findById(Long id) {
-        return getAction.findById(id);
+        return RoomMapper.entityToOutput(getAction.findById(id));
     }
 
     @Transactional(readOnly = true)
@@ -37,18 +37,13 @@ public class RoomService {
     }
 
     @Transactional
-    public Room findEntityByName(String name) {
-        return getAction.findEntityByName(name);
-    }
-
-    @Transactional
     public RoomOutputDTO create(RoomInputDTO input) {
-        return createAction.create(input);
+        return RoomMapper.entityToOutput(createAction.create(input));
     }
 
     @Transactional
     public RoomOutputDTO update(RoomUpdateDTO update) {
-        return updateAction.update(update);
+        return RoomMapper.entityToOutput(updateAction.update(update));
     }
 
     @Transactional

@@ -8,17 +8,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class DepartmentDeleteAction {
+public class DepartmentRelatedAction {
 
     private final DepartmentRepository repository;
 
-    public void delete(Long id) {
-        repository.delete(this.findEntityById(id));
-    }
-
-    private Department findEntityById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(DepartmentExceptionSupplier.notFoundById(id));
+    public Department findEntityByName(String name) {
+        return repository.findByName(name)
+                .orElseThrow(DepartmentExceptionSupplier.notFoundByName(name));
     }
 
 }

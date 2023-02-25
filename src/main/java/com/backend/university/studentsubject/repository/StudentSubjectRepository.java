@@ -12,7 +12,6 @@ import java.util.Optional;
 @Repository
 public interface StudentSubjectRepository extends JpaRepository<StudentSubject, StudentSubjectId> {
 
-    // Devo fazer a consulta assim? Faz sentido relacionar o curso do SubjectOffer direto do Student?
     @Query(value = "SELECT ssbj FROM StudentSubject ssbj" +
             "   INNER JOIN ssbj.student AS std" +
             "   INNER JOIN ssbj.subjectOffer AS soff" +

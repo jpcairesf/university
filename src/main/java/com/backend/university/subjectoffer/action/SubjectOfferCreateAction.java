@@ -1,18 +1,15 @@
 package com.backend.university.subjectoffer.action;
 
-import com.backend.university.course.service.CourseService;
-import com.backend.university.professor.service.ProfessorService;
-import com.backend.university.room.service.RoomService;
-import com.backend.university.subject.service.SubjectService;
+import com.backend.university.course.action.CourseRelatedAction;
+import com.backend.university.professor.action.ProfessorRelatedAction;
+import com.backend.university.room.action.RoomRelatedAction;
+import com.backend.university.subject.action.SubjectRelatedAction;
 import com.backend.university.subjectoffer.domain.SubjectOffer;
 import com.backend.university.subjectoffer.dto.SubjectOfferInputDTO;
-import com.backend.university.subjectoffer.dto.SubjectOfferOutputDTO;
-import com.backend.university.subjectoffer.dto.mapper.SubjectOfferMapper;
 import com.backend.university.subjectoffer.enumx.AmPmEnum;
 import com.backend.university.subjectoffer.repository.SubjectOfferRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 
@@ -24,26 +21,25 @@ public class SubjectOfferCreateAction {
 
     private final SubjectOfferValidatorAction validatorAction;
 
-    private final CourseService courseService;
+    private final CourseRelatedAction courseRelatedAction;
 
-    private final SubjectService subjectService;
+    private final SubjectRelatedAction subjectRelatedAction;
 
-    private final ProfessorService professorService;
+    private final ProfessorRelatedAction professorRelatedAction;
 
-    private final RoomService roomService;
+    private final RoomRelatedAction roomRelatedAction;
 
-    @Transactional
-    public SubjectOfferOutputDTO create(SubjectOfferInputDTO input) {
+    public SubjectOffer create(SubjectOfferInputDTO input) {
         validatorAction.validateExistsByCourseSubjectSemesterClass(input.getCourseName(), input.getSubjectCode(), input.getSemester(), input.getClassNumber());
         validatorAction.validateSemester(input.getSemester());
         validatorAction.validateDayOfWeek(input.getDayOfWeek());
         validatorAction.validateAmPm(input.getAmPm());
 
         SubjectOffer subjectOffer = new SubjectOffer();
-        subjectOffer.setCourse(courseService.findEntityByName(input.getCourseName()));
-        subjectOffer.setSubject(subjectService.findEntityByCode(input.getSubjectCode()));
-        subjectOffer.setProfessor(professorService.findEntityByCpf(input.getProfessorCpf()));
-        subjectOffer.setRoom(roomService.findEntityByName(input.getRoomName()));
+        subjectOffer.setCourse(courseRelatedAction.findEntityByName(input.getCourseName()));
+        subjectOffer.setSubject(subjectRelatedAction.findEntityByCode(input.getSubjectCode()));
+        subjectOffer.setProfessor(professorRelatedAction.findEntityByCpf(input.getProfessorCpf()));
+        subjectOffer.setRoom(roomRelatedAction.findEntityByName(input.getRoomName()));
         subjectOffer.setStartTime(input.getStartTime());
         subjectOffer.setDayOfWeek(DayOfWeek.valueOf(input.getDayOfWeek()));
         subjectOffer.setAmPm(AmPmEnum.valueOf(input.getAmPm()));
@@ -52,8 +48,7 @@ public class SubjectOfferCreateAction {
         subjectOffer.setDurationMin(input.getDurationMin());
         subjectOffer.setVacancies(input.getVacancies());
 
-        repository.save(subjectOffer);
-        return SubjectOfferMapper.entityToOutput(subjectOffer);
+        return repository.save(subjectOffer);
     }
 
 }

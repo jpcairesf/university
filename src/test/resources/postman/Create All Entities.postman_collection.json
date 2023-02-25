@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "b2f67c12-9fdd-437f-bc08-db0ee01e8ef4",
+		"name": "Create All Entities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Institute - Engineering",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Engineering Institute\",\n    \"foundationDate\": \"2020-01-01\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/institute",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"institute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Department - Electrical and Computer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Electrical and Computer Engineering Department\",\n    \"institute\": \"Engineering Institute\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/department",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"department"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Room - 7.1.1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"7.1.1\",\n    \"location\": \"7th floor\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course - Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Electrical Engineering\",\n    \"department\": \"Electrical and Computer Engineering Department\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject - Calculus 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Calculus 1\",\n    \"code\": \"MAT001\",\n    \"studyLoad\": 68\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Professor - Chris 111.444.777-35",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Chris\",\n    \"cpf\": \"111.444.777-35\",\n    \"email\": \"chris@gmail.com\",\n    \"birthDate\": \"1980-01-01\",\n    \"hiringDate\": \"2020-01-01\",\n    \"department\": \"Electrical and Computer Engineering Department\",\n    \"rank\": \"Lecturer\",\n    \"degree\": \"Master\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/professor",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"professor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject - MAT001 Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Electrical Engineering\",\n    \"subjectCode\": \"MAT001\",\n    \"required\": true,\n    \"curriculumYear\": 2020\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject Offer - MAT001 Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"courseName\": \"Electrical Engineering\",\n    \"subjectCode\": \"MAT001\",\n    \"professorCpf\": \"111.444.777-35\",\n    \"roomName\": \"7.1.1\",\n    \"startTime\": \"08:00\",\n    \"dayOfWeek\": \"SATURDAY\",\n    \"amPm\": \"AM\",\n    \"semester\": 20231,\n    \"classNumber\": 1,\n    \"durationMin\": 100,\n    \"vacancies\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/subject-offer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject-offer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - 216218252 Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Electrical Engineering\",\n    \"enrollmentNumber\": 216218252,\n    \"enrollmentDate\": \"2020-01-01\",\n    \"cpf\": \"578.124.502-28\",\n    \"name\": \"John\",\n    \"email\": \"john@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 216218252 MAT001",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"enrollmentNumber\": \"216218252\",\n    \"subjectCode\": \"MAT001\",\n    \"semester\": 20231,\n    \"classNumber\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

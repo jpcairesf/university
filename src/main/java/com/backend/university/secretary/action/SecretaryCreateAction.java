@@ -1,14 +1,11 @@
 package com.backend.university.secretary.action;
 
-import com.backend.university.institute.service.InstituteService;
+import com.backend.university.institute.action.InstituteRelatedAction;
 import com.backend.university.secretary.domain.Secretary;
 import com.backend.university.secretary.dto.SecretaryInputDTO;
-import com.backend.university.secretary.dto.SecretaryOutputDTO;
-import com.backend.university.secretary.dto.mapper.SecretaryMapper;
 import com.backend.university.secretary.repository.SecretaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -18,10 +15,9 @@ public class SecretaryCreateAction {
 
     private final SecretaryValidatorAction validatorAction;
 
-    private final InstituteService instituteService;
+    private final InstituteRelatedAction instituteRelatedAction;
 
-    @Transactional
-    public SecretaryOutputDTO create(SecretaryInputDTO input) {
+    public Secretary create(SecretaryInputDTO input) {
         validatorAction.validateExistsByCpf(input.getCpf());
         validatorAction.validateCpf(input.getCpf());
 
@@ -32,10 +28,9 @@ public class SecretaryCreateAction {
         secretary.setBirthDate(input.getBirthDate());
         secretary.setHiringDate(input.getHiringDate());
         secretary.setTenderNotice(input.getTenderNotice());
-        secretary.setInstitute(instituteService.findEntityByName(input.getInstitute()));
+        secretary.setInstitute(instituteRelatedAction.findEntityByName(input.getInstitute()));
 
-        repository.save(secretary);
-        return SecretaryMapper.entityToOutput(secretary);
+        return repository.save(secretary);
     }
 
 }

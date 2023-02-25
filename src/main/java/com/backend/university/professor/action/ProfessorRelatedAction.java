@@ -8,17 +8,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ProfessorDeleteAction {
+public class ProfessorRelatedAction {
 
     private final ProfessorRepository repository;
 
-    public void delete(Long id) {
-        repository.delete(this.findEntityById(id));
-    }
-
-    private Professor findEntityById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(ProfessorExceptionSupplier.notFoundById(id));
+    public Professor findEntityByCpf(String cpf) {
+        return repository.findByCpf(cpf)
+                .orElseThrow(ProfessorExceptionSupplier.notFoundByCpf(cpf));
     }
 
 }

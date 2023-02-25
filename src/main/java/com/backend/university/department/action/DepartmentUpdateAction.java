@@ -1,15 +1,12 @@
 package com.backend.university.department.action;
 
 import com.backend.university.department.domain.Department;
-import com.backend.university.department.dto.DepartmentOutputDTO;
 import com.backend.university.department.dto.DepartmentUpdateDTO;
-import com.backend.university.department.dto.mapper.DepartmentMapper;
 import com.backend.university.department.exception.DepartmentExceptionSupplier;
 import com.backend.university.department.repository.DepartmentRepository;
-import com.backend.university.institute.service.InstituteService;
+import com.backend.university.institute.action.InstituteRelatedAction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -17,12 +14,11 @@ public class DepartmentUpdateAction {
 
     private final DepartmentRepository repository;
 
-    private final InstituteService instituteService;
+    private final InstituteRelatedAction instituteRelatedAction;
 
     private final DepartmentValidatorAction validatorAction;
 
-    @Transactional
-    public DepartmentOutputDTO update(DepartmentUpdateDTO update) {
+    public Department update(DepartmentUpdateDTO update) {
         Department department = this.findEntityById(update.getId());
 
         if (!update.getName().equalsIgnoreCase(department.getName())) {
@@ -30,10 +26,10 @@ public class DepartmentUpdateAction {
             department.setName(update.getName());
         }
         if (!update.getInstitute().equalsIgnoreCase(department.getInstitute().getName())) {
-            department.setInstitute(instituteService.findEntityByName(update.getInstitute()));
+            department.setInstitute(instituteRelatedAction.findEntityByName(update.getInstitute()));
         }
-        repository.save(department);
-        return DepartmentMapper.entityToOutput(department);
+
+        return repository.save(department);
     }
 
     private Department findEntityById(Long id) {

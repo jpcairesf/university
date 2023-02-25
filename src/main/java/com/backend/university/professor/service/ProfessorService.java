@@ -4,15 +4,16 @@ import com.backend.university.professor.action.ProfessorCreateAction;
 import com.backend.university.professor.action.ProfessorDeleteAction;
 import com.backend.university.professor.action.ProfessorGetAction;
 import com.backend.university.professor.action.ProfessorUpdateAction;
-import com.backend.university.professor.domain.Professor;
 import com.backend.university.professor.dto.ProfessorInputDTO;
 import com.backend.university.professor.dto.ProfessorOutputDTO;
 import com.backend.university.professor.dto.ProfessorUpdateDTO;
+import com.backend.university.professor.dto.mapper.ProfessorMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -28,27 +29,24 @@ public class ProfessorService {
 
     @Transactional(readOnly = true)
     public ProfessorOutputDTO findById(Long id) {
-        return getAction.findById(id);
+        return ProfessorMapper.entityToOutput(getAction.findById(id));
     }
 
     @Transactional(readOnly = true)
     public List<ProfessorOutputDTO> findAll() {
-        return getAction.findAll();
-    }
-
-    @Transactional
-    public Professor findEntityByCpf(String cpf) {
-        return getAction.findEntityByCpf(cpf);
+        return getAction.findAll().stream()
+                .map(ProfessorMapper::entityToOutput)
+                .collect(Collectors.toList());
     }
 
     @Transactional
     public ProfessorOutputDTO create(ProfessorInputDTO input) {
-        return createAction.create(input);
+        return ProfessorMapper.entityToOutput(createAction.create(input));
     }
 
     @Transactional
     public ProfessorOutputDTO update(ProfessorUpdateDTO update) {
-        return updateAction.update(update);
+        return ProfessorMapper.entityToOutput(updateAction.update(update));
     }
 
     @Transactional

@@ -1,18 +1,15 @@
 package com.backend.university.studentsubject.action;
 
+import com.backend.university.student.action.StudentRelatedAction;
 import com.backend.university.student.domain.Student;
-import com.backend.university.student.service.StudentService;
 import com.backend.university.studentsubject.domain.StudentSubject;
 import com.backend.university.studentsubject.domain.id.StudentSubjectId;
 import com.backend.university.studentsubject.dto.StudentSubjectInputDTO;
-import com.backend.university.studentsubject.dto.StudentSubjectOutputDTO;
-import com.backend.university.studentsubject.dto.mapper.StudentSubjectMapper;
 import com.backend.university.studentsubject.repository.StudentSubjectRepository;
+import com.backend.university.subjectoffer.action.SubjectOfferRelatedAction;
 import com.backend.university.subjectoffer.domain.SubjectOffer;
-import com.backend.university.subjectoffer.service.SubjectOfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -22,12 +19,11 @@ public class StudentSubjectCreateAction {
 
     private final StudentSubjectValidatorAction validatorAction;
 
-    private final StudentService studentService;
+    private final StudentRelatedAction studentRelatedAction;
 
-    private final SubjectOfferService subjectOfferService;
+    private final SubjectOfferRelatedAction subjectOfferRelatedAction;
 
-    @Transactional
-    public StudentSubjectOutputDTO create(StudentSubjectInputDTO input) {
+    public StudentSubject create(StudentSubjectInputDTO input) {
         validatorAction.validateExistsByEnrollmentSubjectSemesterClass(
                 input.getEnrollmentNumber(),
                 input.getSubjectCode(),
@@ -35,9 +31,9 @@ public class StudentSubjectCreateAction {
                 input.getClassNumber());
 
         StudentSubject studentSubject = new StudentSubject();
-        Student student = studentService.findEntityByNumber(input.getEnrollmentNumber());
+        Student student = studentRelatedAction.findEntityByNumber(input.getEnrollmentNumber());
 
-        SubjectOffer subjectOffer = subjectOfferService.findIdByCourseSubjectSemesterClass(
+        SubjectOffer subjectOffer = subjectOfferRelatedAction.findIdByCourseSubjectSemesterClass(
                 student.getCourse().getId(),
                 input.getSubjectCode(),
                 input.getSemester(),
@@ -52,8 +48,7 @@ public class StudentSubjectCreateAction {
         studentSubject.setStudent(student);
         studentSubject.setSubjectOffer(subjectOffer);
 
-        repository.save(studentSubject);
-        return StudentSubjectMapper.entityToOutput(studentSubject);
+        return repository.save(studentSubject);
     }
 
 }

@@ -2,10 +2,8 @@ package com.backend.university.course.action;
 
 import com.backend.university.course.domain.Course;
 import com.backend.university.course.dto.CourseInputDTO;
-import com.backend.university.course.dto.CourseOutputDTO;
-import com.backend.university.course.dto.mapper.CourseMapper;
 import com.backend.university.course.repository.CourseRepository;
-import com.backend.university.department.service.DepartmentService;
+import com.backend.university.department.action.DepartmentRelatedAction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,20 +15,19 @@ public class CourseCreateAction {
 
     private final CourseRepository repository;
 
-    private final DepartmentService departmentService;
+    private final DepartmentRelatedAction departmentRelatedAction;
 
     private final CourseValidatorAction validatorAction;
 
-    public CourseOutputDTO create(CourseInputDTO input) {
+    public Course create(CourseInputDTO input) {
         validatorAction.validateExistsByName(input.getName());
 
         Course course = new Course();
         course.setName(input.getName());
-        course.setDepartment(departmentService.findEntityByName(input.getDepartment()));
+        course.setDepartment(departmentRelatedAction.findEntityByName(input.getDepartment()));
         course.setCourseSubjects(new ArrayList<>());
 
-        repository.save(course);
-        return CourseMapper.entityToOutput(course);
+        return repository.save(course);
     }
 
 }

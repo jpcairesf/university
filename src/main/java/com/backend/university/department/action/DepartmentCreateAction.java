@@ -2,13 +2,10 @@ package com.backend.university.department.action;
 
 import com.backend.university.department.domain.Department;
 import com.backend.university.department.dto.DepartmentInputDTO;
-import com.backend.university.department.dto.DepartmentOutputDTO;
-import com.backend.university.department.dto.mapper.DepartmentMapper;
 import com.backend.university.department.repository.DepartmentRepository;
-import com.backend.university.institute.service.InstituteService;
+import com.backend.university.institute.action.InstituteRelatedAction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -16,20 +13,18 @@ public class DepartmentCreateAction {
 
     private final DepartmentRepository repository;
 
-    private final InstituteService instituteService;
+    private final InstituteRelatedAction instituteRelatedAction;
 
     private final DepartmentValidatorAction validatorAction;
 
-    @Transactional
-    public DepartmentOutputDTO create(DepartmentInputDTO input) {
+    public Department create(DepartmentInputDTO input) {
         validatorAction.validateExistsByName(input.getName());
 
         Department department = new Department();
         department.setName(input.getName());
-        department.setInstitute(instituteService.findEntityByName(input.getInstitute()));
+        department.setInstitute(instituteRelatedAction.findEntityByName(input.getInstitute()));
 
-        repository.save(department);
-        return DepartmentMapper.entityToOutput(department);
+        return repository.save(department);
     }
 
 }

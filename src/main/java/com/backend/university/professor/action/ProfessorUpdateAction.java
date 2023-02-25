@@ -1,10 +1,8 @@
 package com.backend.university.professor.action;
 
-import com.backend.university.department.service.DepartmentService;
+import com.backend.university.department.action.DepartmentRelatedAction;
 import com.backend.university.professor.domain.Professor;
-import com.backend.university.professor.dto.ProfessorOutputDTO;
 import com.backend.university.professor.dto.ProfessorUpdateDTO;
-import com.backend.university.professor.dto.mapper.ProfessorMapper;
 import com.backend.university.professor.exception.ProfessorExceptionSupplier;
 import com.backend.university.professor.repository.ProfessorRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +20,14 @@ public class ProfessorUpdateAction {
 
     private final ProfessorValidatorAction validatorAction;
 
-    private final DepartmentService departmentService;
+    private final DepartmentRelatedAction departmentRelatedAction;
 
     @Transactional
-    public ProfessorOutputDTO update(ProfessorUpdateDTO update) {
+    public Professor update(ProfessorUpdateDTO update) {
         Professor professor = this.findEntityById(update.getId());
 
         if (!professor.getDepartment().getName().equalsIgnoreCase(update.getDepartment())) {
-            professor.setDepartment(departmentService.findEntityByName(update.getName()));
+            professor.setDepartment(departmentRelatedAction.findEntityByName(update.getDepartment()));
         }
         if (!update.getCpf().equalsIgnoreCase(professor.getCpf())) {
             validatorAction.validateExistsByCpf(update.getCpf());
@@ -43,8 +41,7 @@ public class ProfessorUpdateAction {
         professor.setRank(toRank(update.getRank()));
         professor.setDegree(toDegree(update.getDegree()));
 
-        repository.save(professor);
-        return ProfessorMapper.entityToOutput(professor);
+        return repository.save(professor);
     }
 
     private Professor findEntityById(Long id) {

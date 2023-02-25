@@ -4,15 +4,16 @@ import com.backend.university.institute.action.InstituteCreateAction;
 import com.backend.university.institute.action.InstituteDeleteAction;
 import com.backend.university.institute.action.InstituteGetAction;
 import com.backend.university.institute.action.InstituteUpdateAction;
-import com.backend.university.institute.domain.Institute;
 import com.backend.university.institute.dto.InstituteInputDTO;
 import com.backend.university.institute.dto.InstituteOutputDTO;
 import com.backend.university.institute.dto.InstituteUpdateDTO;
+import com.backend.university.institute.dto.mapper.InstituteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,26 +29,24 @@ public class InstituteService {
 
     @Transactional(readOnly = true)
     public InstituteOutputDTO findById(Long id) {
-        return getAction.findById(id);
+        return InstituteMapper.entityToOutput(getAction.findById(id));
     }
 
     @Transactional(readOnly = true)
     public List<InstituteOutputDTO> findAll() {
-        return getAction.findAll();
-    }
-
-    public Institute findEntityByName(String name) {
-        return getAction.findEntityByName(name);
+        return getAction.findAll().stream()
+                .map(InstituteMapper::entityToOutput)
+                .collect(Collectors.toList());
     }
 
     @Transactional
     public InstituteOutputDTO create(InstituteInputDTO input) {
-        return createAction.create(input);
+        return InstituteMapper.entityToOutput(createAction.create(input));
     }
 
     @Transactional
     public InstituteOutputDTO update(InstituteUpdateDTO update) {
-        return updateAction.update(update);
+        return InstituteMapper.entityToOutput(updateAction.update(update));
     }
 
     @Transactional

@@ -5,7 +5,6 @@ import com.backend.university.course.exception.CourseExceptionSupplier;
 import com.backend.university.course.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -13,7 +12,6 @@ public class CourseDeleteAction {
 
     private final CourseRepository repository;
 
-    @Transactional
     public void delete(Long id) {
         repository.delete(this.findEntityById(id));
     }

@@ -1,14 +1,11 @@
 package com.backend.university.professor.action;
 
-import com.backend.university.department.service.DepartmentService;
+import com.backend.university.department.action.DepartmentRelatedAction;
 import com.backend.university.professor.domain.Professor;
 import com.backend.university.professor.dto.ProfessorInputDTO;
-import com.backend.university.professor.dto.ProfessorOutputDTO;
-import com.backend.university.professor.dto.mapper.ProfessorMapper;
 import com.backend.university.professor.repository.ProfessorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import static com.backend.university.professor.domain.enumx.Degree.toDegree;
 import static com.backend.university.professor.domain.enumx.Rank.toRank;
@@ -21,10 +18,9 @@ public class ProfessorCreateAction {
 
     private final ProfessorValidatorAction validatorAction;
 
-    private final DepartmentService departmentService;
+    private final DepartmentRelatedAction departmentRelatedAction;
 
-    @Transactional
-    public ProfessorOutputDTO create(ProfessorInputDTO input) {
+    public Professor create(ProfessorInputDTO input) {
         validatorAction.validateExistsByCpf(input.getCpf());
         validatorAction.validateCpf(input.getCpf());
 
@@ -34,11 +30,10 @@ public class ProfessorCreateAction {
         professor.setEmail(input.getEmail());
         professor.setBirthDate(input.getBirthDate());
         professor.setHiringDate(input.getHiringDate());
-        professor.setDepartment(departmentService.findEntityByName(input.getDepartment()));
+        professor.setDepartment(departmentRelatedAction.findEntityByName(input.getDepartment()));
         professor.setRank(toRank(input.getRank()));
         professor.setDegree(toDegree(input.getDegree()));
 
-        repository.save(professor);
-        return ProfessorMapper.entityToOutput(professor);
+        return repository.save(professor);
     }
 }

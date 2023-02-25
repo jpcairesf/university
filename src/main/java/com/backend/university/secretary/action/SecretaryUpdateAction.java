@@ -1,10 +1,8 @@
 package com.backend.university.secretary.action;
 
-import com.backend.university.institute.service.InstituteService;
+import com.backend.university.institute.action.InstituteRelatedAction;
 import com.backend.university.secretary.domain.Secretary;
-import com.backend.university.secretary.dto.SecretaryOutputDTO;
 import com.backend.university.secretary.dto.SecretaryUpdateDTO;
-import com.backend.university.secretary.dto.mapper.SecretaryMapper;
 import com.backend.university.secretary.exception.SecretaryExceptionSupplier;
 import com.backend.university.secretary.repository.SecretaryRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +17,14 @@ public class SecretaryUpdateAction {
 
     private final SecretaryValidatorAction validatorAction;
 
-    private final InstituteService instituteService;
+    private final InstituteRelatedAction instituteRelatedAction;
 
     @Transactional
-    public SecretaryOutputDTO update(SecretaryUpdateDTO update) {
+    public Secretary update(SecretaryUpdateDTO update) {
         Secretary secretary = this.findEntityById(update.getId());
 
         if (!secretary.getInstitute().getName().equalsIgnoreCase(update.getInstitute())) {
-            secretary.setInstitute(instituteService.findEntityByName(update.getInstitute()));
+            secretary.setInstitute(instituteRelatedAction.findEntityByName(update.getInstitute()));
         }
         if (!update.getCpf().equalsIgnoreCase(secretary.getCpf())) {
             validatorAction.validateExistsByCpf(update.getCpf());
@@ -39,8 +37,7 @@ public class SecretaryUpdateAction {
         secretary.setHiringDate(update.getHiringDate());
         secretary.setTenderNotice(update.getTenderNotice());
 
-        repository.save(secretary);
-        return SecretaryMapper.entityToOutput(secretary);
+        return repository.save(secretary);
     }
 
     private Secretary findEntityById(Long id) {

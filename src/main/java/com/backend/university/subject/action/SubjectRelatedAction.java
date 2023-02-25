@@ -6,21 +6,15 @@ import com.backend.university.subject.repository.SubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
-public class SubjectGetAction {
+public class SubjectRelatedAction {
 
     private final SubjectRepository repository;
 
-    public Subject findById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(SubjectExceptionSupplier.notFoundById(id));
-    }
-
-    public List<Subject> findAll() {
-        return repository.findAll();
+    public Subject findEntityByCode(String code) {
+        return repository.findByCode(code)
+                .orElseThrow(SubjectExceptionSupplier.notFoundByCode(code));
     }
 
 }

@@ -8,17 +8,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class RoomDeleteAction {
+public class RoomRelatedAction {
 
     private final RoomRepository repository;
 
-    public void delete(Long id) {
-        repository.delete(this.findEntityById(id));
-    }
-
-    private Room findEntityById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(RoomExceptionSupplier.notFoundById(id));
+    public Room findEntityByName(String name) {
+        return repository.findByName(name)
+                .orElseThrow(RoomExceptionSupplier.notFoundByName(name));
     }
 
 }

@@ -1,14 +1,11 @@
 package com.backend.university.student.action;
 
-import com.backend.university.course.service.CourseService;
+import com.backend.university.course.action.CourseRelatedAction;
 import com.backend.university.student.domain.Student;
 import com.backend.university.student.dto.StudentInputDTO;
-import com.backend.university.student.dto.StudentOutputDTO;
-import com.backend.university.student.dto.mapper.StudentMapper;
 import com.backend.university.student.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 
@@ -20,10 +17,9 @@ public class StudentCreateAction {
 
     private final StudentValidatorAction validatorAction;
 
-    private final CourseService courseService;
+    private final CourseRelatedAction courseRelatedAction;
 
-    @Transactional
-    public StudentOutputDTO create(StudentInputDTO input) {
+    public Student create(StudentInputDTO input) {
         validatorAction.validateExistsByNumber(input.getEnrollmentNumber());
         validatorAction.validateExistsByCpf(input.getCpf());
         validatorAction.validateCpf(input.getCpf());
@@ -32,13 +28,12 @@ public class StudentCreateAction {
         student.setName(input.getName());
         student.setEmail(input.getEmail());
         student.setCpf(input.getCpf());
-        student.setCourse(courseService.findEntityByName(input.getCourse()));
+        student.setCourse(courseRelatedAction.findEntityByName(input.getCourse()));
         student.setEnrollmentNumber(input.getEnrollmentNumber());
         student.setEnrollmentDate(input.getEnrollmentDate());
         student.setStudentSubjects(new HashSet<>());
 
-        repository.save(student);
-        return StudentMapper.entityToOutput(student);
+        return repository.save(student);
     }
 
 }

@@ -6,7 +6,6 @@ import com.backend.university.studentsubject.exception.StudentSubjectExceptionSu
 import com.backend.university.studentsubject.repository.StudentSubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -14,7 +13,6 @@ public class StudentSubjectDeleteAction {
 
     private final StudentSubjectRepository repository;
 
-    @Transactional
     public void delete(StudentSubjectId id) {
         repository.delete(findEntityById(id));
     }

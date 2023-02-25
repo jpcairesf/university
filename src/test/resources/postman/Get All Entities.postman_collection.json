@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "90599a57-fd32-4de4-8376-0d9cf24659e9",
+		"name": "Get All Entities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Institute",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/institute",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"institute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Department",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/department",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"department"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Room",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/room",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/course",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Professor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/professor",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"professor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/course-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject Offer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/subject-offer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject-offer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

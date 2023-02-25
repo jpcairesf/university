@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "30268ee4-2178-4cb1-8281-006fd7284c88",
+		"name": "Update All Entities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Institute - Engineering and Applied Science",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Engineering and Applied Science Institute\",\n    \"foundationDate\": \"2020-10-01\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/institute",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"institute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Department- Electrical, Electronics and Computer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Electrical, Electronics and Computer Engineering Department\",\n    \"institute\": \"Engineering and Applied Science Institute\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/department",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"department"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Room - Room 7.1.1 in Institute",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Room 7.1.1\",\n    \"location\": \"7th floor of Engineering and Applied Science Institute\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Room - Room 8.1.1 in Institute",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"name\": \"Room 8.1.1\",\n    \"location\": \"8th floor of Engineering and Applied Science Institute\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course - Electronics in Phyisics Department",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Electronics Engineering\",\n    \"department\": \"Physics Engineering Department\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course - Electronics back to its Department",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Electronics Engineering\",\n    \"department\": \"Electrical, Electronics and Computer Engineering Department\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject - MAT003 MAT004",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 3,\n    \"name\": \"Calculus 4\",\n    \"code\": \"MAT004\",\n    \"studyLoad\": 34\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Professor - Christian 281.881.558-45",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Christian\",\n    \"cpf\": \"281.881.558-45\",\n    \"email\": \"christian@gmail.com\",\n    \"birthDate\": \"1990-01-01\",\n    \"hiringDate\": \"2020-10-01\",\n    \"department\": \"Physics Engineering Department\",\n    \"rank\": \"Associate Professor\",\n    \"degree\": \"PhD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/professor",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"professor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject Offer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 3,\n    \"roomName\": \"Room 7.1.1\",\n    \"startTime\": \"07:00\",\n    \"dayOfWeek\": \"TUESDAY\",\n    \"amPm\": \"PM\",\n    \"classNumber\": 1,\n    \"durationMin\": 120,\n    \"vacancies\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/subject-offer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject-offer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - Jack 635.667.623-00",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"course\": \"Physics Engineering\",\n    \"enrollmentNumber\": 216218250,\n    \"enrollmentDate\": \"2020-10-01\",\n    \"cpf\": \"635.667.623-00\",\n    \"name\": \"Jack\",\n    \"email\": \"jack@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - MAT001 216218250",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"enrollmentNumber\": 216218250,\n    \"subjectCode\": \"MAT001\",\n    \"semester\": 20231,\n    \"classNumber\": 1,\n    \"grade\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

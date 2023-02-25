@@ -13,8 +13,6 @@ public class SubjectUpdateDTO {
 
     private String name;
 
-    private String room;
-
     private int studyLoad;
 
 }

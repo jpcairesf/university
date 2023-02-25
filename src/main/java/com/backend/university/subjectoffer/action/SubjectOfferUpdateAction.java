@@ -1,16 +1,13 @@
 package com.backend.university.subjectoffer.action;
 
-import com.backend.university.room.service.RoomService;
+import com.backend.university.room.action.RoomRelatedAction;
 import com.backend.university.subjectoffer.domain.SubjectOffer;
-import com.backend.university.subjectoffer.dto.SubjectOfferOutputDTO;
 import com.backend.university.subjectoffer.dto.SubjectOfferUpdateDTO;
-import com.backend.university.subjectoffer.dto.mapper.SubjectOfferMapper;
 import com.backend.university.subjectoffer.enumx.AmPmEnum;
 import com.backend.university.subjectoffer.exception.SubjectOfferExceptionSupplier;
 import com.backend.university.subjectoffer.repository.SubjectOfferRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 
@@ -22,24 +19,22 @@ public class SubjectOfferUpdateAction {
 
     private final SubjectOfferValidatorAction validatorAction;
 
-    private final RoomService roomService;
+    private final RoomRelatedAction roomRelatedAction;
 
-    @Transactional
-    public SubjectOfferOutputDTO update(SubjectOfferUpdateDTO update) {
+    public SubjectOffer update(SubjectOfferUpdateDTO update) {
         validatorAction.validateDayOfWeek(update.getDayOfWeek());
         validatorAction.validateAmPm(update.getAmPm());
 
         SubjectOffer subjectOffer = this.findEntityById(update.getId());
 
-        subjectOffer.setRoom(roomService.findEntityByName(update.getRoomName()));
+        subjectOffer.setRoom(roomRelatedAction.findEntityByName(update.getRoomName()));
         subjectOffer.setStartTime(update.getStartTime());
         subjectOffer.setDayOfWeek(DayOfWeek.valueOf(update.getDayOfWeek()));
         subjectOffer.setAmPm(AmPmEnum.valueOf(update.getAmPm()));
         subjectOffer.setDurationMin(update.getDurationMin());
         subjectOffer.setVacancies(update.getVacancies());
 
-        repository.save(subjectOffer);
-        return SubjectOfferMapper.entityToOutput(subjectOffer);
+        return repository.save(subjectOffer);
     }
 
     private SubjectOffer findEntityById(Long id) {

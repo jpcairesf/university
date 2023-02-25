@@ -7,11 +7,13 @@ import com.backend.university.secretary.action.SecretaryUpdateAction;
 import com.backend.university.secretary.dto.SecretaryInputDTO;
 import com.backend.university.secretary.dto.SecretaryOutputDTO;
 import com.backend.university.secretary.dto.SecretaryUpdateDTO;
+import com.backend.university.secretary.dto.mapper.SecretaryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,22 +29,24 @@ public class SecretaryService {
 
     @Transactional(readOnly = true)
     public SecretaryOutputDTO findById(Long id) {
-        return getAction.findById(id);
+        return SecretaryMapper.entityToOutput(getAction.findById(id));
     }
 
     @Transactional(readOnly = true)
     public List<SecretaryOutputDTO> findAll() {
-        return getAction.findAll();
+        return getAction.findAll().stream()
+                .map(SecretaryMapper::entityToOutput)
+                .collect(Collectors.toList());
     }
 
     @Transactional
     public SecretaryOutputDTO create(SecretaryInputDTO input) {
-        return createAction.create(input);
+        return SecretaryMapper.entityToOutput(createAction.create(input));
     }
 
     @Transactional
     public SecretaryOutputDTO update(SecretaryUpdateDTO update) {
-        return updateAction.update(update);
+        return SecretaryMapper.entityToOutput(updateAction.update(update));
     }
 
     @Transactional
