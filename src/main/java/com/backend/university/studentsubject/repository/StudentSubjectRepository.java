@@ -19,8 +19,8 @@ public interface StudentSubjectRepository extends JpaRepository<StudentSubject, 
             "   WHERE std.enrollmentNumber = :enrollmentNumber" +
             "   AND sbj.code = :subjectCode" +
             "   AND soff.classNumber = :classNumber" +
-            "   AND ssbj.semester = :semester" +
-            "   AND soff.course = std.course")
+            "   AND soff.semester = :semester" +
+            "   AND soff.course.id = std.course.id")
     Optional<StudentSubject> findEagerByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber);
 
     int countBySubjectOffer(SubjectOffer subjectOffer);
