@@ -11,8 +11,6 @@ public class StudentUpdateDTO {
 
     private Long id;
 
-    private String course;
-
     private int enrollmentNumber;
 
     private LocalDate enrollmentDate;

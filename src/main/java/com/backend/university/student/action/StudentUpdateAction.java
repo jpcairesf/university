@@ -1,6 +1,5 @@
 package com.backend.university.student.action;
 
-import com.backend.university.course.action.CourseRelatedAction;
 import com.backend.university.student.domain.Student;
 import com.backend.university.student.dto.StudentUpdateDTO;
 import com.backend.university.student.exception.StudentExceptionSupplier;
@@ -16,8 +15,10 @@ public class StudentUpdateAction {
 
     private final StudentValidatorAction validatorAction;
 
-    private final CourseRelatedAction courseRelatedAction;
-
+    // TODO: create course changing service.
+    // boolean ActiveEnrollment -> default true, set false if don't have
+    // any subject related in actual semester
+    // can change course only if ActiveEnrollment = false
     public Student update(StudentUpdateDTO update) {
         Student student = this.findEntityById(update.getId());
 
@@ -29,9 +30,6 @@ public class StudentUpdateAction {
             validatorAction.validateExistsByCpf(update.getCpf());
             validatorAction.validateCpf(update.getCpf());
             student.setCpf(update.getCpf());
-        }
-        if (!update.getCourse().equalsIgnoreCase(student.getCourse().getName())) {
-            student.setCourse(courseRelatedAction.findEntityByName(update.getCourse()));
         }
 
         student.setName(update.getName());
