@@ -20,7 +20,7 @@ public class StudentSubjectValidatorAction {
     }
 
     public void validateExistsByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber) {
-        if (repository.findEagerByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber).isPresent()) {
+        if (repository.existsByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber)) {
             throw new BusinessException(StudentSubjectExceptionMessages.existsByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber));
         }
     }
