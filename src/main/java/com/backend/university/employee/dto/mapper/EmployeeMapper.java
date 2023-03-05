@@ -1,15 +1,10 @@
 package com.backend.university.employee.dto.mapper;
 
 import com.backend.university.employee.domain.Employee;
-import com.backend.university.employee.dto.EmployeeInputDTO;
 import com.backend.university.employee.dto.EmployeeOutputDTO;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class EmployeeMapper {
 
     public static EmployeeOutputDTO entityToOutput(Employee employee) {

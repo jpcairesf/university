@@ -2,27 +2,17 @@ package com.backend.university.department.dto.mapper;
 
 import com.backend.university.department.domain.Department;
 import com.backend.university.department.dto.DepartmentOutputDTO;
-import com.backend.university.professor.dto.ProfessorOutputDTO;
-import com.backend.university.professor.dto.mapper.ProfessorMapper;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class DepartmentMapper {
 
     public static DepartmentOutputDTO entityToOutput(Department department) {
-        List<ProfessorOutputDTO> professors =
-                department.getProfessors().stream()
-                .map(ProfessorMapper::entityToOutput)
-                .collect(Collectors.toList());
 
         return DepartmentOutputDTO.builder()
+                .id(department.getId())
                 .name(department.getName())
                 .institute(department.getInstitute().getName())
-                .professors(professors)
                 .build();
     }
 

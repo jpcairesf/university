@@ -1,9 +1,9 @@
 package com.backend.university.professor.domain;
 
 import com.backend.university.department.domain.Department;
+import com.backend.university.employee.domain.Employee;
 import com.backend.university.professor.domain.enumx.Degree;
 import com.backend.university.professor.domain.enumx.Rank;
-import com.backend.university.employee.domain.Employee;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,11 +29,11 @@ public class Professor extends Employee {
     private Department department;
 
     @Column(name = "RANK", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Rank rank;
 
     @Column(name = "DEGREE", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Degree degree;
 
 }

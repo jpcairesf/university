@@ -1,86 +1,57 @@
 package com.backend.university.employee.service;
 
-import com.backend.university.common.error.BusinessException;
-import com.backend.university.employee.domain.Employee;
+import com.backend.university.employee.action.EmployeeCreateAction;
+import com.backend.university.employee.action.EmployeeDeleteAction;
+import com.backend.university.employee.action.EmployeeGetAction;
+import com.backend.university.employee.action.EmployeeUpdateAction;
 import com.backend.university.employee.dto.EmployeeInputDTO;
 import com.backend.university.employee.dto.EmployeeOutputDTO;
 import com.backend.university.employee.dto.EmployeeUpdateDTO;
 import com.backend.university.employee.dto.mapper.EmployeeMapper;
-import com.backend.university.employee.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.lang.String.format;
-
 @Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class EmployeeService {
 
-    private final EmployeeRepository repository;
+    private final EmployeeGetAction getAction;
 
-    @Transactional
+    private final EmployeeCreateAction createAction;
+
+    private final EmployeeUpdateAction updateAction;
+
+    private final EmployeeDeleteAction deleteAction;
+
+    @Transactional(readOnly = true)
     public EmployeeOutputDTO findById(Long id) {
-        return EmployeeMapper.entityToOutput(this.findEntityById(id));
+        return EmployeeMapper.entityToOutput(getAction.findById(id));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<EmployeeOutputDTO> findAll() {
-        return repository.findAll().stream()
+        return getAction.findAll().stream()
                 .map(EmployeeMapper::entityToOutput)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public EmployeeOutputDTO create(EmployeeInputDTO input) {
-        this.validateExistsByCpf(input.getCpf());
-
-        Employee employee = new Employee();
-        employee.setCpf(input.getCpf());
-        employee.setName(input.getName());
-        employee.setEmail(input.getEmail());
-        employee.setBirthDate(input.getBirthDate());
-        employee.setHiringDate(input.getHiringDate());
-
-        repository.save(employee);
-        return EmployeeMapper.entityToOutput(employee);
+        return EmployeeMapper.entityToOutput(createAction.create(input));
     }
 
     @Transactional
     public EmployeeOutputDTO update(EmployeeUpdateDTO update) {
-        Employee employee = this.findEntityById(update.getId());
-
-        if (!update.getCpf().equalsIgnoreCase(employee.getCpf())) {
-            this.validateExistsByCpf(update.getCpf());
-            employee.setCpf(update.getCpf());
-        }
-        employee.setName(update.getName());
-        employee.setEmail(update.getEmail());
-        employee.setBirthDate(update.getBirthDate());
-        employee.setHiringDate(update.getHiringDate());
-
-        repository.save(employee);
-        return EmployeeMapper.entityToOutput(employee);
+        return EmployeeMapper.entityToOutput(updateAction.update(update));
     }
 
     @Transactional
     public void delete(Long id) {
-        repository.delete(findEntityById(id));
-    }
-
-    public Employee findEntityById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new BusinessException(format("There is no employee with ID \"%s\".", id)));
-    }
-
-    private void validateExistsByCpf(String cpf) {
-        if (repository.existsByCpf(cpf)) {
-            throw new BusinessException(format("There is already an employee with CPF \"%s\".", cpf));
-        }
+        deleteAction.delete(id);
     }
 
 }

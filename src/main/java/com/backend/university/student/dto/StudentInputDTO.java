@@ -9,14 +9,16 @@ import java.time.LocalDate;
 @Builder
 public class StudentInputDTO {
 
-    private String name;
-
-    private String cpf;
-
-    private String email;
+    private String course;
 
     private int enrollmentNumber;
 
-    private LocalDate birthDate;
+    private LocalDate enrollmentDate;
+
+    private String cpf;
+
+    private String name;
+
+    private String email;
 
 }

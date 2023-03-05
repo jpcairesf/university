@@ -11,14 +11,14 @@ public class StudentUpdateDTO {
 
     private Long id;
 
+    private int enrollmentNumber;
+
+    private LocalDate enrollmentDate;
+
     private String cpf;
 
     private String name;
 
     private String email;
-
-    private int enrollmentNumber;
-
-    private LocalDate birthDate;
 
 }

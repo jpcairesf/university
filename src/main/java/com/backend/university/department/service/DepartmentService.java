@@ -1,91 +1,57 @@
 package com.backend.university.department.service;
 
-import com.backend.university.common.error.BusinessException;
-import com.backend.university.department.domain.Department;
+import com.backend.university.department.action.DepartmentCreateAction;
+import com.backend.university.department.action.DepartmentDeleteAction;
+import com.backend.university.department.action.DepartmentGetAction;
+import com.backend.university.department.action.DepartmentUpdateAction;
 import com.backend.university.department.dto.DepartmentInputDTO;
 import com.backend.university.department.dto.DepartmentOutputDTO;
 import com.backend.university.department.dto.DepartmentUpdateDTO;
 import com.backend.university.department.dto.mapper.DepartmentMapper;
-import com.backend.university.department.repository.DepartmentRepository;
-import com.backend.university.institute.service.InstituteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.lang.String.format;
-
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class DepartmentService {
 
-    private final DepartmentRepository repository;
+    private final DepartmentGetAction getAction;
 
-    private final InstituteService instituteService;
+    private final DepartmentCreateAction createAction;
 
-    @Transactional
+    private final DepartmentUpdateAction updateAction;
+
+    private final DepartmentDeleteAction deleteAction;
+
+    @Transactional(readOnly = true)
     public DepartmentOutputDTO findById(Long id) {
-        return DepartmentMapper.entityToOutput(this.findEntityById(id));
+        return DepartmentMapper.entityToOutput(getAction.findById(id));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DepartmentOutputDTO> findAll() {
-        return repository.findAll().stream()
+        return getAction.findAll().stream()
                 .map(DepartmentMapper::entityToOutput)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public DepartmentOutputDTO create(DepartmentInputDTO input) {
-        this.validateExistsByName(input.getName());
-
-        Department department = new Department();
-        department.setName(input.getName());
-        department.setInstitute(instituteService.findEntityByName(input.getInstitute()));
-        department.setProfessors(new ArrayList<>());
-
-        repository.save(department);
-        return DepartmentMapper.entityToOutput(department);
+        return DepartmentMapper.entityToOutput(createAction.create(input));
     }
 
     @Transactional
     public DepartmentOutputDTO update(DepartmentUpdateDTO update) {
-        Department department = this.findEntityById(update.getId());
-
-        if (!update.getName().equalsIgnoreCase(department.getName())) {
-            this.validateExistsByName(update.getName());
-            department.setName(update.getName());
-        }
-        if (!update.getInstitute().equalsIgnoreCase(department.getInstitute().getName())) {
-            department.setInstitute(instituteService.findEntityByName(update.getInstitute()));
-        }
-        repository.save(department);
-        return DepartmentMapper.entityToOutput(department);
+        return DepartmentMapper.entityToOutput(updateAction.update(update));
     }
 
     @Transactional
     public void delete(Long id) {
-        repository.delete(this.findEntityById(id));
-    }
-
-    public Department findEntityByName(String name) {
-        return repository.findByName(name)
-                .orElseThrow(() -> new BusinessException(format("There is no department named \"%s\".", name)));
-    }
-
-    public void validateExistsByName(String name) {
-        if (repository.existsByName(name)) {
-            throw new BusinessException(format("There is already a department named \"%s\".", name));
-        }
-    }
-
-    public Department findEntityById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new BusinessException(format("There is no department with ID \"%s\".", id)));
+        deleteAction.delete(id);
     }
 
 }

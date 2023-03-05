@@ -1,0 +1,566 @@
+{
+	"info": {
+		"_postman_id": "8efc1384-4037-45fc-9aa9-aac1768d3012",
+		"name": "4 - Delete All Entities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Student Subject - 1/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student-subject/1/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject",
+						"1",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 1/2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student-subject/1/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject",
+						"1",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 2/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student-subject/2/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject",
+						"2",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 3/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student-subject/3/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject",
+						"3",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 4/2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student-subject/4/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject",
+						"4",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 5/4",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student-subject/5/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject",
+						"5",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - 2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - 3",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - 4",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - 5",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/student/5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject Offer - 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/subject-offer/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject-offer",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject Offer - 2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/subject-offer/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject-offer",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject Offer - 3",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/subject-offer/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject-offer",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject Offer - 4",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/subject-offer/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject-offer",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject - 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/course-subject/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject - 4",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/course-subject/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject - 5",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/course-subject/5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject - 6",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/course-subject/6",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Professor - 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/professor/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"professor",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Professor - 2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/professor/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"professor",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject - 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/subject/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course - 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/course/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course - 2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/course/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course - 3",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/course/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Room - 2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/room/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Department - 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/department/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"department",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Department - 2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/department/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"department",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Department - 2 Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/institute/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"institute",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

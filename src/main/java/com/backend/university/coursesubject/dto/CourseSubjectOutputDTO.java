@@ -9,12 +9,12 @@ public class CourseSubjectOutputDTO {
 
     private Long id;
 
-    private String course;
+    private String courseName;
 
     private String subjectCode;
 
     private boolean required;
 
-    private int semester;
+    private int curriculumYear;
 
 }

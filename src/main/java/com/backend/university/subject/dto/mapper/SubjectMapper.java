@@ -1,36 +1,18 @@
 package com.backend.university.subject.dto.mapper;
 
-import com.backend.university.enrollmentsubject.dto.EnrollmentSubjectOutputDTO;
-import com.backend.university.enrollmentsubject.dto.mapper.EnrollmentSubjectMapper;
 import com.backend.university.subject.domain.Subject;
 import com.backend.university.subject.dto.SubjectOutputDTO;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.backend.university.common.utils.ScheduleUtils.toPairs;
-
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class SubjectMapper {
 
     public static SubjectOutputDTO entityToOutput(Subject subject) {
-        List<EnrollmentSubjectOutputDTO> subjects =
-                subject.getEnrollmentSubjects().stream()
-                .map(EnrollmentSubjectMapper::entityToOutput)
-                .collect(Collectors.toList());
-
         return SubjectOutputDTO.builder()
                 .id(subject.getId())
                 .code(subject.getCode())
                 .name(subject.getName())
                 .studyLoad(subject.getStudyLoad())
-                .vacancies(subject.getVacancies())
-                .schedule(toPairs(subject.getSchedule()))
-                .room(subject.getRoom().getName())
-                .professorCpf(subject.getProfessor().getCpf())
-                .enrollmentSubjects(subjects)
                 .build();
     }
 

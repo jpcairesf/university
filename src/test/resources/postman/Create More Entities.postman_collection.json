@@ -1,0 +1,657 @@
+{
+	"info": {
+		"_postman_id": "b05d1687-bb95-4153-89bc-5acd4efd3037",
+		"name": "Create More Entities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Department - Physics Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Physics Engineering Department\",\n    \"institute\": \"Engineering Institute\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/department",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"department"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Room - 8.1.1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"8.1.1\",\n    \"location\": \"8th floor\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course - Computer Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Computer Engineering\",\n    \"department\": \"Electrical and Computer Engineering Department\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course - Physics Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Physics Engineering\",\n    \"department\": \"Physics Engineering Department\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject - Calculus 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Calculus 2\",\n    \"code\": \"MAT002\",\n    \"studyLoad\": 68\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject - Calculus 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Calculus 3\",\n    \"code\": \"MAT003\",\n    \"studyLoad\": 68\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Professor - Alex 570.817.365-30",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Alex\",\n    \"cpf\": \"570.817.365-30\",\n    \"email\": \"alex@gmail.com\",\n    \"birthDate\": \"1980-01-01\",\n    \"hiringDate\": \"2020-01-01\",\n    \"department\": \"Physics Engineering Department\",\n    \"rank\": \"Full Professor\",\n    \"degree\": \"PhD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/professor",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"professor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject - MAT002 Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Electrical Engineering\",\n    \"subjectCode\": \"MAT002\",\n    \"required\": true,\n    \"curriculumYear\": 2020\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject - MAT003 Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Electrical Engineering\",\n    \"subjectCode\": \"MAT003\",\n    \"required\": true,\n    \"curriculumYear\": 2020\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject - MAT001 Physics Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Physics Engineering\",\n    \"subjectCode\": \"MAT001\",\n    \"required\": true,\n    \"curriculumYear\": 2020\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject - MAT002 Physics Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Physics Engineering\",\n    \"subjectCode\": \"MAT002\",\n    \"required\": true,\n    \"curriculumYear\": 2020\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Subject - MAT003 Physics Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Physics Engineering\",\n    \"subjectCode\": \"MAT003\",\n    \"required\": false,\n    \"curriculumYear\": 2020\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/course-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"course-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject Offer - MAT002 Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"courseName\": \"Electrical Engineering\",\n    \"subjectCode\": \"MAT002\",\n    \"professorCpf\": \"111.444.777-35\",\n    \"roomName\": \"7.1.1\",\n    \"startTime\": \"08:00\",\n    \"dayOfWeek\": \"THURSDAY\",\n    \"amPm\": \"PM\",\n    \"semester\": 20231,\n    \"classNumber\": 1,\n    \"durationMin\": 100,\n    \"vacancies\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/subject-offer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject-offer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject Offer - MAT003 Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"courseName\": \"Electrical Engineering\",\n    \"subjectCode\": \"MAT003\",\n    \"professorCpf\": \"111.444.777-35\",\n    \"roomName\": \"8.1.1\",\n    \"startTime\": \"08:00\",\n    \"dayOfWeek\": \"MONDAY\",\n    \"amPm\": \"AM\",\n    \"semester\": 20231,\n    \"classNumber\": 1,\n    \"durationMin\": 100,\n    \"vacancies\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/subject-offer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject-offer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subject Offer - MAT003 Physics Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"courseName\": \"Physics Engineering\",\n    \"subjectCode\": \"MAT003\",\n    \"professorCpf\": \"570.817.365-30\",\n    \"roomName\": \"8.1.1\",\n    \"startTime\": \"02:00\",\n    \"dayOfWeek\": \"FRIDAY\",\n    \"amPm\": \"PM\",\n    \"semester\": 20231,\n    \"classNumber\": 2,\n    \"durationMin\": 100,\n    \"vacancies\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/subject-offer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subject-offer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - 216218253 Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Electrical Engineering\",\n    \"enrollmentNumber\": 216218253,\n    \"enrollmentDate\": \"2020-01-01\",\n    \"cpf\": \"336.016.386-90\",\n    \"name\": \"Martim\",\n    \"email\": \"martim@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - 216218254 Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Electrical Engineering\",\n    \"enrollmentNumber\": 216218254,\n    \"enrollmentDate\": \"2020-01-01\",\n    \"cpf\": \"873.627.406-20\",\n    \"name\": \"Robert\",\n    \"email\": \"robert@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - 216218255 Electrical Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Electrical Engineering\",\n    \"enrollmentNumber\": 216218255,\n    \"enrollmentDate\": \"2020-01-01\",\n    \"cpf\": \"085.624.607-70\",\n    \"name\": \"Lana\",\n    \"email\": \"lana@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student - 216218256 Physics Engineering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"course\": \"Physics Engineering\",\n    \"enrollmentNumber\": 216218256,\n    \"enrollmentDate\": \"2020-01-01\",\n    \"cpf\": \"082.855.358-00\",\n    \"name\": \"Ryan\",\n    \"email\": \"ryan@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 216218252 MAT002",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"enrollmentNumber\": \"216218252\",\n    \"subjectCode\": \"MAT002\",\n    \"semester\": 20231,\n    \"classNumber\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 216218253 MAT001",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"enrollmentNumber\": \"216218253\",\n    \"subjectCode\": \"MAT001\",\n    \"semester\": 20231,\n    \"classNumber\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 216218254 MAT001",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"enrollmentNumber\": \"216218254\",\n    \"subjectCode\": \"MAT001\",\n    \"semester\": 20231,\n    \"classNumber\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 216218255 MAT002",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"enrollmentNumber\": \"216218255\",\n    \"subjectCode\": \"MAT002\",\n    \"semester\": 20231,\n    \"classNumber\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Subject - 216218256 MAT003",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"enrollmentNumber\": \"216218256\",\n    \"subjectCode\": \"MAT003\",\n    \"semester\": 20231,\n    \"classNumber\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student-subject",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student-subject"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

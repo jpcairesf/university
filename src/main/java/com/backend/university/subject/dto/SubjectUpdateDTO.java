@@ -13,12 +13,6 @@ public class SubjectUpdateDTO {
 
     private String name;
 
-    private String professorCpf;
-
-    private String room;
-
     private int studyLoad;
-
-    private int vacancies;
 
 }
