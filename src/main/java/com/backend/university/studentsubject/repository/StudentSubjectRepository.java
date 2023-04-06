@@ -21,7 +21,7 @@ public interface StudentSubjectRepository extends JpaRepository<StudentSubject, 
             "   AND soff.classNumber = :classNumber" +
             "   AND soff.semester = :semester" +
             "   AND soff.course.id = std.course.id")
-    Optional<StudentSubject> findEagerByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber);
+    Optional<StudentSubject> findByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber);
 
     @Query(value = "SELECT COUNT(*) > 0 FROM StudentSubject ssbj" +
             "   INNER JOIN ssbj.student AS std" +

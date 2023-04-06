@@ -15,7 +15,7 @@ public class StudentSubjectUpdateAction {
 
     public StudentSubject update(StudentSubjectUpdateDTO update) {
         StudentSubject studentSubject =
-                this.findEagerByEnrollmentSubjectSemesterClass(
+                this.findByEnrollmentSubjectSemesterClass(
                         update.getEnrollmentNumber(),
                         update.getSubjectCode(),
                         update.getSemester(),
@@ -25,8 +25,8 @@ public class StudentSubjectUpdateAction {
         return repository.save(studentSubject);
     }
 
-    private StudentSubject findEagerByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber) {
-        return repository.findEagerByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber)
+    private StudentSubject findByEnrollmentSubjectSemesterClass(int enrollmentNumber, String subjectCode, int semester, int classNumber) {
+        return repository.findByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber)
                 .orElseThrow(StudentSubjectExceptionSupplier.notFoundByEnrollmentSubjectSemesterClass(enrollmentNumber, subjectCode, semester, classNumber));
     }
 
