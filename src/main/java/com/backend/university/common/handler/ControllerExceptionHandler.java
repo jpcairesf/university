@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
 @CommonsLog
@@ -58,7 +58,7 @@ public class ControllerExceptionHandler {
                 ex.getMessage(),
                 status.value(),
                 status.getReasonPhrase(),
-                new Date(),
+                LocalDate.now(),
                 request.getDescription(false));
         return ResponseEntity.status(status).body(message);
     }
